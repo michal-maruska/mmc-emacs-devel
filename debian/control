@@ -1,0 +1,12 @@
+Source: mmc-emacs-devel
+Section: editors
+Priority: extra
+Maintainer: Michal Maruska <mmaruska@gmail.com>
+Build-Depends: cdbs (>= 0.4.23-1.1), debhelper (>= 5), debhelper (>= 5), emacs22 | emacsen
+Standards-Version: 3.7.2
+
+Package: mmc-emacs-devel
+Architecture: all
+Depends: emacsen, mmc-shell, cscope, mmc-emacs, mmc-emacs-config
+Suggest: python-mode
+Description: mmc's elisp, handy for "development", programming

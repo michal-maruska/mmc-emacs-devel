@@ -1,0 +1,10 @@
+
+;;; mmc's useful emacs bits  ...   site-lisp configuration
+
+;; necessary for FSF GNU Emacs only
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/mmc-emacs-devel")
+;; xcscope is here:
+(add-to-list 'load-path "/usr/share/emacs/site-lisp")
+
+;; mmc:
+(load "mmc-emacs-devel-init.el")
