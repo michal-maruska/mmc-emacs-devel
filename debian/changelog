@@ -1,3 +1,9 @@
+mmc-emacs-devel (1.3.4) maverick; urgency=low
+
+  * now depend on cscope-el
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 10 Apr 2011 18:24:37 +0200
+
 mmc-emacs-devel (1.3.3) lucid; urgency=low
 
   * mmc-scheme.el vs strings.el  adaptation
