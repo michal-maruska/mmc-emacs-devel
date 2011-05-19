@@ -3,6 +3,8 @@
 ;; gnome
 
 (require 'mmc-font-lock)
+(require 'cc-mode)
+(require 'mmc-simple)
 
 ;; rxvt
 ;; XFree86
@@ -202,14 +204,14 @@ and invoke a html browser to display the relevant API docs  "
     (let* ((lispy (search-forward "_" end 't)) ; do we want lispy now ?
            (from (if lispy "_" "-"))
            (to (if lispy "-" "_")))
-      (replace-string from to nil start end))))
+      (do-replace-string from to nil start end))))
 
 
 (defun lispy-name-2-camelcase (start end)
   (interactive "r")
   (save-excursion
     (upcase-initials-region start end)
-    (replace-string "-" "" nil start end)))
+    (do-replace-string "-" "" nil start end)))
 
 ;; reverse ?
 
