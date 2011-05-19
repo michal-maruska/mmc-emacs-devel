@@ -1,4 +1,6 @@
 
+(require 'mmc-simple)
+
 ;; Tempo
 (load "tempo/tempo-elisp.el")
 
