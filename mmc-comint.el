@@ -1,16 +1,6 @@
 
 (require 'mmc-major-comint)
-
-
-;; una volta ho dovuto:
-;; '(defun comint-simple-send (proc string)
-;;   "Default function for sending to PROC input STRING.
-;; This just sends STRING plus a newline. To override this,
-;; set the hook `comint-input-sender'."
-;;   (comint-send-string proc string)
-;;-   (comint-send-string proc "
-"))       "
-
+(require 'comint)
 
 
 
@@ -21,11 +11,8 @@
       'input
     'output))
 
-
-
-
 '(defun comint-kill-output ()
-  ""
+   "the received OUTPUT"
   (interactive)
   (kill-region (point)
 	       (comint-next-prompt 1)))
@@ -33,7 +20,6 @@
 
 
 ;;; old
-(require 'comint)
 (custom-set-variables '(comint-completion-fignore '("~")))
 
 ;; (require 'sql)
@@ -48,7 +34,6 @@
 
 
 
-
 ;; this is wrong in the comint.el !!!
 (defun comint-simple-send (proc string)
   "Default function for sending to PROC input STRING.
@@ -57,8 +42,6 @@ set the hook `comint-input-sender'."
   (comint-send-string proc string)
   (comint-send-string proc "
 "))
-
-
 
 
 ;; Gentoo installed slime: /usr/share/emacs/site-lisp/70slime-gentoo.el
