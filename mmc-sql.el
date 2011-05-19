@@ -243,7 +243,7 @@ Try to set `comint-output-filter-functions' like this:
 
 
 
-(get 'query-plan-mode 'font-lock-defaults)
+;; (get 'query-plan-mode 'font-lock-defaults)
 
 
 
