@@ -1,13 +1,13 @@
 ;; -*-emacs-lisp-*-
 ;;
-;; Emacs startup file, e.g.  /etc/emacs/site-start.d/50mmc-emacs.el
-;; for the Debian mmc-emacs package
+;; Emacs startup file, e.g.  /etc/emacs/site-start.d/50mmc-emacs-devel.el
+;; for the Debian mmc-emacs-devel package
 ;;
 ;; Originally contributed by Nils Naumann <naumann@unileoben.ac.at>
 ;; Modified by Dirk Eddelbuettel <edd@debian.org>
 ;; Adapted for dh-make by Jim Van Zandt <jrv@debian.org>
 
-;; The mmc-emacs package follows the Debian/GNU Linux 'emacsen' policy and
+;; The mmc-emacs-devel package follows the Debian/GNU Linux 'emacsen' policy and
 ;; byte-compiles its elisp files for each 'emacs flavor' (emacs19,
 ;; xemacs19, emacs20, xemacs20...).  The compiled code is then
 ;; installed in a subdirectory of the respective site-lisp directory.
@@ -15,12 +15,12 @@
 (let* ((package-name "mmc-emacs-devel")
        (flavor-dir (concat "/usr/share/" (symbol-name flavor) "/site-lisp/" package-name))
        (source-dir (concat "/usr/share/emacs/site-lisp/" package-name)))
-;; If package-dir does not exist, the mmc-emacs package must have
-;; removed but not purged, and we should skip the setup.
+  ;; If package-dir does not exist, the mmc-emacs-devel package must have
+  ;; removed but not purged, and we should skip the setup.
   (add-to-list 'load-path source-dir)
 
   (when (file-directory-p flavor-dir)
     ;; since we add to the beginning, first the less desired/slower:
     (add-to-list 'load-path flavor-dir))
 
-  (load "mmc-emacs-devel-init")))
+  (load "mmc-emacs-devel-init"))

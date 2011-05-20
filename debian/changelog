@@ -1,3 +1,9 @@
+mmc-emacs-devel (1.4.1) maverick; urgency=low
+
+  * fix debian
+
+ -- Michal Maruska <mmaruska@gmail.com>  Fri, 20 May 2011 23:11:54 +0200
+
 mmc-emacs-devel (1.4) maverick; urgency=low
 
   * byte compilation. depend on python-mode
