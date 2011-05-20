@@ -8,9 +8,6 @@
 FLAVOR=$1
 PACKAGE=mmc-emacs-devel
 
-# mmc:  sorry!
-# exit 0
-
 if [ ${FLAVOR} = emacs ]; then exit 0; fi
 
 

@@ -2,8 +2,8 @@
 
 
 
-;;; i want a quick access to html manuals:
-(defconst htmldoc-alist '() "")
+;;; I want a quick access to html manuals:
+(defvar htmldoc-alist '() "")
 
 (defconst htmldoc-file "~/.bookmarks.sexp" "")
 
