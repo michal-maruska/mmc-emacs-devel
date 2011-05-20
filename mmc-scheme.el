@@ -19,7 +19,7 @@
     (cscope-minor-mode)		  ; i use it for gauche  genstub files .... or gtk+ ?
     ))
 
-(mapcar 'car after-load-alist)
+; (mapcar 'car after-load-alist)
 
 ;(setcdr (assoc "\\(\\`\\|/\\)scheme\\(\\.elc\\|\\.el\\)?\\(\\.gz\\)?\\'" after-load-alist) nil)
 ;(adelete after-load-alist "\\(\\`\\|/\\)scheme\\(\\.elc\\|\\.el\\)?\\(\\.gz\\)?\\'")
@@ -447,10 +447,10 @@
 
 
 ;; customize comint: i don't want them in selected window!
-(mapcar (lambda (item)
-	  (setq same-window-buffer-names
-		(delete item same-window-buffer-names)))
-	'("*inferior-lisp*" "*scheme*"))
+(mapc (lambda (item)
+	(setq same-window-buffer-names
+	      (delete item same-window-buffer-names)))
+      '("*inferior-lisp*" "*scheme*"))
 ;special-display-buffer-names
 ; special-display-regexps
 
@@ -561,12 +561,13 @@
 
 ;; fixme!
 ;; ---------------------------------------------------------------------
-(defun goto-parent-buffer (buffer)
-  ""
-  (interactive (list (current-buffer)))
-  (let ((parent (parent-buffer buffer)))
-    (set-buffer parent)
-    parent))
+;; (defun goto-parent-buffer (buffer)
+;;   ""
+;;   (interactive (list (current-buffer)))
+;;   (let ((parent (parent-buffer buffer)))
+;;     (set-buffer parent)
+;;     parent))
+
 
 (global-set-key [(control ?x) ?'] 'goto-parent-buffer)
 (defun goto-parent-buffer (buffer)
@@ -584,15 +585,13 @@
 (global-set-key [(control ?x) ?'] 'goto-parent-buffer)
 ;; ---------------------------------------------------------------------
 
+;; (defun scheme-display ()
+;;   ""
+;;   (interactive)
+;;   (display-comint-buffer
+;;    '(process-buffer (scheme-proc))
+;;    '(run-scheme (scheme-determine-program))))
 
-
-
-(defun scheme-display ()
-  ""
-  (interactive)
-  (display-comint-buffer
-   '(process-buffer (scheme-proc))
-   '(run-scheme (scheme-determine-program))))
 
 ;; (let (buffer)
 ;;     (if (and (boundp 'scheme-proc)
@@ -793,26 +792,27 @@
   "Subdued expressions to highlight in Scheme modes.")
 
 
-(list (concat "(\\(def\\("
-	      ;; Function declarations.
-	      "\\(advice\\|varalias\\|alias\\|generic\\|macro\\*?\\|method\\|"
-	      "setf\\|subst\\*?\\|un\\*?\\|"
-	      "ine-\\(condition\\|\\(?:derived\\|minor\\)-mode\\|"
-	      "method-combination\\|setf-expander\\|skeleton\\|widget\\|"
-	      "function\\|\\(compiler\\|modify\\|symbol\\)-macro\\)\\)\\|"
-	      ;; Variable declarations.
-	      "\\(const\\(ant\\)?\\|custom\\|face\\|parameter\\|var\\)\\|"
-	      ;; Structure declarations.
-	      "\\(class\\|group\\|package\\|struct\\|type\\)"
-	      "\\)\\)\\>"
-	      ;; Any whitespace and defined object.
-	      "[ \t'\(]*"
-	      "\\(setf[ \t]+\\sw+)\\|\\sw+\\)?")
-      '(1 font-lock-keyword-face)
-      '(9 (cond ((match-beginning 3) font-lock-function-name-face)
-		((match-beginning 6) font-lock-variable-name-face)
-		(t font-lock-type-face))
-	  nil t))
+
+;; (list (concat "(\\(def\\("
+;; 	      ;; Function declarations.
+;; 	      "\\(advice\\|varalias\\|alias\\|generic\\|macro\\*?\\|method\\|"
+;; 	      "setf\\|subst\\*?\\|un\\*?\\|"
+;; 	      "ine-\\(condition\\|\\(?:derived\\|minor\\)-mode\\|"
+;; 	      "method-combination\\|setf-expander\\|skeleton\\|widget\\|"
+;; 	      "function\\|\\(compiler\\|modify\\|symbol\\)-macro\\)\\)\\|"
+;; 	      ;; Variable declarations.
+;; 	      "\\(const\\(ant\\)?\\|custom\\|face\\|parameter\\|var\\)\\|"
+;; 	      ;; Structure declarations.
+;; 	      "\\(class\\|group\\|package\\|struct\\|type\\)"
+;; 	      "\\)\\)\\>"
+;; 	      ;; Any whitespace and defined object.
+;; 	      "[ \t'\(]*"
+;; 	      "\\(setf[ \t]+\\sw+)\\|\\sw+\\)?")
+;;       '(1 font-lock-keyword-face)
+;;       '(9 (cond ((match-beginning 3) font-lock-function-name-face)
+;; 		((match-beginning 6) font-lock-variable-name-face)
+;; 		(t font-lock-type-face))
+;; 	  nil t))
 
 
 
@@ -827,7 +827,7 @@
 '(font-lock-remove-keywords 'scheme-mode
    '(("(define-c(proc|method|generic)\\(-fix\\)?\\s-+\\(\\(\\sw\\|\\s_\\)*\\)" 2 font-lock-function-name-face)))
 
-(assq 'scheme-mode font-lock-keywords-alist)
+;; (assq 'scheme-mode font-lock-keywords-alist)
 
 (defun ++ (&rest args)
   (font-lock-add-keywords 'scheme-mode args))
@@ -1013,7 +1013,7 @@
 (--
  '("(define-c\\(proc\\|method\\|generic\\)\\(-fix\\)?\\s-+\\(\\(\\sw\\|\\s_\\)*\\)" 2 font-lock-function-name-face))
 
-(when nil
+'(when nil
   (length (nth 1 (aget font-lock-keywords-alist 'scheme-mode)))
 					;(setcdr (aget font-lock-keywords-alist 'scheme-mode) nil)
   (aput 'font-lock-keywords-alist 'scheme-mode
@@ -1156,7 +1156,6 @@ find and return its path in the filesystem"
 (add-to-list
  'interpreter-mode-alist
  '("gosh" . scheme-mode))
-
 
 
 ;; mmc: sorry Ria!
