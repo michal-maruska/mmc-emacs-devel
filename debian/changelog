@@ -1,3 +1,9 @@
+mmc-emacs-devel (1.4.2) maverick; urgency=low
+
+  * byte-compile-this-file ...
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 22 May 2011 23:42:36 +0200
+
 mmc-emacs-devel (1.4.1) maverick; urgency=low
 
   * fix debian

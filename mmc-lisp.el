@@ -5,8 +5,6 @@
 (load "tempo/tempo-elisp.el")
 
 
-
-
 ;;; lisp (s-expressions)
 ;(require 'ilisp)
 (put 'font-lock-add-keywords 'lisp-indent-function 'defun)
@@ -126,7 +124,7 @@
   'backward-delete-char-untabify)
 
 ; shared-lisp-mode-map
-(define-key lisp-mode-shared-map [(control ?x) ?x ?b] 'byte-compile-file)
+(define-key lisp-mode-shared-map [(control ?x) ?x ?b] 'byte-compile-this-file)
 (define-key lisp-mode-shared-map [f2] 'byte-compile-file)
 
 
