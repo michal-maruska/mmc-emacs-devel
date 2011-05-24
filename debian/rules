@@ -7,5 +7,8 @@ include /usr/share/cdbs/1/class/makefile.mk
 clean::
 	-$(MAKE) clean
 
+# after mmc-emacs
+DEB_EMACS_PRIORITY=51
+
 install/mmc-emacs-devel::
 	-$(MAKE) install DESTDIR=$(DEB_DESTDIR)
