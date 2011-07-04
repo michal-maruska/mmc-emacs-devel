@@ -85,7 +85,8 @@
   (if (and (boundp 'cscope-minor-mode)
            cscope-minor-mode)
       (progn
-        ;; (ring-insert find-tag-marker-ring (point-marker))
+        (ring-insert find-tag-marker-ring (point-marker))
+	;; (push-tag-mark)
         (setq cscope-display-cscope-buffer prefix)
         (call-interactively
          (if prefix
