@@ -1,3 +1,10 @@
+mmc-emacs-devel (1.4.4) maverick; urgency=low
+
+  * change debian priority
+  * cscope -- leave a mark
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 04 Jul 2011 11:25:39 +0200
+
 mmc-emacs-devel (1.4.3) maverick; urgency=low
 
   * byte-compile-this-file on the key
