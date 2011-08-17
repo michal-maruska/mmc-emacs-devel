@@ -79,6 +79,7 @@
 (setq cscope-display-cscope-buffer nil)
 (setq cscope-do-not-update-database 't)
 
+(require 'etags)
 (defun mmc-find-tag(&optional prefix)
   "union of `find-tag' alternatives. decides upon major-mode"
   (interactive "P")
