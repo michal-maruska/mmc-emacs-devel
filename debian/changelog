@@ -1,3 +1,10 @@
+mmc-emacs-devel (1.4.5) maverick; urgency=low
+
+  * fix  cscope vs etags
+  * gitignore elc files
+
+ -- Michal Maruska <mmaruska@gmail.com>  Tue, 06 Sep 2011 09:18:21 +0200
+
 mmc-emacs-devel (1.4.4) maverick; urgency=low
 
   * change debian priority
