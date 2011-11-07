@@ -12,6 +12,20 @@
      ))
 
 
+;; make use of standard functions/commands.
+;; provide the missing building-block:
+(defun python-mode-beginning-of-defun-function (ignore-arg)
+  ""
+  (py-beginning-of-def-or-class))
+
+
+(add-hook 'python-mode-hook
+  (lambda ()
+    (make-local-variable ;; make-variable-buffer-local
+     'beginning-of-defun-function)
+    (setq beginning-of-defun-function
+	  'python-mode-beginning-of-defun-function)))
+
 (defun py-next-block ()
   "go to the next block.  Cf. `forward-sexp' for lisp-mode"
   (interactive)
