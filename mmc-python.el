@@ -32,11 +32,14 @@
   (py-mark-block nil 't)
   (back-to-indentation))
 
+;; (setq python-mode-hook ())
 (add-hook 'python-mode-hook
           (lambda ()
             (set (make-variable-buffer-local 'beginning-of-defun-function)
                  'py-beginning-of-def-or-class)
-            (setq outline-regexp "def\\|class ")))
+            (setq outline-regexp "def\\|class ")
+	    ;; (setq outline-regexp "^def ")
+	    ))
 
 
 (defvar python-ffap-script (expand-file-name "~/activity/python/ffap.py")
