@@ -5,12 +5,14 @@
 (require 'mmc-c-mode)
 (require 'mmc-tex)
 
+(require 'mmc-shell)
+
 (require 'mmc-comint)
 (require 'mmc-major-comint)
 
 ;; ??
 (require 'mmc-doc)
-(eval-after-load "gud" 
+(eval-after-load "gud"
   '(require 'mmc-gud))
 
 ;; After?
