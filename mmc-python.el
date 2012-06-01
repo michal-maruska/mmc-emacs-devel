@@ -19,27 +19,21 @@
   (py-beginning-of-def-or-class))
 
 
-(add-hook 'python-mode-hook
-  (lambda ()
-    (make-local-variable ;; make-variable-buffer-local
-     'beginning-of-defun-function)
-    (setq beginning-of-defun-function
-	  'python-mode-beginning-of-defun-function)))
+(defun my-python-mode-hook ()
+  ;; make-variable-buffer-local
+  (set (make-local-variable 'beginning-of-defun-function)
+       'py-beginning-of-def-or-class)
+  ;(setq outline-regexp "^def ")
+  (setq outline-regexp " *\\(def\\|class\\) "))
+
+;; (setq python-mode-hook ())
+(add-hook 'python-mode-hook 'my-python-mode-hook)
 
 (defun py-next-block ()
   "go to the next block.  Cf. `forward-sexp' for lisp-mode"
   (interactive)
   (py-mark-block nil 't)
   (back-to-indentation))
-
-;; (setq python-mode-hook ())
-(add-hook 'python-mode-hook
-          (lambda ()
-            (set (make-variable-buffer-local 'beginning-of-defun-function)
-                 'py-beginning-of-def-or-class)
-            (setq outline-regexp "def\\|class ")
-	    ;; (setq outline-regexp "^def ")
-	    ))
 
 
 (defvar python-ffap-script (expand-file-name "~/activity/python/ffap.py")
