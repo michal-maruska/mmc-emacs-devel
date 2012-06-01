@@ -14,10 +14,13 @@
 
 ;; (setq scheme-mode-hook (pop scheme-mode-hook)
 ;; (remove-hook
+(require 'xcscope)
 (add-hook 'scheme-mode-hook
   (lambda ()
-    (cscope-minor-mode)		  ; i use it for gauche  genstub files .... or gtk+ ?
-    ))
+    (if (featurep 'xcscope)
+	(cscope-minor-mode)
+      ;; I use it for gauche  genstub files .... or gtk+ ?
+      )))
 
 ; (mapcar 'car after-load-alist)
 
