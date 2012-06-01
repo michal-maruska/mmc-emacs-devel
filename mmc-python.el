@@ -51,4 +51,28 @@
 
 (aput 'ffap-alist 'python-mode 'ffap-python)
 
+
+
+
+
+
+(defun python-ffap (string)
+  (interactive)
+  (modify-syntax-entry ?:  "_" (syntax-table))
+  ;; (char-syntax ?:)
+  ;; (set-syntax "::" symbol)
+  (let* ((module-name string)
+         (relative (add-suffix-optionally
+                    (translate-module-to-filename module-name "\\.")
+                    ".py"))
+         (path (find-subpath-in-paths
+                relative
+		;; fixme: todo:  use bin/python to find it!
+                (list "/usr/lib/python2.7/dist-packages/"))))
+    path))
+
+;; ffap-alist
+(add-to-list 'ffap-alist '(python-mode . python-ffap))
+
+
 (provide 'mmc-python)
