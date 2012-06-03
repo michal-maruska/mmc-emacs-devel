@@ -157,11 +157,11 @@
 (when nil
   (let ((count 0))
   (mapatoms
-   '(lambda (symbol)
-      (when (and (functionp symbol)
-		 (not (or (compiled-function-p (symbol-function symbol))
-			  (subrp (symbol-function symbol)))))
-	(setq count (1+ count))
+   (lambda (symbol)
+     (when (and (functionp symbol)
+		(not (or (compiled-function-p (symbol-function symbol))
+			 (subrp (symbol-function symbol)))))
+       (setq count (1+ count))
        (print symbol)))
    obarray)
   (message "count: %d" count)))
