@@ -1,3 +1,73 @@
+mmc-emacs-devel (1.6) release; urgency=low
+
+  * python:  make beginning-of-defun work for Python
+  * python  outline mode
+  * shell: zsh find
+  * modify c-electric-paren to support    no-space-before-funcall
+  * python:   consolidate python-mode-hook
+  * python-ffap.
+  * perl-ffap
+  * cscope in scheme-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Jun 2012 13:57:11 +0200
+
+mmc-emacs-devel (1.5) release; urgency=low
+
+  * python:  make beginning-of-defun work for Python
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Jun 2012 13:54:06 +0200
+
+mmc-emacs-devel (1.5) release; urgency=low
+
+  * python:  make beginning-of-defun work for Python
+  * python  outline mode
+  * shell: zsh find
+  * modify c-electric-paren to support    no-space-before-funcall
+  * python:   consolidate python-mode-hook
+  * python-ffap.
+  * perl-ffap
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Jun 2012 13:49:51 +0200
+
+mmc-emacs-devel (1.5) release; urgency=low
+
+  * python:  make beginning-of-defun work for Python
+  * python  outline mode
+  * shell: zsh find
+  * modify c-electric-paren to support    no-space-before-funcall
+  * python:   consolidate python-mode-hook
+  * python-ffap.
+  * perl-ffap
+  * cscope in scheme-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Jun 2012 13:49:42 +0200
+
+mmc-emacs-devel (1.5) release; urgency=low
+
+  * python:  make beginning-of-defun work for Python
+  * python  outline mode
+  * shell: zsh find
+  * modify c-electric-paren to support    no-space-before-funcall
+  * python:   consolidate python-mode-hook
+  * python-ffap.
+  * perl-ffap
+  * cscope in scheme-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Jun 2012 13:49:24 +0200
+
+mmc-emacs-devel (1.5) release; urgency=low
+
+  * python:  make beginning-of-defun work for Python
+  * python  outline mode
+  * shell: zsh find
+  * modify c-electric-paren to support    no-space-before-funcall
+  * python:   consolidate python-mode-hook
+  * python-ffap.
+  * perl-ffap
+  * cscope in scheme-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Jun 2012 13:46:43 +0200
+
 mmc-emacs-devel (1.4.5) maverick; urgency=low
 
   * fix  cscope vs etags
