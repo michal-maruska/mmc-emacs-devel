@@ -362,4 +362,5 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
 	       old-blink-paren
 	       (funcall old-blink-paren))))))
 
+(require 'mmc-c-styles)
 (provide 'mmc-c-mode)
