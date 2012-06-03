@@ -1,3 +1,10 @@
+;; (setq scheme-font-lock-keywords scheme-font-lock-keywords-1)
+;; (setq scheme-font-lock-keywords
+;; scheme-font-lock-keywords-1
+
+
+
+
 ;;; `fontlock:'
 (defconst scheme-font-lock-keywords-5
   (eval-when-compile

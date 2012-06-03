@@ -1,18 +1,16 @@
 
-;; (setq scheme-font-lock-keywords scheme-font-lock-keywords-1)
-;; (setq scheme-font-lock-keywords
-;; scheme-font-lock-keywords-1
-
 
 ;; /usr/lib/xemacs/xemacs-packages/lisp/scheme/cmuscheme48.el
 (require 'mmc-simple)
 (require 'mmc-lisp)
 (require 'mmc-string)
 ;(require 'scheme)
+(require 'xcscope)
+
+
 
 ;; (setq scheme-mode-hook (pop scheme-mode-hook)
 ;; (remove-hook
-(require 'xcscope)
 (add-hook 'scheme-mode-hook
   (lambda ()
     (if (featurep 'xcscope)
@@ -37,12 +35,10 @@
      (modify-syntax-entry ?\| "_ 23bn" scheme-mode-syntax-table)
      (modify-syntax-entry ?\# "' 14bn" scheme-mode-syntax-table)
 
-
      ;; my:
      (modify-syntax-entry ?# "_ 14" scheme-mode-syntax-table) ; symbol
      (modify-syntax-entry ?! "_ 23" scheme-mode-syntax-table) ;
      ))
-
 
 
 
@@ -83,7 +79,7 @@
      ;; (keymap-parent inferior-scheme-mode-map)   comint ??
      '(set-keymap-parent inferior-scheme-mode-map
                          lisp-mode-shared-map)
-
+     ;;(kbd "C-m i")
      (define-key inferior-scheme-mode-map [(control ?i)] 'scheme-complete)
      (define-key inferior-scheme-mode-map [(control meta ?x)] nil)
      (define-key inferior-scheme-mode-map [(meta control ?x)] my-lisp-map)
@@ -142,6 +138,7 @@
 ;;  -lm /home/mmc/sc/.SSAX/collections/ssax-sxml/packages.scm
 
 
+
 ;; emacs ??x
 (defun parent-buffer (buffer)
   "where is the definition of the structure for the buffer (should be filename)"
@@ -170,7 +167,7 @@
 
 ;(string-match "-m \\(\\(?:\\s_\\|\\w\\)*\\) "  "-m lksada:lksdfj ")
 
-(defun scheme-modul-name ()
+(defun scheme-module-name ()
   ""
   ;(unwind-protect
   ;(catch 'error-var
@@ -212,7 +209,7 @@
 (defun scheme-goto-package-definition (buffer)
   ""
   (interactive (list (current-buffer)))
-  (let ((module-name (scheme-modul-name))
+  (let ((module-name (scheme-module-name))
 	(parent-buffer (parent-buffer buffer)))
 
     ;; i want to switch, but:
@@ -400,7 +397,7 @@
   (interactive)
   (let* ((symbol (erase-text-properties (thing-at-point 'symbol)))
 	 (buffer (current-buffer))
-	 ;;(module-name (scheme-modul-name))
+	 ;;(module-name (scheme-module-name))
 	 (parent-buffer (scheme-goto-package-definition buffer))
 	 exports)
     (setq exports (read parent-buffer))
@@ -469,14 +466,14 @@
   "signal, that the (current) BUFFER has changed, and its defintion
 must be reloaded."
   (interactive (list (current-buffer)))
-  (let ((module-name (scheme-modul-name)))
+  (let ((module-name (scheme-module-name)))
     (scheme-send-string (format ",reload-package %s\n" module-name))))
 
 (defun scheme-step-in (buffer)
   "signal, that the (current) BUFFER has changed, and its defintion
 must be reloaded."
   (interactive (list (current-buffer)))
-  (let ((module-name (scheme-modul-name)))
+  (let ((module-name (scheme-module-name)))
     (call-interactively 'switch-to-inferior-process)
     (scheme-send-string (format ",in %s\n" module-name))
     (switch-to-buffer (process-buffer (scheme-proc))))) ;-other-window
