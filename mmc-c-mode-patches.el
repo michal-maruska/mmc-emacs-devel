@@ -1,0 +1,306 @@
+
+;;; These are re-definitions of standard cc-mode functions
+;;; to provide more functionality:
+
+
+;; mmc:
+;; comparison with emacs/23.1/lisp/progmodes/cc-cmds.el.gz
+;; last-command-event vs. last-command-char ??
+;; 'no-space-before-funcall in c-cleanup-list -> remove it when found.
+(defun c-electric-paren (arg)
+  "Insert a parenthesis.
+
+If `c-syntactic-indentation' and `c-electric-flag' are both non-nil, the
+line is reindented unless a numeric ARG is supplied, or the parenthesis
+is inserted inside a literal.
+
+Whitespace between a function name and the parenthesis may get added or
+removed; see the variable `c-cleanup-list'.
+
+Also, if `c-electric-flag' and `c-auto-newline' are both non-nil, some
+newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
+  (interactive "*P")
+  (let ((literal (c-save-buffer-state () (c-in-literal)))
+	;; shut this up
+	(c-echo-syntactic-information-p nil))
+    (self-insert-command (prefix-numeric-value arg))
+
+    (if (and (not arg) (not literal))
+	(let* (	;; We want to inhibit blinking the paren since this will
+	       ;; be most disruptive.  We'll blink it ourselves
+	       ;; afterwards.
+	       (old-blink-paren blink-paren-function)
+	       blink-paren-function)
+	  (if (and c-syntactic-indentation c-electric-flag)
+	      (indent-according-to-mode))
+
+	  ;; If we're at EOL, check for new-line clean-ups.
+	  (when (and c-electric-flag c-auto-newline
+		     (looking-at "[ \t]*\\\\?$"))
+
+	    ;; clean up brace-elseif-brace
+	    (when
+		(and (memq 'brace-elseif-brace c-cleanup-list)
+		     (eq last-command-char ?\()
+		     (re-search-backward
+		      (concat "}"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "else"
+			      "\\([ \t\n]\\|\\\\\n\\)+"
+			      "if"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "("
+			      "\\=")
+		      nil t)
+		     (not  (c-save-buffer-state () (c-in-literal))))
+	      (delete-region (match-beginning 0) (match-end 0))
+	      (insert-and-inherit "} else if ("))
+
+	    ;; clean up brace-catch-brace
+	    (when
+		(and (memq 'brace-catch-brace c-cleanup-list)
+		     (eq last-command-char ?\()
+		     (re-search-backward
+		      (concat "}"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "catch"
+			      "\\([ \t\n]\\|\\\\\n\\)*"
+			      "("
+			      "\\=")
+		      nil t)
+		     (not  (c-save-buffer-state () (c-in-literal))))
+	      (delete-region (match-beginning 0) (match-end 0))
+	      (insert-and-inherit "} catch (")))
+
+	  ;; Check for clean-ups at function calls.  These two DON'T need
+	  ;; `c-electric-flag' or `c-syntactic-indentation' set.
+	  ;; Point is currently just after the inserted paren.
+	  (let (beg (end (1- (point))))
+	    (cond
+
+	     ;; space-before-funcall clean-up?
+	     ((and (or (memq 'space-before-funcall c-cleanup-list)
+		       (memq 'no-space-before-funcall c-cleanup-list))
+		   (eq last-command-char ?\()
+		   (save-excursion
+		     (backward-char)
+		     (skip-chars-backward " \t")
+		     (setq beg (point))
+		     (and (c-save-buffer-state () (c-on-identifier))
+                          ;; Don't add a space into #define FOO()....
+                          (not (and (c-beginning-of-macro)
+                                    (c-forward-over-cpp-define-id)
+                                    (eq (point) beg))))))
+	      (save-excursion
+		(delete-region beg end)
+		(goto-char beg)
+		(unless (memq 'no-space-before-funcall c-cleanup-list)
+		  (insert ?\ ))))
+
+	     ;; compact-empty-funcall clean-up?
+		  ((c-save-buffer-state ()
+		     (and (memq 'compact-empty-funcall c-cleanup-list)
+			  (eq last-command-char ?\))
+			  (save-excursion
+			    (c-safe (backward-char 2))
+			    (when (looking-at "()")
+			      (setq end (point))
+			      (skip-chars-backward " \t")
+			      (setq beg (point))
+			      (c-on-identifier)))))
+		   (delete-region beg end))))
+	  (and (eq last-input-event ?\))
+	       (not executing-kbd-macro)
+	       old-blink-paren
+	       (funcall old-blink-paren))))))
+
+
+
+;; cc-cmds.el
+;; c-cleanup-list
+;; (add-to-list 'c-cleanup-list 'paren-brace)
+
+;; http://comments.gmane.org/gmane.emacs.cc-mode.general/5766
+(require 'cc-cmds)
+
+(defun c-electric-brace (arg)
+  "Insert a brace.
+
+If `c-electric-flag' is non-nil, the brace is not inside a literal and a
+numeric ARG hasn't been supplied, the command performs several electric
+actions:
+
+\(a) If the auto-newline feature is turned on (indicated by \"/la\" on
+the mode line) newlines are inserted before and after the brace as
+directed by the settings in `c-hanging-braces-alist'.
+
+\(b) Any auto-newlines are indented.  The original line is also
+reindented unless `c-syntactic-indentation' is nil.
+
+\(c) If auto-newline is turned on, various newline cleanups based on the
+settings of `c-cleanup-list' are done."
+
+  (interactive "*P")
+  (let (safepos literal
+	;; We want to inhibit blinking the paren since this would be
+	;; most disruptive.  We'll blink it ourselves later on.
+	(old-blink-paren blink-paren-function)
+	blink-paren-function)
+
+    (c-save-buffer-state ()
+      (setq safepos (c-safe-position (point) (c-parse-state))
+	    literal (c-in-literal safepos)))
+
+    ;; Insert the brace.  Note that expand-abbrev might reindent
+    ;; the line here if there's a preceding "else" or something.
+    (self-insert-command (prefix-numeric-value arg))
+
+    (when (and c-electric-flag (not literal) (not arg))
+      (if (not (looking-at "[ \t]*\\\\?$"))
+	  (if c-syntactic-indentation
+	      (indent-according-to-mode))
+
+	(let ( ;; shut this up too
+	      (c-echo-syntactic-information-p nil)
+	      newlines
+	      ln-syntax br-syntax syntax) ; Syntactic context of the original line,
+			; of the brace itself, of the line the brace ends up on.
+	  (c-save-buffer-state ((c-syntactic-indentation-in-macros t)
+				(c-auto-newline-analysis t))
+	    (setq ln-syntax (c-guess-basic-syntax)))
+	  (if c-syntactic-indentation
+	      (c-indent-line ln-syntax))
+
+	  (when c-auto-newline
+	    (backward-char)
+	    (setq br-syntax (c-point-syntax)
+		  newlines (c-brace-newlines br-syntax))
+
+	    ;; Insert the BEFORE newline, if wanted, and reindent the newline.
+	    (if (and (memq 'before newlines)
+		     (> (current-column) (current-indentation)))
+		(if c-syntactic-indentation
+		    ;; Only a plain newline for now - it's indented
+		    ;; after the cleanups when the line has its final
+		    ;; appearance.
+		    (newline)
+		  (c-newline-and-indent)))
+	    (forward-char)
+
+	    ;; `syntax' is the syntactic context of the line which ends up
+	    ;; with the brace on it.
+	    (setq syntax (if (memq 'before newlines) br-syntax ln-syntax))
+
+	    ;; Do all appropriate clean ups
+	    (let ((here (point))
+		  (pos (- (point-max) (point)))
+		  mbeg mend
+		  )
+
+	      ;; `}': clean up empty defun braces
+	      (when (c-save-buffer-state ()
+		      (and (memq 'empty-defun-braces c-cleanup-list)
+			   (eq last-command-event ?\})
+			   (c-intersect-lists '(defun-close class-close inline-close)
+					      syntax)
+			   (progn
+			     (forward-char -1)
+			     (c-skip-ws-backward)
+			     (eq (char-before) ?\{))
+			   ;; make sure matching open brace isn't in a comment
+			   (not (c-in-literal))))
+		(delete-region (point) (1- here))
+		(setq here (- (point-max) pos)))
+	      (goto-char here)
+
+	      ;; `}': compact to a one-liner defun?
+	      (save-match-data
+		(when
+		    (and (eq last-command-event ?\})
+			 (memq 'one-liner-defun c-cleanup-list)
+			 (c-intersect-lists '(defun-close) syntax)
+			 (c-try-one-liner))
+		  (setq here (- (point-max) pos))))
+
+	      ;; `{': clean up brace-else-brace and brace-elseif-brace, brace-finally-brace, paren-brace and try-brace
+	      (when (eq last-command-event ?\{)
+		(cond
+		 ;; NEW FUNCTIONALITY:
+		 ((and (memq 'paren-brace c-cleanup-list)
+		       (eq (char-before (1- (point))) ?\)))
+		  (backward-char)
+		  (insert ?\ )
+		  (forward-char)
+		  )
+		 ((and (memq 'try-brace c-cleanup-list)
+		       (re-search-backward
+			(concat "try"
+				"\\([ \t\n]\\|\\\\\n\\)*"
+				"{"
+				"\\=")
+			nil t))
+		  (delete-region (match-beginning 0) (match-end 0))
+		  (insert-and-inherit "try {"))
+		 ;; END NEW...
+		 ((and (memq 'brace-else-brace c-cleanup-list)
+		       (re-search-backward
+			(concat "}"
+				"\\([ \t\n]\\|\\\\\n\\)*"
+				"else"
+				"\\([ \t\n]\\|\\\\\n\\)*"
+				"{"
+				"\\=")
+			nil t))
+		  (delete-region (match-beginning 0) (match-end 0))
+		  (insert-and-inherit "} else {"))
+		 ((and (memq 'brace-elseif-brace c-cleanup-list)
+		       (progn
+			 (goto-char (1- here))
+			 (setq mend (point))
+			 (c-skip-ws-backward)
+			 (setq mbeg (point))
+			 (eq (char-before) ?\)))
+		       (zerop (c-save-buffer-state nil (c-backward-token-2 1 t)))
+		       (eq (char-after) ?\()
+		      ; (progn
+			; (setq tmp (point))
+			 (re-search-backward
+			  (concat "}"
+				  "\\([ \t\n]\\|\\\\\n\\)*"
+				  "else"
+				  "\\([ \t\n]\\|\\\\\n\\)+"
+				  "if"
+				  "\\([ \t\n]\\|\\\\\n\\)*"
+				  "\\=")
+			  nil t);)
+		       ;(eq (match-end 0) tmp);
+			 )
+		  (delete-region mbeg mend)
+		  (goto-char mbeg)
+		  (insert ?\ ))))
+
+	      (goto-char (- (point-max) pos))
+
+	      ;; Indent the line after the cleanups since it might
+	      ;; very well indent differently due to them, e.g. if
+	      ;; c-indent-one-line-block is used together with the
+	      ;; one-liner-defun cleanup.
+	      (when c-syntactic-indentation
+		(c-indent-line)))
+
+	    ;; does a newline go after the brace?
+	    (if (memq 'after newlines)
+		(c-newline-and-indent))
+	    ))))
+
+    ;; blink the paren
+    (and (eq last-command-event ?\})
+	 (not executing-kbd-macro)
+	 old-blink-paren
+	 (save-excursion
+	   (c-save-buffer-state nil
+	     (c-backward-syntactic-ws safepos))
+	   (funcall old-blink-paren)))))
+
+
+(provide 'mmc-c-mode-patches)
