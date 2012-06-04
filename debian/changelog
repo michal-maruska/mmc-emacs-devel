@@ -1,3 +1,36 @@
+mmc-emacs-devel (1.8) release; urgency=low
+
+  * clean warnings from byte-compilation
+  * new: mmc-c-styles
+  * split mmc-scheme in different parts
+  * clean some more   mmc-scheme
+  * dynamically obtain the load-path from Gauche
+  * add space before opening brace {
+  * split the re-definitions of cc-mode into a new file.
+  * dui rxvt  c-styles
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 04 Jun 2012 22:46:24 +0200
+
+mmc-emacs-devel (1.7) release; urgency=low
+
+  * dynamically obtain the load-path from Gauche
+  * add space before opening brace {
+  * split the re-definitions of cc-mode into a new file.
+  * dui rxvt  c-styles
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 04 Jun 2012 22:46:13 +0200
+
+mmc-emacs-devel (1.7~3.gbp5dfc42) UNRELEASED; urgency=low
+
+  ** SNAPSHOT build @5dfc42edb2c449ccde3a457adb2a7db5b391110b **
+
+  * clean warnings from byte-compilation
+  * new: mmc-c-styles
+  * split mmc-scheme in different parts
+  * clean some more   mmc-scheme
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Jun 2012 22:20:01 +0200
+
 mmc-emacs-devel (1.6) release; urgency=low
 
   * python:  make beginning-of-defun work for Python
