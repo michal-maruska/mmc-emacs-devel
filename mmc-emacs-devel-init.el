@@ -17,3 +17,6 @@
 
 ;; After?
 (require 'mmc-sql)
+
+(autoload 'kconfig-mode "kconfig")
+(add-to-list 'auto-mode-alist '("Kconfig" . kconfig-mode))
