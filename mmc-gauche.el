@@ -2,6 +2,7 @@
 
 
 (defun gauche-where-is (symbol)
+  "Interract gosh subprocess about the source file for ..."
   (interactive
    (list (thing-at-point 'symbol)))
   (scheme-send-string (format "(apropos '%s)\n" symbol)))
