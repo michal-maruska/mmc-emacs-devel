@@ -26,7 +26,7 @@
 
 ;; linux:
 ;; TABS, not spaces!
-;; 8 
+;; 8
 
 
 ;; patches:  -p !
@@ -151,7 +151,7 @@
 
 
 ;;; tabs
-                                        ; in xfree, 
+                                        ; in xfree,
 (defun file-under-p (path root)
   ""
   (string-match (concat "^" (regexp-quote (expand-file-name root))) (expand-file-name path)))
@@ -229,7 +229,7 @@ and invoke a html browser to display the relevant API docs  "
         (insert "-")
         (goto-char (+ (match-end 0) 1))))))
 
-        
+
 (global-set-key [(alt ?-)] 'invert-word-separator)
 (global-set-key [(alt ?.)] 'gtk-doc)
 
