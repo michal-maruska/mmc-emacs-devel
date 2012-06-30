@@ -34,7 +34,7 @@
   "Given string/name of sawfish/rep module: XXX.YYY.ZZZ.module,
 find and return its path in the filesystem"
   (let ((relative (add-suffix-optionally
-		   (translate-module-to-filename name ".") ".scm"))
+		   (translate-module-to-filename name "\\.") ".scm"))
         ;; /usr/bin/gosh   -e '(begin (format #t  "~a\n\n" *load-path*) (sys-exit 0))'
 	path found)
 
