@@ -1,3 +1,13 @@
+mmc-emacs-devel (1.9) release; urgency=low
+
+  * spaces
+  * suggest paredit-el
+  * fix ffap-gauche:  fix regexp "."
+  * kconfig
+  * document a bit
+
+ -- Michal Maruska <mmaruska@gmail.com>  Tue, 10 Jul 2012 14:43:54 +0200
+
 mmc-emacs-devel (1.8) release; urgency=low
 
   * clean warnings from byte-compilation
