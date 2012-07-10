@@ -20,3 +20,9 @@
 
 (autoload 'kconfig-mode "kconfig")
 (add-to-list 'auto-mode-alist '("Kconfig" . kconfig-mode))
+
+
+(defun gitk ()
+  "invoke `gitk'(1)"
+  (interactive)
+  (start-process "gitk" nil "gitk" "--all"))
