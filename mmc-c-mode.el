@@ -54,12 +54,27 @@
 
 ;;; it sets the hooks !!
 (require 'xcscope)
+
+;; correct:
+(defun cscope-minor-mode (&optional arg)
+  ""
+  (interactive "P")
+  (progn
+    (setq cscope-minor-mode (if (null arg) t (car arg)))
+    (if cscope-minor-mode
+	(progn
+	  (easy-menu-add cscope:menu cscope:map)
+	  (run-hooks 'cscope-minor-mode-hooks)))
+    cscope-minor-mode))
+
+
 (add-hook 'gdb-mode-hook (function cscope:hook))
 (add-hook 'gdb-mode-hook
 	  (lambda ()
 	    (make-local-variable 'cscope-initial-directory)))
 
 ;cscope-command-args
+;; http://cscope.sourceforge.net/large_projects.html
 (set-default 'cscope-command-args (list "-R"))
 
 (defvar my-cscope-map (lookup-key cscope:map  (kbd "\C-cs")) "down w/ that prefix")
