@@ -7,6 +7,12 @@
 ;; comparison with emacs/23.1/lisp/progmodes/cc-cmds.el.gz
 ;; last-command-event vs. last-command-char ??
 ;; 'no-space-before-funcall in c-cleanup-list -> remove it when found.
+;; /usr/share/emacs/24.1.50/lisp/progmodes/cc-cmds.el.gz
+(eval-when-compile
+  ;; (require 'cc-cmds)
+  ;; this contains a macro for this
+  (require 'cc-defs))
+
 (defun c-electric-paren (arg)
   "Insert a parenthesis.
 
@@ -114,15 +120,11 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
 	       old-blink-paren
 	       (funcall old-blink-paren))))))
 
-
-
 ;; cc-cmds.el
 ;; c-cleanup-list
 ;; (add-to-list 'c-cleanup-list 'paren-brace)
 
 ;; http://comments.gmane.org/gmane.emacs.cc-mode.general/5766
-(require 'cc-cmds)
-
 (defun c-electric-brace (arg)
   "Insert a brace.
 
