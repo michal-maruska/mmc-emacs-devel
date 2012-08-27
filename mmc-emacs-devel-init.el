@@ -25,4 +25,6 @@
 (defun gitk ()
   "invoke `gitk'(1)"
   (interactive)
-  (start-process "gitk" nil "gitk" "--all"))
+  (start-process "gitk" nil "gitk" "--all" "--max-count=100"))
+
+(require 'mmc-python)
