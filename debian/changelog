@@ -1,3 +1,12 @@
+mmc-emacs-devel (1.10) release; urgency=low
+
+  * new command:   gitk
+  * fix BC: a macro is needed
+  * make cscope-minor-mode  interactive. By cloning, unfortunately.
+  * use mmc-python!
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 27 Aug 2012 11:20:18 +0200
+
 mmc-emacs-devel (1.9) release; urgency=low
 
   * spaces
