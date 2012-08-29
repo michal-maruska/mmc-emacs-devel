@@ -2,9 +2,10 @@
 
 ;; gnome
 
+(require 'mmc-simple)
 (require 'mmc-font-lock)
 (require 'cc-mode)
-(require 'mmc-simple)
+
 
 ;; rxvt
 ;; XFree86
@@ -95,6 +96,35 @@
 (setq cscope-do-not-update-database 't)
 
 (require 'etags)
+
+;; `find-tag-tag' is the function which gets the default symbol from the buffer, under the `point'.
+;; And I changed it to NOT prompt, unless I ask for it.
+;; in 2012 I started to use Tags for .... Makefile targets (in Android)? or what?
+(defun mmc-find-tag-tag (string prompt-p)
+  "Get a tag/symbol from under the point.
+If prompt-p, then ask confirmation. With defaulting and completion."
+  (let* ((completion-ignore-case (if (memq tags-case-fold-search '(t nil))
+				     tags-case-fold-search
+				   case-fold-search))
+	 (default (funcall (or find-tag-default-function
+			       (get major-mode 'find-tag-default-function)
+			       'find-tag-default)))
+	 (spec
+	  (if (or (not default)
+		  prompt-p)
+	      (completing-read (if default
+				   (format "%s (default %s): "
+					   (substring string 0 (string-match "[ :]+\\'" string))
+					   default)
+				 string)
+			       (tags-lazy-completion-table)
+			       nil nil nil nil default)
+	    "")))			; use default
+    (if (equal spec "")
+	(or default (user-error "There is no default tag"))
+      spec)))
+
+
 (defun mmc-find-tag(&optional prefix)
   "union of `find-tag' alternatives. decides upon major-mode"
   (interactive "P")
@@ -109,7 +139,8 @@
              'cscope-find-this-symbol
            'cscope-find-global-definition-no-prompting
            )))
-    (call-interactively 'find-tag)))
+    ;(call-interactively 'find-tag)
+    (find-tag (mmc-find-tag-tag "Find tag: " prefix) nil )))
 
 (substitute-key-definition 'find-tag 'mmc-find-tag global-map)
 
