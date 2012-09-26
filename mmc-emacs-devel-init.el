@@ -22,9 +22,16 @@
 (add-to-list 'auto-mode-alist '("Kconfig" . kconfig-mode))
 
 
-(defun gitk ()
+;; optional
+(defun gitk (&rest prefix)
   "invoke `gitk'(1)"
-  (interactive)
-  (start-process "gitk" nil "gitk" "--all" "--max-count=100"))
+  (interactive "P")
+  (if (equal prefix '(nil))
+      (start-process "gitk" nil "gitk" "--all" "--max-count=200")
+    ;; let the user edit the cmd line:
+    (shell-command (concat
+		    (read-shell-command "Edit command: "
+				       "gitk --all --max-count=200")
+		    "&"))))
 
 (require 'mmc-python)
