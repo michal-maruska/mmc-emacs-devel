@@ -1,3 +1,10 @@
+mmc-emacs-devel (1.11) release; urgency=low
+
+  * Make using TAGS fast. Don't prompt...
+  * gitk: C-u to edit the command line
+
+ -- Michal Maruska <mmaruska@gmail.com>  Wed, 07 Nov 2012 18:15:43 +0100
+
 mmc-emacs-devel (1.10) release; urgency=low
 
   * new command:   gitk
