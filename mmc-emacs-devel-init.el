@@ -26,12 +26,17 @@
 (defun gitk (&rest prefix)
   "invoke `gitk'(1)"
   (interactive "P")
-  (if (equal prefix '(nil))
-      (start-process "gitk" nil "gitk" "--all" "--max-count=200")
-    ;; let the user edit the cmd line:
-    (shell-command (concat
-		    (read-shell-command "Edit command: "
-				       "gitk --all --max-count=200")
-		    "&"))))
+  (let ((buffer (current-buffer)))
+    (if (equal prefix '(nil))
+	(start-process "gitk" nil "gitk" "--all" "--max-count=200")
+      ;; let the user edit the cmd line:
+      ;; fixme: bury that Async Command buffer!
+      (shell-command (concat
+		      (read-shell-command "Edit command: "
+					  (concat
+					   "gitk --all --max-count=200 "
+					   (file-name-nondirectory
+					    (buffer-file-name buffer))))
+		      "&")))))
 
 (require 'mmc-python)
