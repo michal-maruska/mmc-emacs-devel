@@ -31,12 +31,23 @@
 	(start-process "gitk" nil "gitk" "--all" "--max-count=200")
       ;; let the user edit the cmd line:
       ;; fixme: bury that Async Command buffer!
-      (shell-command (concat
-		      (read-shell-command "Edit command: "
-					  (concat
-					   "gitk --all --max-count=200 "
-					   (file-name-nondirectory
-					    (buffer-file-name buffer))))
-		      "&")))))
+      (apply 'start-process "gitk" nil
+       ;; shell-command
+       ;(concat
+	     (split-string
+	      (read-shell-command "Edit command: "
+				  (concat
+				   "gitk --all --max-count=200 "
+				   (file-name-nondirectory
+				    (buffer-file-name buffer)))
+				  )
+	      " ")
+	;; "&"
+	))))
+
+;;;(magit-get-top-dir (file-name-directory (buffer-file-name)))
+;;(bury-buffer "*Async Shell Command*")
+
+
 
 (require 'mmc-python)
