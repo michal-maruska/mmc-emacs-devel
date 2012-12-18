@@ -34,7 +34,12 @@
 
 
 
-(add-hook 'c-mode-common-hook '(lambda () (c-toggle-auto-state 1))) ;see /a in modeline
+(defun my-turn-on-auto-newline ()
+  ;; after brace, comma, ; :
+  ;; /la in modeline
+  (c-toggle-auto-newline 1))
+
+(add-hook 'c-mode-common-hook 'my-turn-on-auto-newline)
 
 ;c-mode-hook
 
