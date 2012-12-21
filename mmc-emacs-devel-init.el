@@ -39,14 +39,14 @@
 				  (concat
 				   "gitk --all --max-count=200 "
 				   (file-name-nondirectory
-				    (buffer-file-name buffer)))
-				  )
+				    (buffer-file-name buffer))))
 	      " ")
 	;; "&"
 	))))
 
 ;;;(magit-get-top-dir (file-name-directory (buffer-file-name)))
 ;;(bury-buffer "*Async Shell Command*")
+(global-set-key [(alt j)] 'gitk)
 
 
 

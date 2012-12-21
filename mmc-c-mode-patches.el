@@ -2,6 +2,9 @@
 ;;; These are re-definitions of standard cc-mode functions
 ;;; to provide more functionality:
 
+;; no-space-before-funcall
+;;
+
 
 ;; mmc:
 ;; comparison with emacs/23.1/lisp/progmodes/cc-cmds.el.gz

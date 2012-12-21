@@ -1,18 +1,18 @@
-;; cc-mode.el
-
-;; gnome
 
 (require 'mmc-simple)
 (require 'mmc-font-lock)
 (require 'cc-mode)
 
+(require 'mmc-c-styles)
 
 ;; rxvt
 ;; XFree86
 (defun my-c-xfree()
   (interactive)
+  ;; fixme:  "xorg"
   (setq c-default-style "user"
         c-basic-offset 4))
+
 
 (defun my-c-emacs()
   (interactive)
@@ -41,19 +41,18 @@
 
 (add-hook 'c-mode-common-hook 'my-turn-on-auto-newline)
 
-;c-mode-hook
 
-
+;; outline:
 (add-hook 'c-mode-hook
-	  (lambda ()
-	    (set (make-variable-buffer-local 'outline-regexp) "[^#\n
+  (lambda ()
+    (set (make-variable-buffer-local 'outline-regexp)
+	 "[^#\n
  	{}]")
-            (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)
-            ))
+    (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)))
 
 (add-hook 'c++-mode-hook
-	  (lambda ()
-	    (set (make-variable-buffer-local 'outline-regexp) "[^#\n
+  (lambda ()
+    (set (make-variable-buffer-local 'outline-regexp) "[^#\n
  	{}]")))
 
 
@@ -121,25 +120,21 @@
   (abbrev-mode 1)
   (setq indent-tabs-mode nil)
   (define-key c-mode-base-map "\C-m"  'c-context-line-break)
-  (if
-      (or
-       ;; i spent some time re-indenting C sources (librep, xfree). i realized that it was due to my self-imposed tab=4
+  (if (or
+       ;; I spent some time re-indenting C sources (librep, xfree).
+       ;; I realized that it was due to my self-imposed tab=4
        ;; so, for these sources i have to accept their standard:
-       (file-under-p (buffer-file-name (current-buffer)) "/p/xfree-4.3.0-r1_experimental/work/xc/")
-       (file-under-p (buffer-file-name (current-buffer)) "/p/")
-       )
+       (file-under-p (buffer-file-name (current-buffer))
+		     "/p/xfree-4.3.0-r1_experimental/work/xc/")
+       (file-under-p (buffer-file-name (current-buffer)) "/p/"))
+
       (setq tab-width 8)))
 
+;; oh no:
 (add-hook 'c-mode-common-hook         'kaz-c-mode-common-hook)
 
 
 
-
-(defun elinks (url)
-  ""
-  (xterm nil (format "elinks %s" url)))
-
-;; (elinks "www.wsws.org")
 
 (defun gtk-doc (symbol)
   "grab the symbol under the point (interpret it as a gtk+ function name),
@@ -149,7 +144,7 @@ and invoke a html browser to display the relevant API docs  "
       (setq symbol (replace-regexp-in-string "-" "_" symbol)))
   (cond
    ((string-match "^q" symbol)
-    (elinks
+    (browse-url-elinks
      (compose-path "file:///opt/qt-4.7.0-beta1/doc/html"
 		   (concat (downcase symbol) ".html"))))
    (t; else
