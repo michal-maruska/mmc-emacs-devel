@@ -1,3 +1,13 @@
+mmc-emacs-devel (1.12) release; urgency=low
+
+  * gitk restricted to the buffer's file.
+  * Improve -- the buffer/process for gitk. But the command editing is hack: it's split by space, not real Shell!
+  * drop obsolete c-toggle-auto-state
+  * split off cscope config.
+  * crap
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 03 Feb 2013 02:34:44 +0100
+
 mmc-emacs-devel (1.11) release; urgency=low
 
   * Make using TAGS fast. Don't prompt...
