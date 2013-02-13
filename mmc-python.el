@@ -20,15 +20,15 @@
 ;; provide the missing building-block:
 (defun python-mode-beginning-of-defun-function (ignore-arg)
   ""
-  (py-beginning-of-def-or-class))
+  (py-beginning-of-def-or-class 'either))
 
 
 (defun my-python-mode-hook ()
   ;; make-variable-buffer-local
   (set (make-local-variable 'beginning-of-defun-function)
-       'py-beginning-of-def-or-class)
-  ;(setq outline-regexp "^def ")
-  (setq outline-regexp " *\\(def\\|class\\) "))
+       'python-mode-beginning-of-defun-function)
+  (setq (make-local-variable 'outline-regexp)
+	" *\\(def\\|class\\) "))
 
 ;; (setq python-mode-hook ())
 (add-hook 'python-mode-hook 'my-python-mode-hook)
