@@ -3,6 +3,8 @@
 (require 'mmc-scheme)
 (require 'mmc-lisp)
 (require 'mmc-c-mode)
+(require 'mmc-cscope)
+
 (require 'mmc-tex)
 
 (require 'mmc-shell)
