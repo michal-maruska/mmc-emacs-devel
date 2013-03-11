@@ -1,3 +1,11 @@
+mmc-emacs-devel (1.13) release; urgency=low
+
+  * c-mode: start using Guess (to set the c-basic-offset)
+  * Enforce mmc-scope is registered!
+  * Adapt to Git emacs: last-command-event instead of last-command-char.
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 11 Mar 2013 16:15:26 +0100
+
 mmc-emacs-devel (1.12) release; urgency=low
 
   * gitk restricted to the buffer's file.
