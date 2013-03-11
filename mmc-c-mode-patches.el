@@ -50,7 +50,9 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
 	    ;; clean up brace-elseif-brace
 	    (when
 		(and (memq 'brace-elseif-brace c-cleanup-list)
-		     (eq last-command-char ?\()
+		     ;; fixme:
+		     ;; 8/3/2013:  git version last-command-char undefined
+		     (eq last-command-event ?\()
 		     (re-search-backward
 		      (concat "}"
 			      "\\([ \t\n]\\|\\\\\n\\)*"
@@ -68,7 +70,7 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
 	    ;; clean up brace-catch-brace
 	    (when
 		(and (memq 'brace-catch-brace c-cleanup-list)
-		     (eq last-command-char ?\()
+		     (eq last-command-event ?\()
 		     (re-search-backward
 		      (concat "}"
 			      "\\([ \t\n]\\|\\\\\n\\)*"
@@ -90,7 +92,7 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
 	     ;; space-before-funcall clean-up?
 	     ((and (or (memq 'space-before-funcall c-cleanup-list)
 		       (memq 'no-space-before-funcall c-cleanup-list))
-		   (eq last-command-char ?\()
+		   (eq last-command-event ?\()
 		   (save-excursion
 		     (backward-char)
 		     (skip-chars-backward " \t")
