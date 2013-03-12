@@ -91,3 +91,5 @@ If prompt-p, then ask confirmation. With defaulting and completion."
 
 (substitute-key-definition 'find-tag 'mmc-find-tag global-map)
 
+
+(provide 'mmc-cscope)
