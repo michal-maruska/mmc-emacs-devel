@@ -150,7 +150,7 @@
 
 
 
-(require 'cc-guess)
+(require 'cc-guess nil 'noerror)
 (defun tomtom-hook ()
   ""
   (interactive)
@@ -160,7 +160,8 @@
   ;; when indenting myself:
 	;; c-basic-offset 8
 	)
-  (c-guess-buffer)
+  (if (functionp 'c-guess-buffer)
+      (c-guess-buffer))
 
   ;; mmc: for TomTom I need to include the NDK from Perforce.
   ;; make-variable-buffer-local
