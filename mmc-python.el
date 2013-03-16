@@ -36,27 +36,30 @@
   (back-to-indentation))
 
 
-(defvar python-ffap-script (expand-file-name "~/activity/python/ffap.py")
-  "this program is run w/ 1 argument, to locate the python module...file.
+
+
+;;; ffap
+(when nil
+  ;; 2013: disabling, as the script is not there!
+
+  (defvar python-ffap-script (expand-file-name "~/activity/python/ffap.py")
+    "this program is run w/ 1 argument, to locate the python module...file.
 run in the cwd of the edited file.")
 
-(require 'mmc-simple)
+  (defun ffap-python (name)
+    (let ((path (shell-command-to-string-no-nl
+		 (concat
+		  (shell-quote-argument python-ffap-script)
+		  " "
+		  (shell-quote-argument name)))))
+      path))
 
-(defun ffap-python (name)
-  (let ((path (shell-command-to-string-no-nl
-               (concat
-                (shell-quote-argument python-ffap-script)
-                " "
-                (shell-quote-argument name)))))
-    path))
-
-(aput 'ffap-alist 'python-mode 'ffap-python)
-
+  (aput 'ffap-alist 'python-mode 'ffap-python)
+  )
 
 
 
-
-
+;;; Alternative:
 (defun python-ffap (string)
   (interactive)
   (modify-syntax-entry ?:  "_" (syntax-table))
