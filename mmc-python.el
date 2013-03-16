@@ -1,7 +1,11 @@
 ;; http://ruska.dyndns.org/comp/activity/python/ffap.py
 ;; http://ruska.dyndns.org/comp/activity/emacs/my-python.el
 
-(require 'python-mode)
+(if (featurep 'python-mode)
+    (require 'python-mode))
+
+(require 'mmc-simple)
+
 (eval-after-load "python-mode"
   '(progn
      (define-key py-mode-map [(backspace)]    'py-electric-backspace) ;"\C-h"
