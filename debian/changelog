@@ -1,3 +1,11 @@
+mmc-emacs-devel (1.14.1) release; urgency=low
+
+  * format
+  * disable python ffap based on a script. There is another ffap one.
+  * [Fix] Don't depend on python-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sat, 16 Mar 2013 01:56:27 +0100
+
 mmc-emacs-devel (1.14) release; urgency=low
 
   * Use c-guess-* optionally
