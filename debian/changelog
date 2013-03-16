@@ -1,3 +1,10 @@
+mmc-emacs-devel (1.14) release; urgency=low
+
+  * Use c-guess-* optionally
+  * Don't require python-mode. Extend it conditionally
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sat, 16 Mar 2013 01:45:54 +0100
+
 mmc-emacs-devel (1.13.1) release; urgency=low
 
   * [fix] provide mmc-cscope
