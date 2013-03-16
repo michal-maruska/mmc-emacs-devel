@@ -8,7 +8,7 @@
      (define-key py-mode-map [(control meta ?u)]    'py-goto-block-up)
      (define-key py-mode-map [(control meta ?f)]    'py-next-block)
      ;(define-key py-mode-map [(meta ?f)]    nil)
-                                        ;(define-key py-mode-map "\e\C-a"    'py-beginning-of-def-or-class)
+     ;;(define-key py-mode-map "\e\C-a"    'py-beginning-of-def-or-class)
      ))
 
 
@@ -37,7 +37,8 @@
 
 
 (defvar python-ffap-script (expand-file-name "~/activity/python/ffap.py")
-  "this program is run w/ 1 argument, to locate the python module...file. run in the cwd of the edited file.")
+  "this program is run w/ 1 argument, to locate the python module...file.
+run in the cwd of the edited file.")
 
 (require 'mmc-simple)
 

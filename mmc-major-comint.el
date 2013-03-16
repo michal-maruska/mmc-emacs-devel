@@ -9,7 +9,7 @@
     (gnuplot-mode gnuplot-buffer
                   (gnuplot-make-gnuplot-buffer)
                   )    ;gnuplot-kill-gnuplot-buffer
-    
+
     (scheme-mode (and (functionp 'scheme-proc)	; (boundp 'scheme-proc)
 		      (inferior-process-via-variable
 		       'scheme-buffer
