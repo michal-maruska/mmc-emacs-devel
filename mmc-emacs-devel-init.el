@@ -52,4 +52,6 @@
 
 
 
-(require 'mmc-python)
+(if (featurep 'python-mode)
+    (require 'mmc-python))
+
