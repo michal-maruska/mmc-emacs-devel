@@ -57,7 +57,10 @@
    (c-cleanup-list             . (scope-operator
 				  no-space-before-funcall
 				  empty-defun-braces
-				  defun-close-semi))
+				  defun-close-semi
+				  ;; if ()_{
+				  paren-brace
+				  ))
    ;; C++ so
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
 				  (substatement-open . 0)
@@ -112,7 +115,8 @@
    (c-cleanup-list             . (scope-operator
 				  no-space-before-funcall
 				  empty-defun-braces
-				  defun-close-semi))
+				  defun-close-semi
+				  paren-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
 				  (substatement-open . 0)
@@ -139,7 +143,8 @@
    (c-cleanup-list             . (scope-operator
 				  no-space-before-funcall
 				  empty-defun-braces
-				  defun-close-semi))
+				  defun-close-semi
+				  paren-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
 				  (substatement-open . 0)
@@ -168,7 +173,8 @@
 				  ;; funny:
 				  space-before-funcall
 				  empty-defun-braces
-				  defun-close-semi))
+				  defun-close-semi
+				  paren-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
 				  (substatement-open . 0)
