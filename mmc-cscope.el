@@ -59,11 +59,12 @@ If prompt-p, then ask confirmation. With defaulting and completion."
 	 (spec
 	  (if (or (not default)
 		  prompt-p)
-	      (completing-read (if default
-				   (format "%s (default %s): "
-					   (substring string 0 (string-match "[ :]+\\'" string))
-					   default)
-				 string)
+	      (completing-read
+	       (if default
+		   (format "%s (default %s): "
+			   (substring string 0 (string-match "[ :]+\\'" string))
+			   default)
+		 string)
 			       (tags-lazy-completion-table)
 			       nil nil nil nil default)
 	    "")))			; use default

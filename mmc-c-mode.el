@@ -46,13 +46,16 @@
 (add-hook 'c-mode-hook
   (lambda ()
     (set (make-variable-buffer-local 'outline-regexp)
+	 ;; anything at the BOL? apart from { } etc.
 	 "[^#\n
  	{}]")
     (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)))
 
 (add-hook 'c++-mode-hook
   (lambda ()
-    (set (make-variable-buffer-local 'outline-regexp) "[^#\n
+    ;; the same!
+    (set (make-variable-buffer-local 'outline-regexp)
+	 "[^#\n
  	{}]")))
 
 
