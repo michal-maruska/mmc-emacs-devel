@@ -108,17 +108,8 @@
 
 (require 'mmc-syntax)
 
-
-
-
+(require 'mmc-simple)
 ;;; tabs
-                                        ; in xfree,
-(defun file-under-p (path root)
-  ""
-  (string-match (concat "^" (regexp-quote (expand-file-name root))) (expand-file-name path)))
-
-
-
 (defun kaz-c-mode-common-hook ()
   (abbrev-mode 1)
   (setq indent-tabs-mode nil)
