@@ -1,6 +1,5 @@
-
 (require 'cc-mode)
-
+(require 'assoc)
 ;; so these don't set/use c-basic-offset ??
 ;; (set to 2 or 4). Maybe inherit from ...?
 
