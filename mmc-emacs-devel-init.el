@@ -41,7 +41,10 @@
 				  (concat
 				   "gitk --all --max-count=200 "
 				   (file-name-nondirectory
-				    (buffer-file-name buffer))))
+				    (or (buffer-file-name buffer)
+					default-directory
+					;(dired-current-directory)
+					))))
 	      " ")
 	;; "&"
 	))))
