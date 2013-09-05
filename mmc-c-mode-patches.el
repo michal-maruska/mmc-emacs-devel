@@ -233,6 +233,8 @@ settings of `c-cleanup-list' are done."
 	      (when (eq last-command-event ?\{)
 		(cond
 		 ;; NEW FUNCTIONALITY:
+		 ;;  ){ -> ) {
+		 ;; insert a space between ) and {
 		 ((and (memq 'paren-brace c-cleanup-list)
 		       (eq (char-before (1- (point))) ?\)))
 		  (backward-char)
