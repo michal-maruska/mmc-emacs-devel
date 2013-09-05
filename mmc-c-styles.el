@@ -13,8 +13,32 @@
 ;; modify the "Linux" style to instert <TAB>s !
 ;; Why?
 
+;; c-insert-tab-function     tab-to-tab-stop
+;; indent-tabs-mode          t
 
+;; make it insert TABs!
+;; (aget (aget c-style-alist "linux") 'indent-tabs-mode)
 
+(let ((l (aget c-style-alist "linux")))
+  (unless (aget l 'indent-tabs-mode)
+    ;; (x y ...) -> (x Z y ...)
+    (setcdr l
+	    (cons
+	     '(indent-tabs-mode . t)
+	     (cdr l)))))
+
+;; paren-brace:  "){" -> ") {"
+;; with newline in between?
+(let* ((l (aget c-style-alist "linux"))
+       (cleanup (aget l 'c-cleanup-list)))
+  (unless
+      (memq 'paren-brace cleanup)
+    (setcdr cleanup
+	    (cons
+	     'paren-brace
+	     (cdr cleanup)))))
+
+;; (add-to-list 'c-cleanup-list 'paren-brace)
 
 (c-add-style
  "tomtom"
