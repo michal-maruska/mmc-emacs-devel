@@ -39,8 +39,9 @@
 
 (c-add-style
  "tomtom"
+;; (setq indent-tabs-mode t)
  '((c-tab-always-indent        . t)	; TAB just indents
-   ;;c-basic-offset
+   (c-basic-offset . 8)
    (c-comment-only-line-offset . 0)	; only comment -> additional offset
 
    ;;
@@ -151,10 +152,12 @@
 
 
 (require 'cc-guess nil 'noerror)
+
 (defun tomtom-hook ()
   ""
   (interactive)
   ;; when loading & saving
+  (setq indent-tabs-mode t)
   (setq tab-width 8
   ;;
   ;; when indenting myself:
