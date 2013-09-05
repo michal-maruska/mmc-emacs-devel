@@ -1,3 +1,17 @@
+mmc-emacs-devel (1.15) release; urgency=low
+
+  * Navigation (through outline) in Python mode.
+  * python: don't define beginning-of-defun-function
+  * format
+  * c-mode document (my?) 'paren-brace in c-cleanup-list
+  * more gitk improvement -- default-directory
+  * move file-under-p  in mmc-simple
+  * tomtom hook & style: insist on tabs & (orthogonal) indentation 8
+  * reshuffling xorg c-style
+  * changing Linux c-style -- adding (my) paren-brace & indent-tabs-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Thu, 05 Sep 2013 17:13:10 +0200
+
 mmc-emacs-devel (1.14.1) release; urgency=low
 
   * format
