@@ -10,30 +10,9 @@
 ;; (setq tab-width 4) ... tab char in the file:
 
 
-(c-add-style
- "xorg"
- '((c-tab-always-indent        . t)	; TAB just indents
-   ;;c-basic-offset
-   (c-comment-only-line-offset . 0)	; only comment -> additional offset
+;; modify the "Linux" style to instert <TAB>s !
+;; Why?
 
-   (c-hanging-braces-alist     . ((substatement-open after)
-				  (brace-list-open)))
-   (c-hanging-colons-alist     . ((member-init-intro before)
-				  (inher-intro)
-				  (case-label after)
-				  (label after)
-				  (access-label after)))
-   (c-cleanup-list             . (scope-operator
-				  no-space-before-funcall
-				  empty-defun-braces
-				  defun-close-semi))
-   ;;
-   (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
-				  (substatement-open . 0)
-				  (case-label        . 4)
-				  (block-open        . 0)
-				  (knr-argdecl-intro . -)))
-   (c-echo-syntactic-information-p . t)))
 
 
 
@@ -93,6 +72,32 @@
  "dui"
  '((c-cleanup-list             . (no-space-before-funcall
 				  brace-else-brace))))
+
+(c-add-style
+ "xorg"
+ '((c-tab-always-indent        . t)	; TAB just indents
+   ;;c-basic-offset
+   (c-comment-only-line-offset . 0)	; only comment -> additional offset
+
+   (c-hanging-braces-alist     . ((substatement-open after)
+				  (brace-list-open)))
+   (c-hanging-colons-alist     . ((member-init-intro before)
+				  (inher-intro)
+				  (case-label after)
+				  (label after)
+				  (access-label after)))
+   (c-cleanup-list             . (scope-operator
+				  no-space-before-funcall
+				  empty-defun-braces
+				  defun-close-semi))
+   ;;
+   (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
+				  (substatement-open . 0)
+				  (case-label        . 4)
+				  (block-open        . 0)
+				  (knr-argdecl-intro . -)))
+   (c-echo-syntactic-information-p . t)))
+
 
 
 (c-add-style
