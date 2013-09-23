@@ -30,6 +30,17 @@
     (goto-char (point-min))
     (read (current-buffer))))
 
+(defconst gauche-sources-path
+  (delq nil
+	(mapcar
+	 (lambda (file)
+	   (if (file-directory-p file)
+	       file
+	     nil))
+	 (file-expand-wildcards "~/repo/gauche/*")))
+  "list of paths/roots where I keep gauche libraries (as debian packages)")
+
+
 (defun ffap-gauche-mode (name)
   "Given string/name of sawfish/rep module: XXX.YYY.ZZZ.module,
 find and return its path in the filesystem"
@@ -47,7 +58,9 @@ find and return its path in the filesystem"
            (lambda (item)
              (file-if-exists
               (file-name-in-directory item relative)))
-           gauche-load-path))
+	   (append
+	    gauche-sources-path
+	    gauche-load-path)))
     found))
 
 
