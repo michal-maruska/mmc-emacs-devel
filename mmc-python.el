@@ -20,14 +20,14 @@
 ;; provide the missing building-block:
 ;; fixme: (still) needed?  is this re-defining some function?
 ;; so see below!
-;; (defun python-mode-beginning-of-defun-function (ignore-arg)
-;;   ""
-;;   (py-beginning-of-def-or-class 'either))
+(defun python-mode-beginning-of-defun-function (ignore-arg)
+   ""
+   (py-beginning-of-def-or-class 'either))
 
 (defun my-python-mode-hook ()
   ;; make-variable-buffer-local
-  ;(set (make-local-variable 'beginning-of-defun-function)
-  ;     'python-mode-beginning-of-defun-function)
+  (set (make-local-variable 'beginning-of-defun-function)
+       'python-mode-beginning-of-defun-function)
   (setq (make-local-variable 'outline-regexp)
 	" *\\(def\\|class\\) "))
 
