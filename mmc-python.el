@@ -28,7 +28,7 @@
   ;; make-variable-buffer-local
   (set (make-local-variable 'beginning-of-defun-function)
        'python-mode-beginning-of-defun-function)
-  (setq (make-local-variable 'outline-regexp)
+  (set (make-local-variable 'outline-regexp)
 	" *\\(def\\|class\\) "))
 
 ;; (setq python-mode-hook ())
