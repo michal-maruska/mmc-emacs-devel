@@ -63,6 +63,7 @@
 ;; (assq 'scheme-mode font-lock-keywords-alist)
 
 (defun ++ (&rest args)
+  "add a form to `scheme-mode' fontlock"
   (font-lock-add-keywords 'scheme-mode args))
 
 (defun ++function (function-name)
@@ -226,6 +227,20 @@
         ;; fixme: scheme-type/class/method-face
         1 'font-lock-important))        ;message-header-to-face
 
+
+  ;; (regexp-for define-cise-macro symbol)
+  ;;(++ '("(define-cise-macro\\s-+\\(\\(?:\\sw\\|\\s_\\)*\\)"
+  ;;      1 font-lock-function-name-face))
+
+  ;; but it's not that way: it's   (regexp-for define-cise-macro (symbol ...))
+  (-- '("(define-cise-macro \\s-+(\\(\\(?:\\sw\\|\\s_\\)*\\)" 1 font-lock-important))
+  (-- '("(define-cise-macro \\s-+\\(\\(?:\\sw\\|\\s_\\)*\\)" 1 font-lock-important))
+
+  (++ '("(define-cise-macro\\s-+(\\(\\(?:\\sw\\|\\s_\\)*\\)" 1
+	'scheme-type/class/method-face))
+
+  (++ '("(define-cise-expr\\s-+\\(\\(?:\\sw\\|\\s_\\)*\\)" 1
+	'scheme-type/class/method-face))
   )
 
 (when nil
