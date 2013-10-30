@@ -312,4 +312,58 @@ settings of `c-cleanup-list' are done."
 	   (funcall old-blink-paren)))))
 
 
+;; mmc: show the current one!
+(defun c-set-style (stylename &optional dont-override)
+  "Set the current buffer to use the style STYLENAME.
+STYLENAME, a string, must be an existing CC Mode style - These are contained
+in the variable `c-style-alist'.
+
+The variable `c-indentation-style' will get set to STYLENAME.
+
+\"Setting the style\" is done by setting CC Mode's \"style variables\" to the
+values indicated by the pertinent entry in `c-style-alist'.  Other variables
+might get set too.
+
+If DONT-OVERRIDE is neither nil nor t, style variables whose default values
+have been set (more precisely, whose default values are not the symbol
+`set-from-style') will not be changed.  This avoids overriding global settings
+done in your init file.  It is useful to call c-set-style from a mode hook
+in this way.
+
+If DONT-OVERRIDE is t, style variables that already have values (i.e., whose
+values are not the symbol `set-from-style') will not be overridden.  CC Mode
+calls c-set-style internally in this way whilst initializing a buffer; if
+cc-set-style is called like this from anywhere else, it will usually behave as
+a null operation."
+  (interactive
+   (list (let ((completion-ignore-case t)
+	       (prompt (format "Which %s indentation style? (now %s) "
+			       ;; mmc: show the current one!
+			       mode-name c-indentation-style)))
+	   (completing-read prompt c-style-alist nil t nil
+			    'c-set-style-history
+			    c-indentation-style))))
+  (or c-buffer-is-cc-mode
+      (error "Buffer %s is not a CC Mode buffer (c-set-style)" (buffer-name)))
+  (or (stringp stylename)
+      (error "Argument to c-set-style was not a string"))
+  (c-initialize-builtin-style)
+  (let ((vars (c-get-style-variables stylename nil)))
+    (unless dont-override
+      ;; Since we always add to c-special-indent-hook we must reset it
+      ;; first, or else the hooks from the preceding style will
+      ;; remain.  This is not necessary for c-offsets-alist, since
+      ;; c-get-style-variables contains every valid offset type in the
+      ;; fallback entry.
+      (setq c-special-indent-hook
+	    (default-value 'c-special-indent-hook)))
+    (mapc (lambda (elem)
+	    (c-set-style-1 elem dont-override))
+	  ;; Need to go through the variables backwards when we
+	  ;; don't override any settings.
+	  (if (eq dont-override t) (nreverse vars) vars)))
+  (setq c-indentation-style stylename)
+  (c-keep-region-active))
+
+
 (provide 'mmc-c-mode-patches)
