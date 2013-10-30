@@ -58,3 +58,6 @@
 (if (featurep 'python-mode)
     (require 'mmc-python))
 
+
+(eval-after-load "cc-mode" ;; java-mode
+  '(require 'mmc-java))
