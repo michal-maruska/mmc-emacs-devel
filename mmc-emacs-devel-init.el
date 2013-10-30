@@ -34,8 +34,6 @@
       ;; let the user edit the cmd line:
       ;; fixme: bury that Async Command buffer!
       (apply 'start-process "gitk" nil
-       ;; shell-command
-       ;(concat
 	     (split-string
 	      (read-shell-command "Edit command: "
 				  (concat
@@ -45,9 +43,7 @@
 					default-directory
 					;(dired-current-directory)
 					))))
-	      " ")
-	;; "&"
-	))))
+	      " ")))))
 
 ;;;(magit-get-top-dir (file-name-directory (buffer-file-name)))
 ;;(bury-buffer "*Async Shell Command*")
