@@ -1,3 +1,13 @@
+mmc-emacs-devel (1.16) release; urgency=low
+
+  * Start using  paren-brace.
+  * Lookup gauche files in the sources dirs first, then installed files
+  * scheme font lock for gauche "cise" symbols
+  * More clean to gitk:  start-process -> no need for &
+  * When prompting for C-mode to apply, show the current one.
+
+ -- Michal Maruska <mmaruska@gmail.com>  Thu, 31 Oct 2013 00:16:24 +0100
+
 mmc-emacs-devel (1.15.1) release; urgency=low
 
   * new: mmc-java
