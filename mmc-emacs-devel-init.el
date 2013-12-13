@@ -50,9 +50,8 @@
 (global-set-key [(alt j)] 'gitk)
 
 
-
-(if (featurep 'python-mode)
-    (require 'mmc-python))
+(eval-after-load "python-mode"
+  '(require 'mmc-python))
 
 
 (eval-after-load "cc-mode" ;; java-mode
