@@ -56,3 +56,7 @@
 
 (eval-after-load "cc-mode" ;; java-mode
   '(require 'mmc-java))
+
+(require 'mmc-android)
+(add-to-list 'auto-mode-alist
+	     '("init.*\\.rc" . android-init-mode))
