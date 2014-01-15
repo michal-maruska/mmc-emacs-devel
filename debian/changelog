@@ -1,3 +1,10 @@
+mmc-emacs-devel (1.17) release; urgency=low
+
+  * [FIX] Load mmc-python when needed.
+  * mmc-android: new major mode for init.rc
+
+ -- Michal Maruska <mmaruska@gmail.com>  Wed, 15 Jan 2014 17:08:41 +0100
+
 mmc-emacs-devel (1.16) release; urgency=low
 
   * Start using  paren-brace.
