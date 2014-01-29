@@ -205,6 +205,10 @@
   (make-local-variable 'ffap-c-path)
   (add-to-list 'ffap-c-path
 	       (concat
+		"~/italia/"
+		"system/core/include/"))
+  (add-to-list 'ffap-c-path
+	       (concat
 		"/home/michal/perforce/platform/android/main/mydroid/ndk"
 		"/build/prebuilt/linux-x86/arm-eabi-4.4.0/arm-eabi/"
 		"include/c++/4.4.0/")))
