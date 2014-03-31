@@ -23,6 +23,8 @@
 (defun my-java-mode-hook ()
   ""
   ;; how to hide/show ??
+  ;;(setq buffer-invisibility-spec '((hs . t) (hs . t) t))
+  (setq buffer-invisibility-spec 't)
   (set (make-local-variable 'outline-regexp)
 	" *(public|private|void)")
   (setq c-basic-offset 4))
