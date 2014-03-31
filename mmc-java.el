@@ -126,5 +126,10 @@
 (add-to-list 'ffap-alist
 	     '(java-mode . java-find-class/package))
 
+(add-hook 'java-mode-hook 'cscope-minor-mode)
+(add-hook 'java-mode-hook 'hs-minor-mode)
+
+(add-to-list 'auto-mode-alist
+	     '(".*.aidl" . java-mode))
 
 (provide 'mmc-java)
