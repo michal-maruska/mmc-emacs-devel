@@ -1,3 +1,12 @@
+mmc-emacs-devel (1.18) release; urgency=low
+
+  * improve ffap for Android
+  * java vs outline: make the invisible text property work
+  * mmc-java: use rx to compose the nasty java-outline regexp
+  * Move code from .emacs to java: hooks & .aidl auto-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Fri, 18 Apr 2014 13:05:11 +0200
+
 mmc-emacs-devel (1.17) release; urgency=low
 
   * [FIX] Load mmc-python when needed.
