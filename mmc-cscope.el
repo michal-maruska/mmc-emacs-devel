@@ -10,7 +10,10 @@
     (setq cscope-minor-mode (if (null arg) t (car arg)))
     (if cscope-minor-mode
 	(progn
-	  (easy-menu-add cscope:menu cscope:map)
+	  (easy-menu-add cscope:menu
+			 cscope-minor-mode-keymap
+			 ;cscope:map
+			 )
 	  (run-hooks 'cscope-minor-mode-hooks)))
     cscope-minor-mode))
 
@@ -25,7 +28,9 @@
 (set-default 'cscope-command-args (list "-R"))
 
 (defvar my-cscope-map
-  (lookup-key cscope:map (kbd "\C-cs")) "down w/ that prefix")
+  (lookup-key cscope-minor-mode-keymap
+	      ;cscope:map
+	      (kbd "\C-cs")) "down w/ that prefix")
 
 (define-key my-cscope-map "/" 'cscope-set-initial-directory)
 (global-set-key [(control ?#)] my-cscope-map)
