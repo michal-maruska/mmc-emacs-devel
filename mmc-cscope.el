@@ -3,19 +3,20 @@
 (require 'xcscope)
 
 ;; correct:
-(defun cscope-minor-mode (&optional arg)
-  ""
-  (interactive "P")
-  (progn
-    (setq cscope-minor-mode (if (null arg) t (car arg)))
-    (if cscope-minor-mode
-	(progn
-	  (easy-menu-add cscope:menu
-			 cscope-minor-mode-keymap
-			 ;cscope:map
-			 )
-	  (run-hooks 'cscope-minor-mode-hooks)))
-    cscope-minor-mode))
+'(defun cscope-minor-mode (&optional arg)
+   ""
+   (interactive "P")
+   (progn
+     (setq cscope-minor-mode (if (null arg) t (car arg)))
+     (if cscope-minor-mode
+	 (progn
+	   ;; sept 2014: cscope:menu no more defined!
+	   (easy-menu-add cscope:menu
+			  cscope-minor-mode-keymap
+					;cscope:map
+			  )
+	   (run-hooks 'cscope-minor-mode-hooks)))
+     cscope-minor-mode))
 
 
 (add-hook 'gdb-mode-hook (function cscope:hook))
@@ -30,15 +31,15 @@
 (defvar my-cscope-map
   (lookup-key cscope-minor-mode-keymap
 	      ;cscope:map
-	      (kbd "\C-cs")) "down w/ that prefix")
+	      (kbd "\C-cs"))
+  "cscope map without the commong prefix")
 
 (define-key my-cscope-map "/" 'cscope-set-initial-directory)
 (global-set-key [(control ?#)] my-cscope-map)
 
-(add-hook 'gdb-mode-hook (function cscope:hook))
+
 ;; QT
 ; http://doc.trolltech.com/3.0/qkeyevent.html
-
 
 ;;; cscope
 
