@@ -1,14 +1,8 @@
 #!/usr/bin/make -f
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/makefile.mk
+%:
+	dh $@
 
-# Add here any variable or target overrides you need.
-clean::
-	-$(MAKE) clean
-
-# after mmc-emacs
-DEB_EMACS_PRIORITY=51
-
-install/mmc-emacs-devel::
-	-$(MAKE) install DESTDIR=$(DEB_DESTDIR)
+#DEB_EMACS_PRIORITY := 51
+#DEB_INSTALL_DOCS_ALL := README RELEASE_NOTES
+#DEB_INSTALL_CHANGELOGS_ALL := NEWS
