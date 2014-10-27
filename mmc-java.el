@@ -7,7 +7,7 @@
     ;; (set-buffer buffer)
     (goto-char (point-min))
     ;; at end of line
-    (if (search-forward relative)
+    (if (search-forward string nil t)
 	;; buffer-substring-no-properties
 	(erase-text-properties (line-string))
       nil)))
@@ -15,13 +15,18 @@
 (defun java-find-class/package (symbol)
   "ffap implementation to use ...."
   (save-excursion
-    (let ((relative (add-suffix-optionally
+    (let ((cscope-files-file "~/italia/cscope.files.java")
+	  (relative (add-suffix-optionally
 		     (translate-module-to-filename symbol "\\.") ".java")))
       (concat
        ;"~/next/"
        "~/italia/"
        ;; ~/next/cscope.files.java
-	      (find-line-by-string relative "~/italia/cscope.files.java")))))
+       (or (find-line-by-string relative cscope-files-file)
+	   (find-line-by-string
+	    ;; a/b.java -> a.java:
+	    (concat (substring (file-name-directory relative) 0 -1) ".java")
+	    cscope-files-file))))))
 
 (require 'rx)
 
