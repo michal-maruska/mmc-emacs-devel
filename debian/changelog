@@ -1,3 +1,13 @@
+mmc-emacs-devel (1.19) release; urgency=medium
+
+  * ffap-java: find the x.y class inside x.java
+  * adapt to renamed cscope-mode keymap
+  * stop using cscope:menu - it is gone. Cleanup the file.
+  * ffap-perl-module.el to replace my simple.
+  * cdbs->dh
+
+ -- Michal Maruska <mmaruska@gmail.com>  Thu, 20 Nov 2014 15:51:16 +0100
+
 mmc-emacs-devel (1.18) release; urgency=low
 
   * improve ffap for Android
