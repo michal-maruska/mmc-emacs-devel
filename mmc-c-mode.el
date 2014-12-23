@@ -105,10 +105,41 @@
 
 ;;  make the var buffer local  huh????
 
+;; find-line-by-string
+(require 'mmc-cscope)
+;; file-under-p
+(require 'mmc-simple)
+
+(defun find-file-in-cscope (filename cscope-files-file prefix)
+  ""
+  (let ((line (find-line-by-string filename cscope-files-file)))
+    (if line
+	(concat prefix line)
+      nil)))
+
+(defadvice ffap-c-mode (around cscope)
+  ;; name is the arg.
+  "consult cscope.files"
+  ad-do-it
+  (unless ad-return-value
+    ;;      (ffap-locate-file name t ffap-c-path))
+    (setq ad-return-value
+	  (let ((cwd (file-name-directory (buffer-file-name))))
+	    (cond
+	     ((file-under-p cwd "~/italia")
+	      (find-file-in-cscope name
+				   "~/italia/cscope.files"
+				   "~/italia/"))
+
+	     ((or (file-under-p cwd "~/next")
+		  (file-under-p cwd "/home/maruska/next"))
+	      (find-file-in-cscope name
+				   "~/next/cscope.files"
+				   "~/next/"))
+	     (t
+	      nil))))))
 
 (require 'mmc-syntax)
-
-(require 'mmc-simple)
 ;;; tabs
 (defun kaz-c-mode-common-hook ()
   (abbrev-mode 1)

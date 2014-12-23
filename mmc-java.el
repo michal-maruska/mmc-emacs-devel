@@ -1,32 +1,43 @@
 ;; (java-find-class/package "com.android.internal.util.StateMachine")
 
+;; find-line-by-string
+(require 'mmc-cscope)
 
-(defun find-line-by-string (string filename)
+;; file-under-p
+(require 'mmc-simple)
+
+(defun java-find-module-in-cscope (symbol cscope-files-file root)
   ""
-  (with-current-buffer (find-file-noselect filename 'nowarn 'rawfile)
-    ;; (set-buffer buffer)
-    (goto-char (point-min))
-    ;; at end of line
-    (if (search-forward string nil t)
-	;; buffer-substring-no-properties
-	(erase-text-properties (line-string))
-      nil)))
-
-(defun java-find-class/package (symbol)
-  "ffap implementation to use ...."
   (save-excursion
-    (let ((cscope-files-file "~/italia/cscope.files.java")
-	  (relative (add-suffix-optionally
+    (let ((relative (add-suffix-optionally
 		     (translate-module-to-filename symbol "\\.") ".java")))
       (concat
-       ;"~/next/"
-       "~/italia/"
+					;"~/next/"
+       root				;"~/italia/"
        ;; ~/next/cscope.files.java
        (or (find-line-by-string relative cscope-files-file)
 	   (find-line-by-string
 	    ;; a/b.java -> a.java:
 	    (concat (substring (file-name-directory relative) 0 -1) ".java")
 	    cscope-files-file))))))
+
+
+(defun java-find-class/package (symbol)
+  "ffap implementation to use ...."
+  (let ((cwd (file-name-directory (buffer-file-name))))
+    (cond
+     ((file-under-p cwd "~/italia")
+      (java-find-module-in-cscope symbol
+			 "~/italia/cscope.files.java"
+			 "~/italia/"))
+
+     ((or (file-under-p cwd "~/next")
+	  (file-under-p cwd "/home/maruska/next"))
+      (java-find-module-in-cscope symbol
+				  "~/next/cscope.files.java"
+				  "~/next/"))
+     (t
+      nil))))
 
 (require 'rx)
 

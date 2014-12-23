@@ -48,6 +48,18 @@
 (setq cscope-display-cscope-buffer nil)
 (setq cscope-do-not-update-database 't)
 
+
+(defun find-line-by-string (string filename)
+  ""
+  (with-current-buffer (find-file-noselect filename 'nowarn 'rawfile)
+    ;; (set-buffer buffer)
+    (goto-char (point-min))
+    ;; at end of line
+    (if (search-forward string nil t)
+	;; buffer-substring-no-properties
+	(erase-text-properties (line-string))
+      nil)))
+
 (require 'etags)
 
 ;; `find-tag-tag' is the function which gets the default symbol from the buffer, under the `point'.
