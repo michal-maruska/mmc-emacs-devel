@@ -112,7 +112,9 @@
 
 (defun find-file-in-cscope (filename cscope-files-file prefix)
   ""
-  (let ((line (find-line-by-string filename cscope-files-file)))
+  (let ((line (or
+	       (find-line-by-string (concat "/" filename) cscope-files-file)
+	       (find-line-by-string filename cscope-files-file))))
     (if line
 	(concat prefix line)
       nil)))

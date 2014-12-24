@@ -52,13 +52,13 @@
 (defun find-line-by-string (string filename)
   ""
   (with-current-buffer (find-file-noselect filename 'nowarn 'rawfile)
-    ;; (set-buffer buffer)
-    (goto-char (point-min))
-    ;; at end of line
-    (if (search-forward string nil t)
-	;; buffer-substring-no-properties
-	(erase-text-properties (line-string))
-      nil)))
+    (let ((case-fold-search nil))
+      (goto-char (point-min))
+      ;; at end of line
+      (if (search-forward string nil t)
+	  ;; buffer-substring-no-properties
+	  (erase-text-properties (line-string))
+	nil))))
 
 (require 'etags)
 
