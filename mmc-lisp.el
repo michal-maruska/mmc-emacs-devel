@@ -4,6 +4,10 @@
 ;; Tempo
 (load "tempo/tempo-elisp.el")
 
+(setq find-function-source-path
+      (mapcar 'expand-file-name
+	   '("~/repo/emacs/mmc-emacs/"
+	     "~/repo/emacs/devel/")))
 
 ;;; lisp (s-expressions)
 ;(require 'ilisp)
