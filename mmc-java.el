@@ -1,9 +1,7 @@
 ;; (java-find-class/package "com.android.internal.util.StateMachine")
 
-;; find-line-by-string
-(require 'mmc-cscope)
 
-;; file-under-p
+;; file-under-p find-line-by-string
 (require 'mmc-simple)
 
 (defun java-find-module-in-cscope (symbol cscope-files-file root &optional extension)
@@ -31,7 +29,6 @@
 		cscope-files-file))
 	   (concat root found)
 	   nil))))
-
 
 (defun java-find-class/package (symbol)
   "ffap implementation to use ...."

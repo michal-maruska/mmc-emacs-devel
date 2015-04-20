@@ -1,5 +1,6 @@
 
-(require 'mmc-simple)
+(require 'mmc-simple) ;; file-under-p find-line-by-string
+
 (require 'mmc-font-lock)
 (require 'cc-mode)
 
@@ -106,10 +107,10 @@
 ;;  make the var buffer local  huh????
 
 ;; find-line-by-string
-(require 'mmc-cscope)
 ;; file-under-p
 (require 'mmc-simple)
 
+;; file-under-p
 (defun find-file-in-cscope (filename cscope-files-file prefix)
   ""
   (let ((line (or
@@ -142,6 +143,7 @@
 	      nil))))))
 
 (require 'mmc-syntax)
+
 ;;; tabs
 (defun kaz-c-mode-common-hook ()
   (abbrev-mode 1)
