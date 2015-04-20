@@ -366,4 +366,45 @@ a null operation."
   (c-keep-region-active))
 
 
+;; /usr/share/emacs/24.1.50/lisp/progmodes/cc-guess.el.gz
+
+;; problem if basic-offset is nil
+(defun c-guess-symbolize-integer (int basic-offset)
+  (if (eq nil basic-offset) ;; mmc: added
+      (setq basic-offset 0))
+  ;; fixme: make it an advice!
+  (let ((aint (abs int)))
+    (cond
+     ((eq int basic-offset) '+)
+     ((eq aint basic-offset) '-)
+     ((eq int (* 2 basic-offset)) '++)
+     ((eq aint (* 2 basic-offset)) '--)
+     ((eq (* 2 int) basic-offset) '*)
+     ((eq (* 2 aint) basic-offset) '-)
+     (t int))))
+
+
+(defun c-guess-install (&optional style-name)
+  "Install the latest guessed style into the current buffer.
+\(This guessed style is a combination of `c-guess-guessed-basic-offset',
+`c-guess-guessed-offsets-alist' and `c-offsets-alist'.)
+
+The style is entered into CC Mode's style system by
+`c-add-style'.  Its name is either STYLE-NAME, or a name based on
+the absolute file name of the file if STYLE-NAME is nil."
+  (interactive "sNew style name (empty for default name): ")
+  (let* ((style (c-guess-make-style c-guess-guessed-basic-offset
+				    c-guess-guessed-offsets-alist)))
+    (if style
+	(let ((style-name (or (if (equal style-name "")
+				  nil
+				style-name)
+			      (c-guess-style-name))))
+	  (c-add-style style-name style t)
+	  (message "Style \"%s\" is installed" style-name))
+      ;; ignore, not error!
+      ;; mmc: could be an advice, catching this error, and ignoring it.
+      (message "Not yet guessed"))))
+
+
 (provide 'mmc-c-mode-patches)
