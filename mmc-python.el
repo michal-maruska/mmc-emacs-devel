@@ -67,18 +67,24 @@ run in the cwd of the edited file.")
 ;;; Alternative:
 (defun python-ffap (string)
   (interactive)
-  (modify-syntax-entry ?:  "_" (syntax-table))
-  ;; (char-syntax ?:)
-  ;; (set-syntax "::" symbol)
-  (let* ((module-name string)
-         (relative (add-suffix-optionally
-                    (translate-module-to-filename module-name "\\.")
-                    ".py"))
-         (path (find-subpath-in-paths
-                relative
-		;; fixme: todo:  use bin/python to find it!
-                (list "/usr/lib/python2.7/dist-packages/"))))
-    path))
+  ;;
+  (let ((python-syntax-table (syntax-table))
+	)
+    (unwind-protect
+	(progn
+	  (modify-syntax-entry ?: "_" python-syntax-table)
+	  ;; (char-syntax ?:)
+	  ;; (set-syntax "::" symbol)
+	  (let* ((module-name string)
+		 (relative (add-suffix-optionally
+			    (translate-module-to-filename module-name "\\.")
+			    ".py"))
+		 (path (find-subpath-in-paths
+			relative
+			;; fixme: todo:  use bin/python to find it!
+			(list "/usr/lib/python2.7/dist-packages/"))))
+	    path))
+      (modify-syntax-entry ?:  "." python-syntax-table))))
 
 ;; ffap-alist
 (add-to-list 'ffap-alist '(python-mode . python-ffap))
