@@ -8,6 +8,13 @@
 ;;
 ;; (setq tab-width 4) ... tab char in the file:
 
+;; (c-get-style-variables "gnu" )
+;; (c-style-alist )
+;; (c-style-variables
+;;  c-cleanup-list)
+;; c-set-style
+;; c-indentation-style
+
 
 ;; modify the "Linux" style to instert <TAB>s !
 ;; Why?
