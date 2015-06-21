@@ -12,7 +12,7 @@
 (put 'add-hook 'lisp-indent-function 1)
 
 
-(when nil			
+(when nil
   (lookup-key lisp-mode-map [(meta control ?x)])
   (lookup-key emacs-lisp-mode-map [(meta control ?x)])
   (lookup-key global-map [(meta control ?x)]))
@@ -41,7 +41,7 @@
   (define-key map [(meta control ?x)]
 					;'eval-defun in emacs-lisp mode !!
     'lisp-eval-defun)	;you simply press it twice !
-  
+
   (define-key map [(meta control ?x)] 'eval-defun) ; lisp-
   (define-key map [(meta control ?o)] 'wrap-function)
 
@@ -77,7 +77,7 @@
   ;(lambda () (interactive)
   ;(insert-tem  tempo- "(interactive)")))
 
-  
+
   ;; function
   ;; previous  beginning
   ;; next
@@ -146,12 +146,12 @@
 ;; Note method:
 ; (setq lisp-imenu-generic-expression
 ;       '(
-; 	(nil 
+; 	(nil
 ; 	 "^\\s-*(def\\(un\\|subst\\|macro\\|advice\\|method\\|ine-skeleton\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)" 2)
-; 	("Variables" 
+; 	("Variables"
 ; 	 "^\\s-*(def\\(var\\|const\\|custom\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)" 2)
-; 	("Types" 
-; 	 "^\\s-*(def\\(group\\|type\\|struct\\|class\\|ine-condition\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)" 
+; 	("Types"
+; 	 "^\\s-*(def\\(group\\|type\\|struct\\|class\\|ine-condition\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)"
 ; 	 2)))
 
 (when nil
@@ -181,11 +181,11 @@
 (when nil
   (setq lisp-font-lock-keywords-2
       (append lisp-font-lock-keywords-2
-	      (list 
+	      (list
 	       ;; highlight warnings
 	       (if sawfish-warning-keyword-list
-		   (list (concat "\\<" 
-				 `,(regexp-opt sawfish-warning-keyword-list) 
+		   (list (concat "\\<"
+				 `,(regexp-opt sawfish-warning-keyword-list)
 				 "\\>")
 			 '(0 font-lock-warning-face prepend)))))))
 

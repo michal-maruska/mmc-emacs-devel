@@ -3,7 +3,7 @@
 
 (require 'mmc-simple)
 ;; horror!
-;; I override the ffap.el's 
+;; I override the ffap.el's
 (defun ffap-tex (name)
   (ffap-tex-init)
   (let ((path (shell-command-to-string-no-nl (format "/usr/bin/kpsewhich %s" (shell-quote-argument name)))))
