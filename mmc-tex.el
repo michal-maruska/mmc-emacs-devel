@@ -15,4 +15,13 @@
   '(aput 'ffap-alist 'plain-tex-mode 'ffap-tex) ;-mode
   )
 
+
+
+;;; Hooks
+(add-hook 'Tex-mode-hook
+  (lambda() (auto-fill-mode 1)))
+(add-hook 'Tex-mode-hook
+  #'turn-on-auto-fill)
+
+
 (provide 'mmc-tex)
