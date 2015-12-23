@@ -230,6 +230,4 @@ and invoke a html browser to display the relevant API docs  "
 
 
 (require 'mmc-c-mode-patches)
-
-(require 'mmc-c-styles)
 (provide 'mmc-c-mode)
