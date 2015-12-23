@@ -88,24 +88,30 @@
 	   (? (or "extends"  "implements"))
 	   )				;\\({\\|extends\\|implements\\)\\)
 
+	  ;; methods
 	  (sequence
 	   (0+ space)
 	   ;; modifiers:
-	   (1+
+	   (0+
 	    (sequence
 	     (or
 	      "public" "protected" "private" "static" "final" "native"
-	      ;; "synchronized"
-	      "transient" "volatile" "strictfp"
-	      ) space))
-	   (0+ space)
+	      "transient" "volatile" "strict" "synchronized")
+	     space))
+	   ;(0+ space)
 	   ;; return type  "void"
-	   (1+ alphanumeric)
-	   (0+ space)
+	   (sequence
+	    ;; fixme: not  `for' `if' `switch'...
+	    (1+ alphanumeric)
+	   ;; ArrayType[]
+	    (? "[]")
+	    (0+ space))
+
 	   ;; name
 	   (1+ alphanumeric)
-	   (0+ space)
+	   ; (0+ space)
 	   "("
+	   (? ")")
 	   )))))
 
   ;; still missing:
