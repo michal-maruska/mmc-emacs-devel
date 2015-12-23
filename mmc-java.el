@@ -6,20 +6,31 @@
 ;; file-under-p
 (require 'mmc-simple)
 
-(defun java-find-module-in-cscope (symbol cscope-files-file root)
-  ""
+(defun java-find-module-in-cscope (symbol cscope-files-file root &optional extension)
+  ;; Find a possible filename in cscope.files, which could carry the definition of
+  ;; symbol ... java Class name. x.y.z -> either x/y/z  or x/y file.
+  ;; @extension
   (save-excursion
-    (let ((relative (add-suffix-optionally
-		     (translate-module-to-filename symbol "\\.") ".java")))
-      (concat
-					;"~/next/"
-       root				;"~/italia/"
-       ;; ~/next/cscope.files.java
-       (or (find-line-by-string relative cscope-files-file)
-	   (find-line-by-string
-	    ;; a/b.java -> a.java:
-	    (concat (substring (file-name-directory relative) 0 -1) ".java")
-	    cscope-files-file))))))
+    (let ((relative
+	   (concat  "/"
+		    (add-suffix-optionally
+		     (translate-module-to-filename symbol "\\.")
+		     (or extension ".java")))))
+      (aif found
+	   (or (find-line-by-string relative cscope-files-file)
+	       (find-line-by-string
+		;; a/b.java -> a.java:
+		;; sometimes it's an internal class:
+		;; it's not in the `import' statement, but used directly!
+		;; like:
+		;; import a;
+		;; x = new a.b.d();
+		;;
+		(concat (substring (file-name-directory relative) 0 -1)
+			(or extension ".java"))
+		cscope-files-file))
+	   (concat root found)
+	   nil))))
 
 
 (defun java-find-class/package (symbol)
@@ -27,15 +38,31 @@
   (let ((cwd (file-name-directory (buffer-file-name))))
     (cond
      ((file-under-p cwd "~/italia")
-      (java-find-module-in-cscope symbol
-			 "~/italia/cscope.files.java"
-			 "~/italia/"))
+      (or
+       (java-find-module-in-cscope symbol
+				   "~/italia/cscope.files.java"
+				   "~/italia/")
+       (java-find-module-in-cscope symbol
+				   "~/italia/cscope.files.java"
+				   "~/italia/" ".aidl")))
+
+     ((file-under-p cwd "~/gallo")
+      (or
+       (java-find-module-in-cscope symbol
+				   "~/gallo/cscope.files.java"
+				   "~/gallo/")
+       (java-find-module-in-cscope symbol
+				   "~/gallo/cscope.files.java"
+				   "~/gallo/" ".aidl")))
+
 
      ((or (file-under-p cwd "~/next")
-	  (file-under-p cwd "/home/maruska/next"))
+	  (file-under-p cwd "/home/maruska/next")
+	  (file-under-p cwd "~/nav4/")
+	  )
       (java-find-module-in-cscope symbol
-				  "~/next/cscope.files.java"
-				  "~/next/"))
+				  "~/nav4/cscope.files.java"
+				  "~/nav4/"))
      (t
       nil))))
 
