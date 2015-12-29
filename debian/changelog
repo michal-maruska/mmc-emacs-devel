@@ -1,3 +1,24 @@
+mmc-emacs-devel (2.0) release; urgency=medium
+
+  * Use cscope.files(.java) for ffap
+  * entire filename & case sensitive lookup in cscope.files
+  * java ffap: search .aidl too. And container-classes' files.
+  * java: improve outline rx -- to locate functions which return Arrays
+  * drop duplicated (require)
+  * Adapt to find-line-by-string in mmc-simple.el: drop dependency on cscope.el
+  * cosmetics & spaces
+  * set find-function-source-path to my sources.
+  * patches for c-guess-*: basically advices.
+  * Activate paredit.
+  * [FIX] Restore the modified Python-mode syntax table.
+  * start supporting Gambit
+  * Concentrate the list of vars for C indentation.
+  * auto-fill in TeX ?
+  * shell: for now failed skeleton for getopt
+  * gitk: take advantage of invoke-on-display
+
+ -- Michal Maruska <mmaruska@gmail.com>  Tue, 29 Dec 2015 14:39:11 +0100
+
 mmc-emacs-devel (1.19) release; urgency=medium
 
   * ffap-java: find the x.y class inside x.java
