@@ -234,26 +234,87 @@ based on filename."
 
 
 (defun tomtom-hook ()
-  ""
+  "adapt to tomtom style for C"
   (interactive)
   ;; when loading & saving
   (setq indent-tabs-mode t)
   (setq tab-width 8
-	;;
 	;; when indenting myself:
 	;; c-basic-offset 8
 	)
   (if (functionp 'c-guess-buffer)
-      (c-guess-buffer))
-
-  ;; mmc: for TomTom I need to include the NDK from Perforce.
-  ;; make-variable-buffer-local
-  )
+      (c-guess-buffer)))
 
 
-(add-hook 'cc-mode-hook 'decide-for-c-include-path)
-(add-hook 'c++-mode-hook 'decide-for-c-include-path)
-(add-hook 'c-mode-hook 'decide-for-c-include-path)
+
+(defun my-c-mode-hook ()
+  "Common part for C and C++ modes."
+					;(electric)
+  ;; simple; anything starting the line but these:
+  (setq outline-regexp "[^{} \t#\n]")
+  ;; what? add or remove the space in  "f (x)"?
+  (require 'mmc-c-mode-patches)
+  (add-to-list 'c-cleanup-list
+	       'no-space-before-funcall
+	       ;'space-before-funcall
+	       )
+					;brace-else-brace
+  ;; force the C++ mode:
+  (if (and (or
+	    (string-match "fork-plugin/src/.*\\.h" (buffer-file-name))
+	    (string-match "/perforce/" (buffer-file-name)))
+	   (not (eq major-mode 'c++-mode)))
+      (c++-mode)
+    (decide-c-style-by-path))
+  (decide-for-c-include-path))
+
+(defun decide-c-style-by-path ()
+  "The part which comes after possibly forcing C++ mode.
+Decide for a style, based on path."
+  ;; avoid duplication, so exit immediately.
+  (let* ((name (buffer-file-name))
+	 (style
+	  (if name
+	      (cond
+	       ((string-match "/usr/src/linux" name)
+		"linux")
+	       ((string-match "/xorg/" name)
+		"xorg")
+	       ((string-match "/x/" name)
+		"xorg")
+	       ((string-match "/fork-plugin/src/" name)
+		"xorg")
+
+	       ((string-match "/sawfish/" name)
+		"rxvt")
+
+	       ((string-match "/linux-2.6" name)
+		"linux")
+
+	       ((or (string-match "/perforce/" name)
+		    (string-match "/ngl/" name)
+
+		    (string-match "/next/" name)
+		    (string-match "/italia/" name)
+		    (string-match "/nav4/" name)
+		    (string-match "/gallo/" name)
+		    (string-match "/n4f/" name)
+		    )
+		;; /home/maruska/ngl/project/arizona2/main/CrossPlatform/
+		;; Framework/PlatformAbstractionLayer/Implementation/DeviceInformation/
+		"tomtom")
+	       (t
+					;"free-group-style"
+		nil))
+	    nil)))
+    (when style
+      (c-set-style style)
+      ;; ~/git/xorg/xserver/xkb/freeze-stack.c
+      (if (string= style "tomtom")
+	  (tomtom-hook))
+      )))
+(add-hook 'c-mode-hook 'my-c-mode-hook)
+(add-hook 'c++-mode-hook 'my-c-mode-hook)
 
 (provide 'mmc-c-styles)
 
