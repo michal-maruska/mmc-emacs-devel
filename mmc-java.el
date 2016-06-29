@@ -4,62 +4,76 @@
 ;; file-under-p find-line-by-string
 (require 'mmc-simple)
 
+(defun file-name-directory-no/ (filename)
+  "drop the separator as well."
+  (substring (file-name-directory filename) 0 -1))
+
 (defun java-find-module-in-cscope (symbol cscope-files-file root &optional extension)
-  ;; Find a possible filename in cscope.files, which could carry the definition of
-  ;; symbol ... java Class name. x.y.z -> either x/y/z  or x/y file.
-  ;; @extension
+  "Find a possible filename in cscope.files, which could carry the definition of
+  symbol ... java Class name. x.y.z -> either x/y/z  or x/y file.
+  ;; @extension"
   (save-excursion
-    (let ((relative
+    (let ((relative-class-file-path
 	   (concat  "/"
 		    (add-suffix-optionally
 		     (translate-module-to-filename symbol "\\.")
 		     (or extension ".java")))))
       (aif found
-	   (or (find-line-by-string relative cscope-files-file)
-	       (find-line-by-string
-		;; a/b.java -> a.java:
-		;; sometimes it's an internal class:
-		;; it's not in the `import' statement, but used directly!
-		;; like:
-		;; import a;
-		;; x = new a.b.d();
-		;;
-		(concat (substring (file-name-directory relative) 0 -1)
-			(or extension ".java"))
-		cscope-files-file))
-	   (concat root found)
+	   (or (find-line-by-string relative-class-file-path cscope-files-file)
+	       ;; try to find class x.y as `internal-class' y inside class x.
+	       (let ((outer-class (file-name-directory-no/ relative-class-file-path)))
+		 (if (string= "" outer-class)
+		     nil
+		   (find-line-by-string
+		    ;; a/b.java -> a.java:
+		    ;; sometimes it's an internal class:
+		    ;; it's not in the `import' statement, but used directly!
+		    ;; like:
+		    ;; import a;
+		    ;; x = new a.b.d();
+		    ;;
+		    (concat outer-class
+			    (or extension ".java"))
+		    cscope-files-file))))
+	   (compose-path root found)
 	   nil))))
+
+
+
+;; fixme: drop-prefix
+(defun find-in-cscope-files (symbol cscope-file-dir &optional prefix)
+  "return filename related to class @symbol, in cscope in given directory."
+  (let ((cscope-base-file "cscope.files.java"))
+    (if (not prefix)
+	(setq prefix cscope-file-dir))
+    (or
+     (java-find-module-in-cscope symbol
+				 (compose-path cscope-file-dir cscope-base-file)
+				 prefix)
+     (java-find-module-in-cscope symbol
+				 (compose-path cscope-file-dir cscope-base-file)
+				 prefix ".aidl"))))
 
 (defun java-find-class/package (symbol)
   "ffap implementation to use ...."
   (let ((cwd (file-name-directory (buffer-file-name))))
     (cond
      ((file-under-p cwd "~/italia")
-      (or
-       (java-find-module-in-cscope symbol
-				   "~/italia/cscope.files.java"
-				   "~/italia/")
-       (java-find-module-in-cscope symbol
-				   "~/italia/cscope.files.java"
-				   "~/italia/" ".aidl")))
+      (find-in-cscope-files symbol "~/italia"))
 
      ((file-under-p cwd "~/gallo")
-      (or
-       (java-find-module-in-cscope symbol
-				   "~/gallo/cscope.files.java"
-				   "~/gallo/")
-       (java-find-module-in-cscope symbol
-				   "~/gallo/cscope.files.java"
-				   "~/gallo/" ".aidl")))
-
+      (find-in-cscope-files symbol "~/gallo"))
 
      ((or (file-under-p cwd "~/next")
 	  (file-under-p cwd "/home/maruska/next")
-	  (file-under-p cwd "~/nav4/")
-	  )
-      (java-find-module-in-cscope symbol
-				  "~/nav4/cscope.files.java"
-				  "~/nav4/"))
+	  (file-under-p cwd "~/nav4/"))
+      (find-in-cscope-files symbol
+			    "~/nav4/"))
+     ;; aif =>
+     ((file-under-p cwd "~/n4f/nav4-features")
+      (or
+       (find-in-cscope-files symbol "~/n4f/nav4-features")
+       (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
      (t
       nil))))
 
