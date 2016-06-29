@@ -194,14 +194,53 @@
 
 (require 'cc-guess nil 'noerror)
 
+(defmacro add-to-list-list (symbol &rest elements)
+  ""
+  `(set ,symbol (append (symbol-value ,symbol)
+			(list ,@elements))))
+
+
+;; see mmc-c-mode.el for cscope-based solution: todo: cron -> reindex!
+(defun decide-for-c-include-path ()
+  "Extend `FFAP' paths list for a C-mode,
+based on filename."
+  (cond
+   ((string-match "next/kernel/" (buffer-file-name))
+    (add-to-list 'ffap-c-path
+		 "~/next/kernel/include"))
+
+   ((string-match "spark/linux-2.6.28.10/" (buffer-file-name))
+    (add-to-list 'ffap-c-path
+		 "~/perforce/spark/linux-2.6.28.10/include"))
+
+   ((string-match "italia/" (buffer-file-name))
+    ;; fixme: only for italia. see ...
+    ;; fixme: todo: shared variable ....
+    (make-local-variable 'ffap-c-path)
+    (add-to-list-list 'ffap-c-path
+		 "~/italia/frameworks/native/include/" ;utils/Log.h
+		 "~/italia/system/core/include/"
+					;"~/perforce/spark/linux-2.6.28.10/include"
+		 ))
+
+   ((or (string-match "nav4/" (buffer-file-name))
+	(string-match "next/" (buffer-file-name)))
+    (make-local-variable 'ffap-c-path)
+    (add-to-list-list
+     'ffap-c-path
+     "~/nav4/frameworks/native/include/" ;utils/Log.h
+     "~/nav4/system/core/include/"
+     "~/nav4/frameworks/base/include/"))))
+
+
 (defun tomtom-hook ()
   ""
   (interactive)
   ;; when loading & saving
   (setq indent-tabs-mode t)
   (setq tab-width 8
-  ;;
-  ;; when indenting myself:
+	;;
+	;; when indenting myself:
 	;; c-basic-offset 8
 	)
   (if (functionp 'c-guess-buffer)
@@ -209,17 +248,12 @@
 
   ;; mmc: for TomTom I need to include the NDK from Perforce.
   ;; make-variable-buffer-local
-  (make-local-variable 'ffap-c-path)
-  (add-to-list 'ffap-c-path
-	       (concat
-		"~/italia/"
-		"system/core/include/"))
-  (add-to-list 'ffap-c-path
-	       (concat
-		"/home/michal/perforce/platform/android/main/mydroid/ndk"
-		"/build/prebuilt/linux-x86/arm-eabi-4.4.0/arm-eabi/"
-		"include/c++/4.4.0/")))
+  )
 
+
+(add-hook 'cc-mode-hook 'decide-for-c-include-path)
+(add-hook 'c++-mode-hook 'decide-for-c-include-path)
+(add-hook 'c-mode-hook 'decide-for-c-include-path)
 
 (provide 'mmc-c-styles)
 
