@@ -408,3 +408,29 @@ the absolute file name of the file if STYLE-NAME is nil."
 
 
 (provide 'mmc-c-mode-patches)
+
+
+(defun hack-one-local-variable (var val)
+  "Set local variable VAR with value VAL.
+If VAR is `mode', call `VAL-mode' as a function unless it's
+already the major mode."
+  (pcase var
+    (`mode
+     (let ((mode (intern (concat (downcase (symbol-name val))
+                                 "-mode"))))
+       (unless (eq (indirect-function mode)
+                   (indirect-function major-mode))
+	 (if (boundp mode)		;mmc: added this IF!
+	     (funcall mode)))))
+    (`eval
+     (pcase val
+       (`(add-hook ',hook . ,_) (hack-one-local-variable--obsolete hook)))
+     (save-excursion (eval val)))
+    (_
+     (hack-one-local-variable--obsolete var)
+     ;; Make sure the string has no text properties.
+     ;; Some text properties can get evaluated in various ways,
+     ;; so it is risky to put them on with a local variable list.
+     (if (stringp val)
+         (set-text-properties 0 (length val) nil val))
+     (set (make-local-variable var) val))))
