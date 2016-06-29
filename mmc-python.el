@@ -10,7 +10,8 @@
   '(progn
      (define-key py-mode-map [(backspace)]    'py-electric-backspace) ;"\C-h"
      (define-key py-mode-map [(control meta ?u)]    'py-goto-block-up)
-     (define-key py-mode-map [(control meta ?f)]    'py-next-block)
+     (define-key py-mode-map [(control meta ?f)]    'py-forward-block)
+     (define-key py-mode-map [(control meta ?b)]    'py-backward-block)
      ;(define-key py-mode-map [(meta ?f)]    nil)
      ;;(define-key py-mode-map "\e\C-a"    'py-beginning-of-def-or-class)
      ))
@@ -37,7 +38,7 @@
 (defun py-next-block ()
   "go to the next block.  Cf. `forward-sexp' for lisp-mode"
   (interactive)
-  (py-mark-block nil 't)
+  (py-mark-block) ;;  nil 't)
   (back-to-indentation))
 
 
