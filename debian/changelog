@@ -1,3 +1,16 @@
+mmc-emacs-devel (2.1) release; urgency=medium
+
+  * add debian/emacsen-compat to avoid being declared broken.
+  * Change the priority, to be after debian.
+  * Adapt to change in python-mode? next -> forward
+  * Patch! Avoid failing due to  cpp: setting in file-local variables.
+  * Formalize the double-search for Java objects -- java & aidl files.
+  * finally drop, as it's in mmc-simple.el ?
+  * add-to-list-list + decide-for-c-include-path
+  * my-c-mode-hook: choose the style, maybe invoke tt hook, and set ffap-path
+
+ -- Michal Maruska <mmaruska@gmail.com>  Wed, 29 Jun 2016 15:57:33 +0200
+
 mmc-emacs-devel (2.0) release; urgency=medium
 
   * Use cscope.files(.java) for ffap
