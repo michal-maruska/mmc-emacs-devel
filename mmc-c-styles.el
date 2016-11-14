@@ -1,23 +1,28 @@
 (require 'cc-mode)
 (require 'assoc)
+
 ;; so these don't set/use c-basic-offset ??
 ;; (set to 2 or 4). Maybe inherit from ...?
 
+;; 2013/5  so, C-style talks about + - skips; those
+;; are relative to/in units of "c-basic-offset spaces"
+;; then spaces/tab is dependent (like I/O)
+;; on indent-tabs-mode and tab-width.
+;;
 ;; c-basic-offset     ... how much spaces + c-offsets-alist
 ;; indent-tabs-mode   ... use `TAB-compression' JZW
 ;;
-;; (setq tab-width 4) ... tab char in the file:
+;; (setq tab-width 4) ... tab char in the file: (the compression factor)
 
-;; (c-get-style-variables "gnu" )
-;; (c-style-alist )
-;; (c-style-variables
-;;  c-cleanup-list)
-;; c-set-style
-;; c-indentation-style
+;; (c-get-style-variables "gnu")
+;; c-style-alist
+;; c-style-variables
+;;  c-indentation-style -- internal.
+;; c-cleanup-list  .. todo!
 
+;; (c-set-style
 
-;; modify the "Linux" style to instert <TAB>s !
-;; Why?
+;; modify the "Linux" style to insert <TAB>s !
 
 ;; c-insert-tab-function     tab-to-tab-stop
 ;; indent-tabs-mode          t
@@ -25,13 +30,14 @@
 ;; make it insert TABs!
 ;; (aget (aget c-style-alist "linux") 'indent-tabs-mode)
 
+;; This rewrites the upstream linux style!
 (let ((l (aget c-style-alist "linux")))
   (unless (aget l 'indent-tabs-mode)
     ;; (x y ...) -> (x Z y ...)
     (setcdr l
-	    (cons
-	     '(indent-tabs-mode . t)
-	     (cdr l)))))
+        (cons
+         '(indent-tabs-mode . t)
+         (cdr l)))))
 
 ;; paren-brace:  "){" -> ") {"
 ;; with newline in between?
@@ -40,11 +46,11 @@
   (unless
       (memq 'paren-brace cleanup)
     (setcdr cleanup
-	    (cons
-	     'paren-brace
-	     (cdr cleanup)))))
-
+        (cons
+         'paren-brace
+         (cdr cleanup)))))
 ;; (add-to-list 'c-cleanup-list 'paren-brace)
+
 
 (c-add-style
  "tomtom"
