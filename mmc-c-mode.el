@@ -3,38 +3,14 @@
 
 (require 'mmc-font-lock)
 (require 'cc-mode)
+(require 'mmc-syntax)
 
+;; Anything related to style (formatting) should go here:
 (require 'mmc-c-styles)
 
-;; rxvt
-;; XFree86
-(defun my-c-xfree()
-  (interactive)
-  ;; fixme:  "xorg"
-  (setq c-default-style "user"
-        c-basic-offset 4))
-
-
-(defun my-c-emacs()
-  (interactive)
-  (setq c-default-style "user"
-        c-basic-offset 2))
-
-
-(defun my-c-sf()
-  (interactive)
-  (setq c-default-style "user"
-        c-basic-offset 3))
-
-;; linux:
-;; TABS, not spaces!
-;; 8
-
+(require 'ffap)
 
 ;; patches:  -p !
-
-
-
 (defun my-turn-on-auto-newline ()
   ;; after brace, comma, ; :
   ;; /la in modeline
@@ -42,44 +18,41 @@
 
 (add-hook 'c-mode-common-hook 'my-turn-on-auto-newline)
 
-
-;; outline:
+;;; outline:
 (add-hook 'c-mode-hook
   (lambda ()
     (set (make-variable-buffer-local 'outline-regexp)
-	 ;; anything at the BOL? apart from { } etc.
-	 "[^#\n
- 	{}]")
+         ;; anything at the BOL? apart from { } etc.
+         "[^#\n
+        {}]")
     (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)))
 
 (add-hook 'c++-mode-hook
   (lambda ()
     ;; the same!
     (set (make-variable-buffer-local 'outline-regexp)
-	 "[^#\n
- 	{}]")))
+         "[^#\n
+        {}]")))
 
 
-
+;;; font-lock
 (font-lock-add-keywords
   'c-mode
   '(("set_frame_shapes" 0 font-lock-builtin-face))
   '(("mmc:" 0 font-lock-builtin-face))
   )
 
-
-
 (when nil
   (aget font-lock-keywords-alist 'c-mode)
 
   (setq font-lock-keywords-alist
-	(aput 'font-lock-keywords-alist 'c-mode '()))
+        (aput 'font-lock-keywords-alist 'c-mode '()))
   (setq font-lock-keywords-alist
-	(cdr font-lock-keywords-alist))
+        (cdr font-lock-keywords-alist))
   )
 
-
-(require 'ffap)
+;;; ffap:
+;; todo:  conditionally? 
 (add-to-list 'ffap-c-path "~/sc/gauche/.gl/include/")
 (add-to-list 'ffap-c-path "/p/postgresql-8/work/pgsql-server/src/include/")
 
@@ -91,7 +64,7 @@
 (add-to-list 'ffap-c-path "/usr/lib/gauche/0.9/include/")
 ;; ffap-c-path
 (set-default 'ffap-c-path
-	     (cons "/usr/lib/gauche/0.9/include/" ffap-c-path))
+             (cons "/usr/lib/gauche/0.9/include/" ffap-c-path))
 
 ;; when adding at late run-time:
 ;; (setq-default ffap-c-path ffap-c-path)
@@ -108,16 +81,14 @@
 
 ;; find-line-by-string
 ;; file-under-p
-(require 'mmc-simple)
-
 ;; file-under-p
 (defun find-file-in-cscope (filename cscope-files-file prefix)
   ""
   (let ((line (or
-	       (find-line-by-string (concat "/" filename) cscope-files-file)
-	       (find-line-by-string filename cscope-files-file))))
+               (find-line-by-string (concat "/" filename) cscope-files-file)
+               (find-line-by-string filename cscope-files-file))))
     (if line
-	(concat prefix line)
+        (concat prefix line)
       nil)))
 
 (defadvice ffap-c-mode (around cscope)
@@ -127,22 +98,20 @@
   (unless ad-return-value
     ;;      (ffap-locate-file name t ffap-c-path))
     (setq ad-return-value
-	  (let ((cwd (file-name-directory (buffer-file-name))))
-	    (cond
-	     ((file-under-p cwd "~/italia")
-	      (find-file-in-cscope name
-				   "~/italia/cscope.files"
-				   "~/italia/"))
+          (let ((cwd (file-name-directory (buffer-file-name))))
+            (cond
+             ((file-under-p cwd "~/italia")
+              (find-file-in-cscope name
+                                   "~/italia/cscope.files"
+                                   "~/italia/"))
 
-	     ((or (file-under-p cwd "~/next")
-		  (file-under-p cwd "/home/maruska/next"))
-	      (find-file-in-cscope name
-				   "~/next/cscope.files"
-				   "~/next/"))
-	     (t
-	      nil))))))
-
-(require 'mmc-syntax)
+             ((or (file-under-p cwd "~/next")
+                  (file-under-p cwd "/home/maruska/next"))
+              (find-file-in-cscope name
+                                   "~/next/cscope.files"
+                                   "~/next/"))
+             (t
+              nil))))))
 
 ;;; tabs
 (defun kaz-c-mode-common-hook ()
@@ -154,7 +123,7 @@
        ;; I realized that it was due to my self-imposed tab=4
        ;; so, for these sources i have to accept their standard:
        (file-under-p (buffer-file-name (current-buffer))
-		     "/p/xfree-4.3.0-r1_experimental/work/xc/")
+                     "/p/xfree-4.3.0-r1_experimental/work/xc/")
        (file-under-p (buffer-file-name (current-buffer)) "/p/"))
 
       (setq tab-width 8)))
@@ -163,8 +132,7 @@
 (add-hook 'c-mode-common-hook         'kaz-c-mode-common-hook)
 
 
-
-
+;;; documentation:
 (defun gtk-doc (symbol)
   "grab the symbol under the point (interpret it as a gtk+ function name),
 and invoke a html browser to display the relevant API docs  "
@@ -175,12 +143,11 @@ and invoke a html browser to display the relevant API docs  "
    ((string-match "^q" symbol)
     (browse-url-elinks
      (compose-path "file:///opt/qt-4.7.0-beta1/doc/html"
-		   (concat (downcase symbol) ".html"))))
+                   (concat (downcase symbol) ".html"))))
    (t; else
     (xterm nil (format "gnome-doc %s" symbol) symbol))))
 
 ;;(call-process "/x/activity/shell/gtk" nil nil nil symbol)
-
 (defun invert-word-separator (start end)
   (interactive "r")
   ;; find-out in what direction (- -> _  or reverse)
@@ -199,7 +166,6 @@ and invoke a html browser to display the relevant API docs  "
     (do-replace-string "-" "" nil start end)))
 
 ;; reverse ?
-
 (defun camelcase-2-lispy-name (start end)
   (interactive "r")
   (save-excursion
@@ -221,15 +187,5 @@ and invoke a html browser to display the relevant API docs  "
 
 (copy-face 'font-lock-th-face 'font-lock-string-face)
 (require 'mmc-gud)
-
-
-
-;; kernel & gnome:
-(setq
- indent-tabs-mode t
- c-basic-offset 8
- tab-width 8)
-
-
 (require 'mmc-c-mode-patches)
 (provide 'mmc-c-mode)
