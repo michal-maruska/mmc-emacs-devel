@@ -14,29 +14,29 @@
   ;; @extension"
   (save-excursion
     (let ((relative-class-file-path
-	   (concat  "/"
-		    (add-suffix-optionally
-		     (translate-module-to-filename symbol "\\.")
-		     (or extension ".java")))))
+           (concat  "/"
+                    (add-suffix-optionally
+                     (translate-module-to-filename symbol "\\.")
+                     (or extension ".java")))))
       (aif found
-	   (or (find-line-by-string relative-class-file-path cscope-files-file)
-	       ;; try to find class x.y as `internal-class' y inside class x.
-	       (let ((outer-class (file-name-directory-no/ relative-class-file-path)))
-		 (if (string= "" outer-class)
-		     nil
-		   (find-line-by-string
-		    ;; a/b.java -> a.java:
-		    ;; sometimes it's an internal class:
-		    ;; it's not in the `import' statement, but used directly!
-		    ;; like:
-		    ;; import a;
-		    ;; x = new a.b.d();
-		    ;;
-		    (concat outer-class
-			    (or extension ".java"))
-		    cscope-files-file))))
-	   (compose-path root found)
-	   nil))))
+           (or (find-line-by-string relative-class-file-path cscope-files-file)
+               ;; try to find class x.y as `internal-class' y inside class x.
+               (let ((outer-class (file-name-directory-no/ relative-class-file-path)))
+                 (if (string= "" outer-class)
+                     nil
+                   (find-line-by-string
+                    ;; a/b.java -> a.java:
+                    ;; sometimes it's an internal class:
+                    ;; it's not in the `import' statement, but used directly!
+                    ;; like:
+                    ;; import a;
+                    ;; x = new a.b.d();
+                    ;;
+                    (concat outer-class
+                            (or extension ".java"))
+                    cscope-files-file))))
+           (compose-path root found)
+           nil))))
 
 
 
@@ -45,14 +45,14 @@
   "return filename related to class @symbol, in cscope in given directory."
   (let ((cscope-base-file "cscope.files.java"))
     (if (not prefix)
-	(setq prefix cscope-file-dir))
+        (setq prefix cscope-file-dir))
     (or
      (java-find-module-in-cscope symbol
-				 (compose-path cscope-file-dir cscope-base-file)
-				 prefix)
+                                 (compose-path cscope-file-dir cscope-base-file)
+                                 prefix)
      (java-find-module-in-cscope symbol
-				 (compose-path cscope-file-dir cscope-base-file)
-				 prefix ".aidl"))))
+                                 (compose-path cscope-file-dir cscope-base-file)
+                                 prefix ".aidl"))))
 
 (defun java-find-class/package (symbol)
   "ffap implementation to use ...."
@@ -65,10 +65,10 @@
       (find-in-cscope-files symbol "~/gallo"))
 
      ((or (file-under-p cwd "~/next")
-	  (file-under-p cwd "/home/maruska/next")
-	  (file-under-p cwd "~/nav4/"))
+          (file-under-p cwd "/home/maruska/next")
+          (file-under-p cwd "~/nav4/"))
       (find-in-cscope-files symbol
-			    "~/nav4/"))
+                            "~/nav4/"))
      ;; aif =>
      ((file-under-p cwd "~/n4f/nav4-features")
       (or
@@ -184,12 +184,12 @@
 
 ;; ffap-alist
 (add-to-list 'ffap-alist
-	     '(java-mode . java-find-class/package))
+             '(java-mode . java-find-class/package))
 
 (add-hook 'java-mode-hook 'cscope-minor-mode)
 (add-hook 'java-mode-hook 'hs-minor-mode)
 
 (add-to-list 'auto-mode-alist
-	     '(".*.aidl" . java-mode))
+             '(".*.aidl" . java-mode))
 
 (provide 'mmc-java)

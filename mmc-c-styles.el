@@ -78,48 +78,50 @@
 
    ;;
    (c-hanging-braces-alist     . ((substatement-open after)
-				  (brace-list-open)))
+                                  (brace-list-open)))
    (c-hanging-colons-alist     . ((member-init-intro before)
-				  (inher-intro)
-				  (case-label after)
-				  (label after)
-				  (access-label after)))
+                                  (inher-intro)
+                                  (case-label after)
+                                  (label after)
+                                  (access-label after)))
    (c-cleanup-list             . (scope-operator
-				  no-space-before-funcall
-				  empty-defun-braces
-				  defun-close-semi
-				  ;; if ()_{
-				  paren-brace
-				  ))
+                                  no-space-before-funcall
+                                  empty-defun-braces
+                                  defun-close-semi
+                                  ;; if ()_{
+                                  paren-brace
+                                  ))
    ;; C++ so
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
-				  (substatement-open . 0)
-				  (case-label        . 4)
-				  (block-open        . 0)
-				  (knr-argdecl-intro . -)
+                                  (statement-block-intro . 2)
+                                  (inclass . 2)
+                                  (defun-block-intro . 2)
+                                  (label . 0)
+                                  (substatement-open . 0)
+                                  (case-label        . 4)
+                                  (block-open        . 0)
+                                  (knr-argdecl-intro . -)
 
-				  ;; namespace-open
-				  ;; innamespace  .... ignore it!
-				  (substatement  . 2)
-				  (statement-block-intro . 2)
-				  (innamespace . 0)
-				  (inline-open 0)
-				  (inclass . 2)
-				  (defun-block-intro . 2)
-				  (label . 0)
 
-				  ;; problem:  if a b; else c;    if after b we have ";" then
-				  ;; relative to "if", otherwise relative to  "b" !!
-				  ;;
-				  ;; 2011-02-24 for some reason I had -2
-				  ;; but
-				  (else-clause 0)
-				  (topmost-intro-cont 0)
-				  (access-label . -2) ; - inclass
-				  (topmost-intro . 0)
-				  (case-label . 0)
-				  (statement-case-intro . 2)
-				  (member-init-intro . 2)))
+                                  ;; namespace-open
+                                  ;; innamespace  .... ignore it!
+                                  (substatement  . 2)
+
+                                  (innamespace . 0)
+                                  (inline-open 0)
+
+                                  ;; problem:  if a b; else c;    if after b we have ";" then
+                                  ;; relative to "if", otherwise relative to  "b" !!
+                                  ;;
+                                  ;; 2011-02-24 for some reason I had -2
+                                  ;; but
+                                  (else-clause 0)
+                                  (topmost-intro-cont 0)
+                                  (access-label . -2) ; - inclass
+                                  (topmost-intro . 0)
+                                  (case-label . 0)
+                                  (statement-case-intro . 2)
+                                  (member-init-intro . 2)))
 
    (c-echo-syntactic-information-p . t)))
 
@@ -127,60 +129,60 @@
 (c-add-style
  "dui"
  '((c-cleanup-list             . (no-space-before-funcall
-				  brace-else-brace))))
+                  brace-else-brace))))
 
 (c-add-style
  "xorg"
- '((c-tab-always-indent        . t)	; TAB just indents
-   ;;c-basic-offset
-   (c-comment-only-line-offset . 0)	; only comment -> additional offset
+ '((c-basic-offset . 4)
+   (c-tab-always-indent        . t)     ; TAB just indents
+   (c-comment-only-line-offset . 0)     ; only comment -> additional offset
 
    (c-hanging-braces-alist     . ((substatement-open after)
-				  (brace-list-open)))
+                  (brace-list-open)))
    (c-hanging-colons-alist     . ((member-init-intro before)
-				  (inher-intro)
-				  (case-label after)
-				  (label after)
-				  (access-label after)))
+                  (inher-intro)
+                  (case-label after)
+                  (label after)
+                  (access-label after)))
    (c-cleanup-list             . (scope-operator
-				  no-space-before-funcall
-				  empty-defun-braces
-				  defun-close-semi
-				  paren-brace))
+                  no-space-before-funcall
+                  empty-defun-braces
+                  defun-close-semi
+                  paren-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
-				  (substatement-open . 0)
-				  (case-label        . 4)
-				  (block-open        . 0)
-				  (knr-argdecl-intro . -)))
+                  (substatement-open . 0)
+                  (case-label        . 4)
+                  (block-open        . 0)
+                  (knr-argdecl-intro . -)))
    (c-echo-syntactic-information-p . t)))
 
 
 
 (c-add-style
  "rxvt"
- '((c-tab-always-indent        . t)	; TAB just indents
+ '((c-tab-always-indent        . t)     ; TAB just indents
    ;;c-basic-offset
-   (c-comment-only-line-offset . 0)	; only comment -> additional offset
+   (c-comment-only-line-offset . 0)     ; only comment -> additional offset
 
    (c-hanging-braces-alist     . ((substatement-open after)
-				  (brace-list-open)))
+                  (brace-list-open)))
    (c-hanging-colons-alist     . ((member-init-intro before)
-				  (inher-intro)
-				  (case-label after)
-				  (label after)
-				  (access-label after)))
+                  (inher-intro)
+                  (case-label after)
+                  (label after)
+                  (access-label after)))
    (c-cleanup-list             . (scope-operator
-				  no-space-before-funcall
-				  empty-defun-braces
-				  defun-close-semi
-				  paren-brace))
+                  no-space-before-funcall
+                  empty-defun-braces
+                  defun-close-semi
+                  paren-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
-				  (substatement-open . 0)
-				  (case-label        . 4)
-				  (block-open        . 0)
-				  (knr-argdecl-intro . -)))
+                  (substatement-open . 0)
+                  (case-label        . 4)
+                  (block-open        . 0)
+                  (knr-argdecl-intro . -)))
    (c-echo-syntactic-information-p . t)))
 
 
@@ -188,29 +190,29 @@
 ;; testbed:
 (c-add-style
  "mmctest"
- '((c-tab-always-indent        . t)	; TAB just indents
+ '((c-tab-always-indent        . t)     ; TAB just indents
    ;;c-basic-offset
-   (c-comment-only-line-offset . 0)	; only comment -> additional offset
+   (c-comment-only-line-offset . 0)     ; only comment -> additional offset
 
    (c-hanging-braces-alist     . ((substatement-open after)
-				  (brace-list-open)))
+                  (brace-list-open)))
    (c-hanging-colons-alist     . ((member-init-intro before)
-				  (inher-intro)
-				  (case-label after)
-				  (label after)
-				  (access-label after)))
+                  (inher-intro)
+                  (case-label after)
+                  (label after)
+                  (access-label after)))
    (c-cleanup-list             . (scope-operator
-				  ;; funny:
-				  space-before-funcall
-				  empty-defun-braces
-				  defun-close-semi
-				  paren-brace))
+                  ;; funny:
+                  space-before-funcall
+                  empty-defun-braces
+                  defun-close-semi
+                  paren-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
-				  (substatement-open . 0)
-				  (case-label        . 4)
-				  (block-open        . 0)
-				  (knr-argdecl-intro . -)))
+                  (substatement-open . 0)
+                  (case-label        . 4)
+                  (block-open        . 0)
+                  (knr-argdecl-intro . -)))
    (c-echo-syntactic-information-p . t)))
 
 
@@ -266,4 +268,3 @@ Decide for a style, based on path."
       )))
 
 (provide 'mmc-c-styles)
-
