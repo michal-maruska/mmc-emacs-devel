@@ -71,10 +71,11 @@
 
 (c-add-style
  "tomtom"
-;; (setq indent-tabs-mode t)
- '((c-tab-always-indent        . t)	; TAB just indents
-   (c-basic-offset . 8)
-   (c-comment-only-line-offset . 0)	; only comment -> additional offset
+ ;; this is not a style variable, so done in a hook:(
+ ;; (setq indent-tabs-mode t)
+ '((c-tab-always-indent        . t)         ; TAB just indents
+   (c-basic-offset . 4)                     ;fixme: 8 for some sources!
+   (c-comment-only-line-offset . 0)         ; only comment -> additional offset
 
 
    ;; when I press { I want to insert a newline BEFORE or AFTER:
