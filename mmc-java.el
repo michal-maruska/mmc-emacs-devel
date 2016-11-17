@@ -74,6 +74,12 @@
       (or
        (find-in-cscope-files symbol "~/n4f/nav4-features")
        (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
+
+     ((file-under-p cwd "~/n4f/pnd-navkit")
+      (or
+       (find-in-cscope-files symbol "~/n4f/pnd-navkit")
+       (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
+
      (t
       nil))))
 
