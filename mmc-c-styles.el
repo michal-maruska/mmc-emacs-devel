@@ -102,6 +102,9 @@
                                   (block-open        . 0)
                                   (knr-argdecl-intro . -)
 
+                                  ;; android code probably different.
+                                  (arglist-cont-nonempty . ++) ;n4f!
+
 
                                   ;; namespace-open
                                   ;; innamespace  .... ignore it!
