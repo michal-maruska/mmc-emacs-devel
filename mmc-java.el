@@ -85,52 +85,56 @@
 
 (require 'rx)
 
-(defun my-java-mode-hook ()
-  ""
-  ;; how to hide/show ??
-  ;;(setq buffer-invisibility-spec '((hs . t) (hs . t) t))
-  (setq buffer-invisibility-spec 't)
-  (set (make-local-variable 'outline-regexp)
-       ;; " *(public|private|void)"
-       (rx
-	(group				;shy-group
-	 (or
-	  (sequence			;\\([ 	]*.*
-	   (0+ space)
-	   (0+ (sequence (or "final" "private" "public" "static") (1+ space)))
-	   (or "class" "interface")
-	   (1+ space)
-	   (1+ alphanumeric)		;[a-zA-Z0-9_]
-	   (0+ (or space "\n"))
-	   (? (or "extends"  "implements"))
-	   )				;\\({\\|extends\\|implements\\)\\)
+;; fixme: recognize constructor !!! w/o return type!
+;; defconst
+(setq my-java-outline-regexp
+  ;; " *(public|private|void)"
+  (rx
+   (or
+    (group				;shy-group
+     (or
+      (sequence				;\\([ 	]*.*
+       (0+ space)
+       (0+ (sequence (or "final" "private" "public" "static") (1+ space)))
+       (or "class" "interface")
+       (1+ space)
+       (1+ alphanumeric)		;[a-zA-Z0-9_]
+       (0+ (or space "\n"))
+       (? (or "extends"  "implements"))
+       )				;\\({\\|extends\\|implements\\)\\)
 
-	  ;; methods
-	  (sequence
-	   (0+ space)
-	   ;; modifiers:
-	   (0+
-	    (sequence
-	     (or
-	      "public" "protected" "private" "static" "final" "native"
-	      "transient" "volatile" "strict" "synchronized")
-	     space))
-	   ;(0+ space)
-	   ;; return type  "void"
-	   (sequence
-	    ;; fixme: not  `for' `if' `switch'...
-	    (1+ alphanumeric)
-	   ;; ArrayType[]
-	    (? "[]")
-	    (0+ space))
+      ;; methods
+      (sequence
+       (0+ space)
+       ;; modifiers:
+       (0+
+        (sequence
+         (or
+          "public" "protected" "private" "static" "final" "native"
+          "transient" "volatile" "strict" "synchronized")
+         space))
+                                        ;(0+ space)
+       ;; return type  "void"
+       (sequence
+        ;; fixme: not  `for' `if' `switch'...
+        (1+ alphanumeric)
+        ;; ArrayType[]
+        (? "[]")
+        (0+ space))
 
-	   ;; name
-	   (1+ alphanumeric)
-	   ; (0+ space)
-	   "("
-	   (? ")")
-	   )))))
+       (1+ space)
 
+       ;; name
+       (1+ alphanumeric)
+                                        ; (0+ space)
+       "("
+       (? ")")
+       )))
+    (group
+     (0+ space)
+     "/**"
+     )
+    ))
   ;; still missing:
 ;; 	   \\(
 ;;    \\([a-zA-Z0-9_]
@@ -183,6 +187,25 @@
 ;;        "\\(?:\\([ \t]*.*\\(class\\|interface\\)[ \t]+[a-zA-Z0-9_]+[ \t\n]*\\({\\|extends\\|implements\\)\\)\\|[ \t]*\\(public\\|private\\|static\\|final\\|native\\|synchronized\\|transient\\|volatile\\|strictfp\\| \\|\t\\)*[ \t]+\\(\\([a-zA-Z0-9_]\\|\\( *\t*< *\t*\\)\\|\\( *\t*> *\t*\\)\\|\\( *\t*, *\t*\\)\\|\\( *\t*\\[ *\t*\\)\\|\\(]\\)\\)+\\)[ \t]+[a-zA-Z0-9_]+[ \t]*(\\(.*\\))[ \t]*\\(throws[ \t]+\\([a-zA-Z0-9_, \t\n]*\\)\\)?[ \t\n]*{\\)" )
 )
 
+(defun my-java-mode-hook ()
+  ""
+  ;; how to hide/show ??
+  ;;(setq buffer-invisibility-spec '((hs . t) (hs . t) t))
+  (setq buffer-invisibility-spec 't)
+  (set (make-local-variable 'outline-regexp)
+       my-java-outline-regexp)
+  (setq c-basic-offset 4)
+  (push                                 ;'(defun-open after)
+   '(inline-open after)
+   c-hanging-braces-alist))
+
+(when nil
+  (c-hanging-braces-alist     . ((substatement-open after)
+                                  (brace-list-open)
+                                  (defun-open after)
+                                  (inline-open after)
+                                  ))
+  )
 
 ;; java-mode-hook
 (add-hook 'java-mode-hook 'my-java-mode-hook)
