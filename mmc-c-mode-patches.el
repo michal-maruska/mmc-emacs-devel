@@ -408,7 +408,10 @@ the absolute file name of the file if STYLE-NAME is nil."
 
 (provide 'mmc-c-mode-patches)
 
-
+;; 2014-09-18
+;; bug in /usr/share/emacs/24.4.50/lisp/files.el.gz
+;; this is needed for one of apt/ c++ files: which  -*- mode: cpp; mode: fold -*-
+;; 2014-06-02 incompatible with /usr/share/emacs/23.4/lisp/
 (defun hack-one-local-variable (var val)
   "Set local variable VAR with value VAL.
 If VAR is `mode', call `VAL-mode' as a function unless it's
@@ -417,10 +420,11 @@ already the major mode."
     (`mode
      (let ((mode (intern (concat (downcase (symbol-name val))
                                  "-mode"))))
-       (unless (eq (indirect-function mode)
-                   (indirect-function major-mode))
-	 (if (boundp mode)		;mmc: added this IF!
-	     (funcall mode)))))
+       ;; mmc: this line:
+       (if (boundp mode)
+           (unless (eq (indirect-function mode)
+                       (indirect-function major-mode))
+             (funcall mode)))))
     (`eval
      (pcase val
        (`(add-hook ',hook . ,_) (hack-one-local-variable--obsolete hook)))
