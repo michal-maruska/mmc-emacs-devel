@@ -1,3 +1,4 @@
+;;; Customization of C-mode derived modes. Apart from the style.
 
 (require 'mmc-simple) ;; file-under-p find-line-by-string
 
@@ -52,7 +53,56 @@
   )
 
 ;;; ffap:
-;; todo:  conditionally? 
+(defmacro add-to-list-rest (symbol &rest elements)
+  "append to the list-value of symbol the remaining arguments (as a list)."
+  `(set ,symbol (append (symbol-value ,symbol)
+                        (list ,@elements))))
+
+
+;; see mmc-c-mode.el for cscope-based solution: todo: cron -> reindex!
+(defun decide-for-c-include-path (filename)
+  "Extend 'ffap-c-path' paths list for a C-mode,
+based on filename."
+  (cond
+   ((string-match "next/kernel/" filename)
+    (add-to-list-rest 'ffap-c-path
+                      "~/next/kernel/include"))
+
+   ((string-match "spark/linux-2.6.28.10/" filename)
+    (add-to-list-rest 'ffap-c-path
+                      "~/perforce/spark/linux-2.6.28.10/include"))
+
+   ((string-match "italia/" filename)
+    ;; fixme: only for italia. see ...
+    ;; fixme: todo: shared variable ....
+    (make-local-variable 'ffap-c-path)
+    (add-to-list-rest 'ffap-c-path
+                      "~/italia/frameworks/native/include/" ;utils/Log.h
+                      "~/italia/system/core/include/"
+                                        ;"~/perforce/spark/linux-2.6.28.10/include"
+                      ))
+
+   ((string-match "gallo/" filename)
+    ;; fixme: only for italia. see ...
+    ;; fixme: todo: shared variable ....
+    (make-local-variable 'ffap-c-path)
+    (add-to-list-rest 'ffap-c-path
+                      "~/gallo/frameworks/native/include/" ;utils/Log.h
+                      "~/gallo/system/core/include/"
+                                        ;"~/perforce/spark/linux-2.6.28.10/include"
+                      "~/gallo/hardware/libhardware/include"
+                      ))
+
+   ((or (string-match "nav4/" filename)
+        (string-match "next/" filename))
+    (make-local-variable 'ffap-c-path)
+    (add-to-list-rest
+     'ffap-c-path
+     "~/nav4/frameworks/native/include/" ;utils/Log.h
+     "~/nav4/system/core/include/"
+     "~/nav4/frameworks/base/include/"))))
+
+;; todo:  conditionally?
 (add-to-list 'ffap-c-path "~/sc/gauche/.gl/include/")
 (add-to-list 'ffap-c-path "/p/postgresql-8/work/pgsql-server/src/include/")
 
@@ -183,9 +233,44 @@ and invoke a html browser to display the relevant API docs  "
 (global-set-key [(alt ?.)] 'gtk-doc)
 
 ; c-mode-hook
+(defun my-c-mode-hook ()
+  "Common part for C and C++ modes."
+  (let ((filename (buffer-file-name))
+        )
+    ;;(electric)
+    ;; simple; anything starting the line but these:
+    (setq outline-regexp "[^{} \t#\n]")
+    ;; what? add or remove the space in  "f (x)"?
+    (require 'mmc-c-mode-patches)
+    (add-to-list-rest 'c-cleanup-list
+                      'no-space-before-funcall
+                                        ;'space-before-funcall
+                      )
+                                        ;brace-else-brace
+    ;; force the C++ mode:
+    (if (and (or
+              (string-match "fork-plugin/src/.*\\.h" filename)
+              (string-match "/perforce/" filename))
+             (not (eq major-mode 'c++-mode)))
+        (c++-mode)
+      ;; should only run once:
+      (decide-c-style-by-path filename)
+      (decide-for-c-include-path filename))))
+
+; (remove-hook 'c-mode-hook 'my-c-mode-hook)
+(add-hook 'c-mode-hook 'my-c-mode-hook)
+(add-hook 'c++-mode-hook 'my-c-mode-hook)
+;; I'm not ready: Java-mode stopped having font-lock !
+
+(add-hook 'java-mode-hook 'my-c-mode-hook)
+;;(remove-hook 'c-mode-common-hook 'my-c-mode-hook)
+(add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
+;; c++-mode-hook
 
 
 (copy-face 'font-lock-th-face 'font-lock-string-face)
+
 (require 'mmc-gud)
 (require 'mmc-c-mode-patches)
 (provide 'mmc-c-mode)

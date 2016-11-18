@@ -52,6 +52,23 @@
 ;; (add-to-list 'c-cleanup-list 'paren-brace)
 
 
+;; I guess `obsolete' now!
+(defun tomtom-hook ()
+  "adapt to tomtom style for C"
+  (interactive)
+  ;; when loading & saving
+  ;; (setq indent-tabs-mode t)
+  (if (eq major-mode 'java-mode)
+      (setq c-basic-offset 4)
+    ;; mmc: this is only about the `compression' part of TAB.
+    (setq tab-width 8
+          ;; when indenting myself:
+          ;; c-basic-offset 8
+          )
+    ;; fixme: useless after setting the style!
+    (if (functionp 'c-guess-buffer)
+        (c-guess-buffer))))
+
 (c-add-style
  "tomtom"
 ;; (setq indent-tabs-mode t)
@@ -200,79 +217,7 @@
 
 (require 'cc-guess nil 'noerror)
 
-(defmacro add-to-list-list (symbol &rest elements)
-  ""
-  `(set ,symbol (append (symbol-value ,symbol)
-			(list ,@elements))))
 
-
-;; see mmc-c-mode.el for cscope-based solution: todo: cron -> reindex!
-(defun decide-for-c-include-path ()
-  "Extend `FFAP' paths list for a C-mode,
-based on filename."
-  (cond
-   ((string-match "next/kernel/" (buffer-file-name))
-    (add-to-list 'ffap-c-path
-		 "~/next/kernel/include"))
-
-   ((string-match "spark/linux-2.6.28.10/" (buffer-file-name))
-    (add-to-list 'ffap-c-path
-		 "~/perforce/spark/linux-2.6.28.10/include"))
-
-   ((string-match "italia/" (buffer-file-name))
-    ;; fixme: only for italia. see ...
-    ;; fixme: todo: shared variable ....
-    (make-local-variable 'ffap-c-path)
-    (add-to-list-list 'ffap-c-path
-		 "~/italia/frameworks/native/include/" ;utils/Log.h
-		 "~/italia/system/core/include/"
-					;"~/perforce/spark/linux-2.6.28.10/include"
-		 ))
-
-   ((or (string-match "nav4/" (buffer-file-name))
-	(string-match "next/" (buffer-file-name)))
-    (make-local-variable 'ffap-c-path)
-    (add-to-list-list
-     'ffap-c-path
-     "~/nav4/frameworks/native/include/" ;utils/Log.h
-     "~/nav4/system/core/include/"
-     "~/nav4/frameworks/base/include/"))))
-
-
-(defun tomtom-hook ()
-  "adapt to tomtom style for C"
-  (interactive)
-  ;; when loading & saving
-  (setq indent-tabs-mode t)
-  (setq tab-width 8
-	;; when indenting myself:
-	;; c-basic-offset 8
-	)
-  (if (functionp 'c-guess-buffer)
-      (c-guess-buffer)))
-
-
-
-(defun my-c-mode-hook ()
-  "Common part for C and C++ modes."
-					;(electric)
-  ;; simple; anything starting the line but these:
-  (setq outline-regexp "[^{} \t#\n]")
-  ;; what? add or remove the space in  "f (x)"?
-  (require 'mmc-c-mode-patches)
-  (add-to-list 'c-cleanup-list
-	       'no-space-before-funcall
-	       ;'space-before-funcall
-	       )
-					;brace-else-brace
-  ;; force the C++ mode:
-  (if (and (or
-	    (string-match "fork-plugin/src/.*\\.h" (buffer-file-name))
-	    (string-match "/perforce/" (buffer-file-name)))
-	   (not (eq major-mode 'c++-mode)))
-      (c++-mode)
-    (decide-c-style-by-path))
-  (decide-for-c-include-path))
 
 (defun decide-c-style-by-path ()
   "The part which comes after possibly forcing C++ mode.
@@ -319,8 +264,6 @@ Decide for a style, based on path."
       (if (string= style "tomtom")
 	  (tomtom-hook))
       )))
-(add-hook 'c-mode-hook 'my-c-mode-hook)
-(add-hook 'c++-mode-hook 'my-c-mode-hook)
 
 (provide 'mmc-c-styles)
 
