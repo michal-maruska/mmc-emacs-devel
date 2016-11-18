@@ -93,10 +93,6 @@
                                   ))
    ;; C++ so
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
-                                  (statement-block-intro . 2)
-                                  (inclass . 2)
-                                  (defun-block-intro . 2)
-                                  (label . 0)
                                   (substatement-open . 0)
                                   (case-label        . 4)
                                   (block-open        . 0)
@@ -110,8 +106,17 @@
                                   ;; innamespace  .... ignore it!
                                   (substatement  . 2)
 
+                                  ;; Java +,   C 2?
+                                  (statement-block-intro . +)
                                   (innamespace . 0)
                                   (inline-open 0)
+
+                                  ;; diff between these 2?
+                                  (inclass . +)     ; java +, maybe C++  2?
+                                  (inexpr-class . 0)    ; java +, maybe C++  2?
+
+                                  (defun-block-intro . +) ; maybe C 2, but Java +
+                                  (label . 0)
 
                                   ;; problem:  if a b; else c;    if after b we have ";" then
                                   ;; relative to "if", otherwise relative to  "b" !!
