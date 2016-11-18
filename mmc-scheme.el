@@ -126,7 +126,7 @@
           (string-match "/ga/" file-name))
       "gosh")
      ((or (string-match "/gambit/" file-name))
-      "/usr/local/gambit-4.7.3/bin/gsi")
+      "/usr/local/gambit-v4.8.5/bin/gsi")
 
      ((string-match "activity/scheme" file-name)
      "scsh -lm /usr/local/activity/scheme/packages.scm")
