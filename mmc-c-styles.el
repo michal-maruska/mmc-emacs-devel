@@ -243,6 +243,8 @@ Decide for a style, based on path."
   ;; avoid duplication, so exit immediately.
   (let ((style
          (cond
+          ((string-match "postgresql" (buffer-file-name))
+           "bsd")
           ((string-match "/xorg/" filename)
            "xorg")
           ((string-match "/x/" filename)
