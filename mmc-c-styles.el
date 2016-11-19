@@ -221,50 +221,68 @@
 
 
 
-(defun decide-c-style-by-path ()
+;; tomtom per-path only for the cscope and 'ffap-c-path (see above).
+(defun decide-c-style-by-path (filename)
   "The part which comes after possibly forcing C++ mode.
 Decide for a style, based on path."
   ;; avoid duplication, so exit immediately.
-  (let* ((name (buffer-file-name))
-	 (style
-	  (if name
-	      (cond
-	       ((string-match "/usr/src/linux" name)
-		"linux")
-	       ((string-match "/xorg/" name)
-		"xorg")
-	       ((string-match "/x/" name)
-		"xorg")
-	       ((string-match "/fork-plugin/src/" name)
-		"xorg")
+  (let ((style
+         (cond
+          ((string-match "/xorg/" filename)
+           "xorg")
+          ((string-match "/x/" filename)
+           "xorg")
+          ((string-match "/fork-plugin/src/" filename)
+           "xorg")
 
-	       ((string-match "/sawfish/" name)
-		"rxvt")
+          ((string-match "/sawfish/" filename)
+           ;; c-basic-offset 3
+           "rxvt")
 
-	       ((string-match "/linux-2.6" name)
-		"linux")
+          ((string-match "/emacs/" filename)
+           ;; c-basic-offset 3
+                                        ;c-basic-offset 2
+           "gnu")
 
-	       ((or (string-match "/perforce/" name)
-		    (string-match "/ngl/" name)
+          ((or (string-match "git/linux/" filename)
+               (string-match "/usr/src/linux" filename))
+           (setq tab-width 2)
+           "linux")
 
-		    (string-match "/next/" name)
-		    (string-match "/italia/" name)
-		    (string-match "/nav4/" name)
-		    (string-match "/gallo/" name)
-		    (string-match "/n4f/" name)
-		    )
-		;; /home/maruska/ngl/project/arizona2/main/CrossPlatform/
-		;; Framework/PlatformAbstractionLayer/Implementation/DeviceInformation/
-		"tomtom")
-	       (t
-					;"free-group-style"
-		nil))
-	    nil)))
+          ((or (string-match "/perforce/" filename)
+               (string-match "/ngl/" filename)
+
+               (string-match "/next/" filename)
+               (string-match "/italia/" filename)
+               (string-match "/nav4/" filename)
+               (string-match "/gallo/" filename)
+               (string-match "/n4f/" filename)
+               )
+           ;; /home/maruska/ngl/project/arizona2/main/CrossPlatform/
+           ;; Framework/PlatformAbstractionLayer/Implementation/DeviceInformation/
+           "tomtom")
+          (t
+                                        ;"free-group-style"
+           nil))))
+
     (when style
       (c-set-style style)
       ;; ~/git/xorg/xserver/xkb/freeze-stack.c
-      (if (string= style "tomtom")
-	  (tomtom-hook))
-      )))
+      (if (and nil
+               (string= style "tomtom"))
+          ;;fixme: this should be defined as style!
+          (tomtom-hook)))
+
+    ;; often the style is not fully true:
+
+    ;; what's the basic unit of indentation?
+    ;; c-basic-offset py-indent-offset
+
+    ;; Java: tab is 2 spaces?
+    ;; tab-width 4
+
+    ;; n4f: not tabs.
+    (unless (or t (eq major-mode 'java-mode))
+      (setq indent-tabs-mode t))))
 
 (provide 'mmc-c-styles)
