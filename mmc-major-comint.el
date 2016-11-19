@@ -3,6 +3,7 @@
 ;; comint
 
 (defconst major-mode-comint-mapping
+  ;; (major-mode variable function)
   '((sql-mode sql-buffer
               (my-sql-postgres))
 
@@ -79,11 +80,25 @@ or stored in the LOCAL-VARIABLE."
             (switch-to-buffer-other-window buffer 't))) ; do not record as visited ...
       (error "major mode not supported"))))
 
+(defun get-info-manual-comint-mode()
+  ""
+  (when (eq major-mode 'Info-mode)
+    (let ((file Info-current-subfile)
+          )
+      (cond
+       ((string-match "gambit" file)
+        '( (and (functionp 'scheme-proc) ; (boundp 'scheme-proc)
+                (inferior-process-via-variable
+                 'scheme-buffer
+                 'inferior-scheme-mode))
+           (run-scheme (scheme-determine-program))))))))
+
 ;;; common to sql, lisp, scheme ....
 (defun inferior-process (mode) ; variable
   ""
   ;(interactive (list major-mode))
-  (let ((info (aget major-mode-comint-mapping mode't)))
+  (let ((info (or (aget major-mode-comint-mapping mode't)
+		  (get-info-manual-comint-mode))))
     (if info
         (let* ((get-buffer (nth 0 info))
               (start (nth 1 info))
