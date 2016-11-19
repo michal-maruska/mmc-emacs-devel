@@ -76,9 +76,15 @@
    (c-basic-offset . 8)
    (c-comment-only-line-offset . 0)	; only comment -> additional offset
 
-   ;;
+
+   ;; when I press { I want to insert a newline BEFORE or AFTER:
+   ;; in java mode I don't want hanging at: ((func-decl-cont 5425))
+   ;; (substatement-open . (after))
    (c-hanging-braces-alist     . ((substatement-open after)
-                                  (brace-list-open)))
+                                  (brace-list-open) ;no newline around!
+                                  (defun-open after)
+                                  (func-decl-cont after) ;newline After the {
+                                  ))
    (c-hanging-colons-alist     . ((member-init-intro before)
                                   (inher-intro)
                                   (case-label after)
