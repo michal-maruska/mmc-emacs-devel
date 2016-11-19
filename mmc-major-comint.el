@@ -98,7 +98,7 @@ or stored in the LOCAL-VARIABLE."
   ""
   ;(interactive (list major-mode))
   (let ((info (or (aget major-mode-comint-mapping mode't)
-		  (get-info-manual-comint-mode))))
+                  (get-info-manual-comint-mode))))
     (if info
         (let* ((get-buffer (nth 0 info))
               (start (nth 1 info))
