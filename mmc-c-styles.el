@@ -266,7 +266,10 @@ Decide for a style, based on path."
            nil))))
 
     (when style
+      ;(unless (eq major-mode 'java-mode)
+      ;; why?
       (c-set-style style)
+
       ;; ~/git/xorg/xserver/xkb/freeze-stack.c
       (if (and nil
                (string= style "tomtom"))
