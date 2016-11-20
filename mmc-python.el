@@ -30,7 +30,7 @@
   (set (make-local-variable 'beginning-of-defun-function)
        'python-mode-beginning-of-defun-function)
   (set (make-local-variable 'outline-regexp)
-	" *\\(def\\|class\\) "))
+        " *\\(def\\|class\\) "))
 
 ;; (setq python-mode-hook ())
 (add-hook 'python-mode-hook 'my-python-mode-hook)
@@ -54,10 +54,10 @@ run in the cwd of the edited file.")
 
   (defun ffap-python (name)
     (let ((path (shell-command-to-string-no-nl
-		 (concat
-		  (shell-quote-argument python-ffap-script)
-		  " "
-		  (shell-quote-argument name)))))
+                 (concat
+                  (shell-quote-argument python-ffap-script)
+                  " "
+                  (shell-quote-argument name)))))
       path))
 
   (aput 'ffap-alist 'python-mode 'ffap-python)
@@ -70,21 +70,21 @@ run in the cwd of the edited file.")
   (interactive)
   ;;
   (let ((python-syntax-table (syntax-table))
-	)
+        )
     (unwind-protect
-	(progn
-	  (modify-syntax-entry ?: "_" python-syntax-table)
-	  ;; (char-syntax ?:)
-	  ;; (set-syntax "::" symbol)
-	  (let* ((module-name string)
-		 (relative (add-suffix-optionally
-			    (translate-module-to-filename module-name "\\.")
-			    ".py"))
-		 (path (find-subpath-in-paths
-			relative
-			;; fixme: todo:  use bin/python to find it!
-			(list "/usr/lib/python2.7/dist-packages/"))))
-	    path))
+        (progn
+          (modify-syntax-entry ?: "_" python-syntax-table)
+          ;; (char-syntax ?:)
+          ;; (set-syntax "::" symbol)
+          (let* ((module-name string)
+                 (relative (add-suffix-optionally
+                            (translate-module-to-filename module-name "\\.")
+                            ".py"))
+                 (path (find-subpath-in-paths
+                        relative
+                        ;; fixme: todo:  use bin/python to find it!
+                        (list "/usr/lib/python2.7/dist-packages/"))))
+            path))
       (modify-syntax-entry ?:  "." python-syntax-table))))
 
 ;; ffap-alist
