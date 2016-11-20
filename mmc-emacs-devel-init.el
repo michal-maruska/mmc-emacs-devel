@@ -1,4 +1,3 @@
-
 ;; Start the `mmc-emacs-devel' package:
 (require 'mmc-scheme)
 (require 'mmc-lisp)
@@ -33,21 +32,21 @@
     (lambda ()
 
       (let ((buffer (current-buffer)))
-	(if (equal prefix '(nil))
-	    (start-process "gitk" nil "gitk" "--all" "--max-count=200")
-	  ;; let the user edit the cmd line:
-	  ;; fixme: bury that Async Command buffer!
-	  (apply 'start-process "gitk" nil
-		 (split-string
-		  (read-shell-command "Edit command: "
-				      (concat
-				       "gitk --all --max-count=200 "
-				       (file-name-nondirectory
-					(or (buffer-file-name buffer)
-					    default-directory
-					;(dired-current-directory)
-					    ))))
-		  " ")))))))
+        (if (equal prefix '(nil))
+            (start-process "gitk" nil "gitk" "--all" "--max-count=200")
+          ;; let the user edit the cmd line:
+          ;; fixme: bury that Async Command buffer!
+          (apply 'start-process "gitk" nil
+                 (split-string
+                  (read-shell-command "Edit command: "
+                                      (concat
+                                       "gitk --all --max-count=200 "
+                                       (file-name-nondirectory
+                                        (or (buffer-file-name buffer)
+                                            default-directory
+                                        ;(dired-current-directory)
+                                            ))))
+                  " ")))))))
 
 ;;;(magit-get-top-dir (file-name-directory (buffer-file-name)))
 ;;(bury-buffer "*Async Shell Command*")
@@ -63,7 +62,7 @@
 
 (require 'mmc-android)
 (add-to-list 'auto-mode-alist
-	     '("init.*\\.rc" . android-init-mode))
+             '("init.*\\.rc" . android-init-mode))
 
 
 (when (locate-library "paredit")
@@ -73,4 +72,3 @@
   ;; is this defined already?
   (add-hook 'scheme-mode-hook 'enable-paredit-mode)
   )
-
