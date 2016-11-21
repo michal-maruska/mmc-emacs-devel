@@ -199,13 +199,6 @@
    '(inline-open after)
    c-hanging-braces-alist))
 
-(when nil
-  (c-hanging-braces-alist     . ((substatement-open after)
-                                  (brace-list-open)
-                                  (defun-open after)
-                                  (inline-open after)
-                                  ))
-  )
 
 ;; java-mode-hook
 (add-hook 'java-mode-hook 'my-java-mode-hook)

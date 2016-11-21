@@ -82,6 +82,10 @@
    ;; in java mode I don't want hanging at: ((func-decl-cont 5425))
    ;; (substatement-open . (after))
    (c-hanging-braces-alist     . ((substatement-open after)
+                                  ;;
+                                  (topmost-intro after) ;this is after a: void function() .{
+                                  (inline-open after)
+
                                   (brace-list-open) ;no newline around!
                                   (defun-open after)
                                   (func-decl-cont after) ;newline After the {
