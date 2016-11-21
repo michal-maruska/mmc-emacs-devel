@@ -242,11 +242,6 @@ and invoke a html browser to display the relevant API docs  "
     (setq outline-regexp "[^{} \t#\n]")
     ;; what? add or remove the space in  "f (x)"?
     (require 'mmc-c-mode-patches)
-    (add-to-list-rest 'c-cleanup-list
-                      'no-space-before-funcall
-                                        ;'space-before-funcall
-                      )
-                                        ;brace-else-brace
     ;; force the C++ mode:
     (if (and (or
               (string-match "fork-plugin/src/.*\\.h" filename)
