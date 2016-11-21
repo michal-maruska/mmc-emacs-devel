@@ -262,7 +262,8 @@ and invoke a html browser to display the relevant API docs  "
 (add-hook 'c++-mode-hook 'my-c-mode-hook)
 ;; I'm not ready: Java-mode stopped having font-lock !
 
-(add-hook 'java-mode-hook 'my-c-mode-hook)
+;; (add-hook 'java-mode-hook 'my-c-mode-hook)
+;; (remove-hook 'java-mode-hook 'my-c-mode-hook)
 ;;(remove-hook 'c-mode-common-hook 'my-c-mode-hook)
 (add-hook 'c-mode-common-hook 'my-c-mode-hook)
 

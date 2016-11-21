@@ -189,6 +189,7 @@
 
 (defun my-java-mode-hook ()
   ""
+  (my-c-mode-hook)
   ;; how to hide/show ??
   ;;(setq buffer-invisibility-spec '((hs . t) (hs . t) t))
   (setq buffer-invisibility-spec 't)
