@@ -1,3 +1,33 @@
+mmc-emacs-devel (2.2) release; urgency=medium
+
+  * xcscope-el is enough.
+  * clean standalone c-basic-offset setting.
+  * mmc-c-mode: clean format, drop spurious indent-tabs-mode settings.
+  * mmc-c-styles: clean comments
+  * c-mode: move decide-for-c-include-path & my-c-mode-hook (out from c-style)
+  * styles: TABs tomtom style: TABs
+  * support for Java in pnd-navkit
+  * java: make global my-java-outline-regexp once; no TABs, my-java-mode-hook: c-basic-offset etc!
+  * decide-c-style-by-path: TABs, tomtom?
+  * java & tomtom style
+  * tomtomt-style: add arglist-cont-nonempty
+  * tomtomt-style: change from 2 to +.  inexpr-class 0
+  * hanging-braces (for tomtom style)
+  * tomtom style: 4, not 8.
+  * crude get-info-manual-comint-mode
+  * bsd style for PG
+  * hack-one-local-variable: description + careful with unbound mode
+  * fix hardwired gambit binaries
+  * TAB
+  * untab
+  * TABS
+  * Invoke the c-mode hook via my-java-hook.
+  * drop one more general c-basic-offset.
+  * drop fixed cleanup-list addition.
+  * hanging-brace: inline-open
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 21 Nov 2016 23:40:54 +0100
+
 mmc-emacs-devel (2.1) release; urgency=medium
 
   * add debian/emacsen-compat to avoid being declared broken.
