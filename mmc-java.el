@@ -195,7 +195,6 @@
   (setq buffer-invisibility-spec 't)
   (set (make-local-variable 'outline-regexp)
        my-java-outline-regexp)
-  (setq c-basic-offset 4)
   (push                                 ;'(defun-open after)
    '(inline-open after)
    c-hanging-braces-alist))
