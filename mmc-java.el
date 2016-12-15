@@ -3,6 +3,7 @@
 
 ;; file-under-p find-line-by-string
 (require 'mmc-simple)
+(require 'mmc-c-mode)                   ;for my-c-mode-hook
 
 (defun file-name-directory-no/ (filename)
   "drop the separator as well."
