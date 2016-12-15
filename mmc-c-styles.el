@@ -267,7 +267,7 @@ Decide for a style, based on path."
 
           ((or (string-match "git/linux/" filename)
                (string-match "/usr/src/linux" filename))
-           (setq tab-width 2)
+           (setq tab-width 8)
            "linux")
 
           ((or (string-match "/perforce/" filename)
