@@ -65,7 +65,8 @@
             (if (member input property-list)
                 (cmake-command-run "--help-property" input "*CMake Help*")
               (error "Not a know help topic.") ; this really should not happen
-              )))))))
+              ))))
+      (other-window 1))))
 
 (defvar cmake-mode-view-map (make-sparse-keymap "") "")
 (set-keymap-parent cmake-mode-view-map cmake-mode-map)
