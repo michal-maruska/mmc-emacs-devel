@@ -33,4 +33,22 @@
 
 (define-key cmake-mode-map '[(meta control ?m)] 'cmake-help)
 
+(defun cmake-command-run (type &optional topic buffer)
+  "Runs the command cmake with the arguments specified.  The
+optional argument topic will be appended to the argument list."
+  (interactive "s")
+  (let* ((bufname (if buffer buffer (concat "*CMake" type (if topic "-") topic "*")))
+         (buffer  (if (get-buffer bufname) (get-buffer bufname) (generate-new-buffer bufname)))
+         (command (concat cmake-mode-cmake-executable " " type " " topic))
+         ;; Turn of resizing of mini-windows for shell-command.
+         (resize-mini-windows nil)
+         )
+    (shell-command command buffer)
+    (save-selected-window
+      (select-window (display-buffer buffer 'not-this-window))
+      (cmake-mode)
+      ;;
+      (read-only-mode 1)
+      )))
+
 (provide 'mmc-cmake)
