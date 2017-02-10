@@ -33,6 +33,15 @@
 
 (define-key cmake-mode-map '[(meta control ?m)] 'cmake-help)
 
+
+(defvar cmake-mode-view-map (make-sparse-keymap "") "")
+(set-keymap-parent cmake-mode-view-map cmake-mode-map)
+(define-key cmake-mode-view-map [?q]
+  (lambda ()
+    (interactive)
+    (bury-buffer)
+    (delete-window)))
+
 (defun cmake-command-run (type &optional topic buffer)
   "Runs the command cmake with the arguments specified.  The
 optional argument topic will be appended to the argument list."
@@ -49,6 +58,6 @@ optional argument topic will be appended to the argument list."
       (cmake-mode)
       ;;
       (read-only-mode 1)
-      )))
+      (use-local-map cmake-mode-view-map))))
 
 (provide 'mmc-cmake)
