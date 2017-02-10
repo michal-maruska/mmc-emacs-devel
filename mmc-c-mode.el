@@ -164,23 +164,6 @@ based on filename."
               nil))))))
 
 ;;; tabs
-(defun kaz-c-mode-common-hook ()
-  (abbrev-mode 1)
-  (setq indent-tabs-mode nil)
-  (define-key c-mode-base-map "\C-m"  'c-context-line-break)
-  (if (or
-       ;; I spent some time re-indenting C sources (librep, xfree).
-       ;; I realized that it was due to my self-imposed tab=4
-       ;; so, for these sources i have to accept their standard:
-       (file-under-p (buffer-file-name (current-buffer))
-                     "/p/xfree-4.3.0-r1_experimental/work/xc/")
-       (file-under-p (buffer-file-name (current-buffer)) "/p/"))
-
-      (setq tab-width 8)))
-
-;; oh no:
-(add-hook 'c-mode-common-hook         'kaz-c-mode-common-hook)
-
 
 ;;; documentation:
 (defun gtk-doc (symbol)
