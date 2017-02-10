@@ -33,6 +33,39 @@
 
 (define-key cmake-mode-map '[(meta control ?m)] 'cmake-help)
 
+;; patches:
+(defun cmake-help ()
+  "Queries for any of the four available help topics and prints out the approriate page."
+  (interactive)
+  (let* ((default-entry (cmake-symbol-at-point))
+         (command-list (cmake-get-list "command"))
+         (variable-list (cmake-get-list "variable"))
+         (module-list (cmake-get-list "module"))
+         (property-list (cmake-get-list "property"))
+         (all-words (append command-list variable-list module-list property-list))
+         (input (if (and (not current-prefix-arg)
+                         default-entry)
+                    default-entry
+                    (completing-read
+                     "CMake command/module/variable/property: " ; prompt
+                     all-words                                  ; completions
+                     nil                                        ; predicate
+                     t                                          ; require-match
+                     default-entry                              ; initial-input
+                     'cmake-help-complete-history
+                     ))))
+    (if (string= input "")
+        (error "No argument given")
+      (if (member input command-list)
+          (cmake-command-run "--help-command" input "*CMake Help*")
+        (if (member input variable-list)
+            (cmake-command-run "--help-variable" input "*CMake Help*")
+          (if (member input module-list)
+              (cmake-command-run "--help-module" input "*CMake Help*")
+            (if (member input property-list)
+                (cmake-command-run "--help-property" input "*CMake Help*")
+              (error "Not a know help topic.") ; this really should not happen
+              )))))))
 
 (defvar cmake-mode-view-map (make-sparse-keymap "") "")
 (set-keymap-parent cmake-mode-view-map cmake-mode-map)
