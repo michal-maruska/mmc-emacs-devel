@@ -72,3 +72,5 @@
   ;; is this defined already?
   (add-hook 'scheme-mode-hook 'enable-paredit-mode)
   )
+
+(require 'mmc-cmake)

@@ -6,6 +6,7 @@
   ""
   (let ((cmake-path '("/usr/share/cmake-3.7/Modules/"
                       "/usr/share/cmake-3.7/Modules/Platform/"
+                      "./Build/CMakeConfig"
                       "./CMake"
                       ))
         (cmake-extensions '(".cmake")))
