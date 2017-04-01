@@ -1,3 +1,18 @@
+mmc-emacs-devel (2.3) release; urgency=medium
+
+  * style linux tab 8
+  * fix dependency mmc-java
+  * Start cmake
+  * pre-patch cmake-command-run
+  * cmake-command-run: bind q to bury the buffer/window
+  * pre-patch: cmake-help
+  * cmake-help: behave as xemacs: enter the window immediately.
+  * c-style: git-core uses linux style
+  * Drop kaz-c-mode-common-hook: no hard-coded indent-tabs-mode, nor tab-width
+  * Load mmc-cmake on start. Ane extend its ffap.
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sat, 01 Apr 2017 18:00:54 +0200
+
 mmc-emacs-devel (2.2) release; urgency=medium
 
   * xcscope-el is enough.
