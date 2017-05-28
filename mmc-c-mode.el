@@ -22,19 +22,7 @@
 ;;; outline:
 (add-hook 'c-mode-hook
   (lambda ()
-    (set (make-variable-buffer-local 'outline-regexp)
-         ;; anything at the BOL? apart from { } etc.
-         "[^#\n
-        {}]")
     (define-key c-mode-base-map (kbd "C-m") 'c-context-line-break)))
-
-(add-hook 'c++-mode-hook
-  (lambda ()
-    ;; the same!
-    (set (make-variable-buffer-local 'outline-regexp)
-         "[^#\n
-        {}]")))
-
 
 ;;; font-lock
 (font-lock-add-keywords
@@ -222,7 +210,7 @@ and invoke a html browser to display the relevant API docs  "
         )
     ;;(electric)
     ;; simple; anything starting the line but these:
-    (setq outline-regexp "[^{} \t#\n]")
+    (set (make-variable-buffer-local 'outline-regexp) "[^{} \t#\n]")
     ;; what? add or remove the space in  "f (x)"?
     (require 'mmc-c-mode-patches)
     ;; force the C++ mode:
