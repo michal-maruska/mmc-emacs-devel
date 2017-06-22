@@ -266,8 +266,13 @@ Decide for a style, based on path."
            "gnu")
 
           ((or (string-match "git/linux/" filename)
+               (string-match "git/nubia/" filename)
+
+               (string-match "git/.*linux/" filename)
                (string-match "/usr/src/linux" filename)
-               (string-match "/git/git-core/builtin/" filename))
+               (string-match "/git/git-core/builtin/" filename)
+               (string-match "/git/rsync.*/" filename)
+               )
            (setq tab-width 8)
            "linux")
 
