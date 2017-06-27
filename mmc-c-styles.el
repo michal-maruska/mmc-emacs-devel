@@ -354,7 +354,7 @@ Decide for a style, based on path."
 
           ((or (string-match "git/linux/" filename)
                (string-match "/usr/src/linux" filename)
-               (string-match "/git/git-core/builtin/" filename))
+               (string-match "/git/git-core/" filename))
            (setq tab-width 8)
            "linux")
 
