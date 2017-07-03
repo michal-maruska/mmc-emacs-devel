@@ -1,3 +1,15 @@
+mmc-emacs-devel (2.4) release; urgency=medium
+
+  * outline in C-mode
+  * linux style for more work-trees
+  * cscope: patch to avoid minibuffer
+  * cscope-reset: empty the broken minibuffer
+  * M-. to invoke cscope again.
+  * load lazily cmake-mode.
+  * python: adapt to renamed   python-mode-beginning-of-defun-function -> py-backward-def-or-class
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 03 Jul 2017 08:57:31 +0200
+
 mmc-emacs-devel (2.3) release; urgency=medium
 
   * style linux tab 8
