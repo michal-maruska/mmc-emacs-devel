@@ -193,5 +193,12 @@ If prompt-p, then ask confirmation. With defaulting and completion."
 
 (substitute-key-definition 'find-tag 'mmc-find-tag global-map)
 
+(defun cscope-reset ()
+  "empty the minibuffer, if broken by cscope."
+  (interactive)
+  (with-current-buffer
+      (get-buffer " *Minibuf-1*")
+    (read-only-mode -1)
+    (erase-buffer)))
 
 (provide 'mmc-cscope)
