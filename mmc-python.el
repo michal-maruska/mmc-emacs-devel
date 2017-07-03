@@ -28,11 +28,13 @@
 (defun my-python-mode-hook ()
   ;; make-variable-buffer-local
   (set (make-local-variable 'beginning-of-defun-function)
-       'python-mode-beginning-of-defun-function)
+       'py-backward-def-or-class
+                                        ;python-mode-beginning-of-defun-function
+       )
   (set (make-local-variable 'outline-regexp)
         " *\\(def\\|class\\) "))
 
-;; (setq python-mode-hook ())
+;; (setq python-mode-hook ;; py-indent-tabs-mode
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 
 (defun py-next-block ()
