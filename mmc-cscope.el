@@ -191,7 +191,11 @@ If prompt-p, then ask confirmation. With defaulting and completion."
     ;(call-interactively 'find-tag)
     (find-tag (mmc-find-tag-tag "Find tag: " prefix) nil )))
 
-(substitute-key-definition 'find-tag 'mmc-find-tag global-map)
+(eval-after-load "xref"
+  '(substitute-key-definition 'xref-find-definitions 'mmc-find-tag global-map)
+  )
+;; find-tag
+;; M-. runs the command xref-find-definitions
 
 (defun cscope-reset ()
   "empty the minibuffer, if broken by cscope."
