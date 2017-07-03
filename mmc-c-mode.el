@@ -88,7 +88,23 @@ based on filename."
      'ffap-c-path
      "~/nav4/frameworks/native/include/" ;utils/Log.h
      "~/nav4/system/core/include/"
-     "~/nav4/frameworks/base/include/"))))
+     "~/nav4/frameworks/base/include/"))
+
+   ((string-match "/NavKit/" filename)
+    ;; fixme: only for italia. see ...
+    ;; fixme: todo: shared variable ....
+    ;; relative to it!
+    (let ((navkit-root (if (string-match "^\\(.*/NavKit/\\)" filename)
+                           (match-string 1 filename)
+                         nil)))
+      (make-local-variable 'ffap-c-path)
+      (add-to-list-rest 'ffap-c-path
+                        (compose-path navkit-root)
+                        (compose-path navkit-root "Framework/Common/Logging/Interface/")
+                        )
+      ))
+   ))
+
 
 ;; todo:  conditionally?
 (add-to-list 'ffap-c-path "~/sc/gauche/.gl/include/")

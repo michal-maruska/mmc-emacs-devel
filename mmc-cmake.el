@@ -21,7 +21,7 @@
              '(cmake-mode . ffap-cmake-module))
 
 ;; auto-mode-alist
-(add-to-list 'auto-mode-alist '("CMake.*\\.\\(ext\\|txt\\)" . sh-mode))
+(add-to-list 'auto-mode-alist '("CMake.*\\.\\(ext\\|txt\\)" . cmake-mode))
 
 
 ;; browse
