@@ -73,4 +73,5 @@
   (add-hook 'scheme-mode-hook 'enable-paredit-mode)
   )
 
-(require 'mmc-cmake)
+(eval-after-load "cmake-mode" ;; java-mode
+  '(require 'mmc-cmake))
