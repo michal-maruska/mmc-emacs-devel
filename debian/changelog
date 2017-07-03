@@ -1,3 +1,12 @@
+mmc-emacs-devel (2.5) release; urgency=medium
+
+  * New style t++, for Tomtom navkit C++. Also apply it in certain dirs.
+  * decide-for-c-include-path: also for navkit
+  * use cmake-mode for CMake* files
+  * Use linux style for all of git-core sources.
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 03 Jul 2017 11:49:57 +0200
+
 mmc-emacs-devel (2.4) release; urgency=medium
 
   * outline in C-mode
