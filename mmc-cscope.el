@@ -1,4 +1,3 @@
-
 ;;; it sets the hooks !!
 (require 'xcscope)
 
@@ -8,7 +7,7 @@
   (let* ((buffer (process-buffer process)) window update-window
          (done t)
          (old-buffer (current-buffer))
-	 (old-buffer-window (get-buffer-window old-buffer)) )
+         (old-buffer-window (get-buffer-window old-buffer)) )
 ;;;; here the patch:
     ;; Don't present the new buffer (file) inside minibuffer!
     (if (minibuffer-window-active-p old-buffer-window)
@@ -104,20 +103,20 @@
    (progn
      (setq cscope-minor-mode (if (null arg) t (car arg)))
      (if cscope-minor-mode
-	 (progn
-	   ;; sept 2014: cscope:menu no more defined!
-	   (easy-menu-add cscope:menu
-			  cscope-minor-mode-keymap
-					;cscope:map
-			  )
-	   (run-hooks 'cscope-minor-mode-hooks)))
+         (progn
+           ;; sept 2014: cscope:menu no more defined!
+           (easy-menu-add cscope:menu
+                          cscope-minor-mode-keymap
+                                        ;cscope:map
+                          )
+           (run-hooks 'cscope-minor-mode-hooks)))
      cscope-minor-mode))
 
 
 (add-hook 'gdb-mode-hook (function cscope:hook))
 (add-hook 'gdb-mode-hook
-	  (lambda ()
-	    (make-local-variable 'cscope-initial-directory)))
+          (lambda ()
+            (make-local-variable 'cscope-initial-directory)))
 
 ;cscope-command-args
 ;; http://cscope.sourceforge.net/large_projects.html
@@ -125,8 +124,8 @@
 
 (defvar my-cscope-map
   (lookup-key cscope-minor-mode-keymap
-	      ;cscope:map
-	      (kbd "\C-cs"))
+              ;cscope:map
+              (kbd "\C-cs"))
   "cscope map without the commong prefix")
 
 (define-key my-cscope-map "/" 'cscope-set-initial-directory)
@@ -152,25 +151,25 @@
   "Get a tag/symbol from under the point.
 If prompt-p, then ask confirmation. With defaulting and completion."
   (let* ((completion-ignore-case (if (memq tags-case-fold-search '(t nil))
-				     tags-case-fold-search
-				   case-fold-search))
-	 (default (funcall (or find-tag-default-function
-			       (get major-mode 'find-tag-default-function)
-			       'find-tag-default)))
-	 (spec
-	  (if (or (not default)
-		  prompt-p)
-	      (completing-read
-	       (if default
-		   (format "%s (default %s): "
-			   (substring string 0 (string-match "[ :]+\\'" string))
-			   default)
-		 string)
-			       (tags-lazy-completion-table)
-			       nil nil nil nil default)
-	    "")))			; use default
+                                     tags-case-fold-search
+                                   case-fold-search))
+         (default (funcall (or find-tag-default-function
+                               (get major-mode 'find-tag-default-function)
+                               'find-tag-default)))
+         (spec
+          (if (or (not default)
+                  prompt-p)
+              (completing-read
+               (if default
+                   (format "%s (default %s): "
+                           (substring string 0 (string-match "[ :]+\\'" string))
+                           default)
+                 string)
+                               (tags-lazy-completion-table)
+                               nil nil nil nil default)
+            "")))			; use default
     (if (equal spec "")
-	(or default (user-error "There is no default tag"))
+        (or default (user-error "There is no default tag"))
       spec)))
 
 
@@ -181,7 +180,7 @@ If prompt-p, then ask confirmation. With defaulting and completion."
            cscope-minor-mode)
       (progn
         (ring-insert find-tag-marker-ring (point-marker))
-	;; (push-tag-mark)
+        ;; (push-tag-mark)
         (setq cscope-display-cscope-buffer prefix)
         (call-interactively
          (if prefix
