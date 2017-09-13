@@ -29,14 +29,7 @@
 (put 'add-hook 'lisp-indent-function 1)
 
 
-(when nil
-  (lookup-key lisp-mode-map [(meta control ?x)])
-  (lookup-key emacs-lisp-mode-map [(meta control ?x)])
-  (lookup-key global-map [(meta control ?x)]))
-
-
 ;; tempo
-
 (defun list-argument (arg)
   ""
   (interactive "n")
@@ -53,11 +46,10 @@
 (defvar my-lisp-map (make-sparse-keymap)
   "")
 
-
 (let ((map my-lisp-map))
   (define-key map [(meta control ?x)]
-					;'eval-defun in emacs-lisp mode !!
-    'lisp-eval-defun)	;you simply press it twice !
+                                        ;'eval-defun in emacs-lisp mode !!
+    'lisp-eval-defun) ;you simply press it twice !
 
   (define-key map [(meta control ?x)] 'eval-defun) ; lisp-
   (define-key map [(meta control ?o)] 'wrap-function)
@@ -79,15 +71,15 @@
 
 
   (define-key map [ ?2 ] '(lambda ()
-			    (interactive)
-			    (list-argument 2)))
+                            (interactive)
+                            (list-argument 2)))
   (define-key map [ ?1 ] '(lambda ()
-			    (interactive)
-			    (list-argument 1)))
+                            (interactive)
+                            (list-argument 1)))
 
   (define-key map [ ?3 ] '(lambda ()
-			    (interactive)
-			    (list-argument 3)))
+                            (interactive)
+                            (list-argument 3)))
 
 
 
@@ -163,21 +155,21 @@
 ;; Note method:
 ; (setq lisp-imenu-generic-expression
 ;       '(
-; 	(nil
-; 	 "^\\s-*(def\\(un\\|subst\\|macro\\|advice\\|method\\|ine-skeleton\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)" 2)
-; 	("Variables"
-; 	 "^\\s-*(def\\(var\\|const\\|custom\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)" 2)
-; 	("Types"
-; 	 "^\\s-*(def\\(group\\|type\\|struct\\|class\\|ine-condition\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)"
-; 	 2)))
+;       (nil
+;        "^\\s-*(def\\(un\\|subst\\|macro\\|advice\\|method\\|ine-skeleton\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)" 2)
+;       ("Variables"
+;        "^\\s-*(def\\(var\\|const\\|custom\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)" 2)
+;       ("Types"
+;        "^\\s-*(def\\(group\\|type\\|struct\\|class\\|ine-condition\\)\\s-+\\([-A-Za-z0-9+*|:/]+\\)"
+;        2)))
 
 (when nil
   (let ((count 0))
   (mapatoms
    (lambda (symbol)
      (when (and (functionp symbol)
-		(not (or (compiled-function-p (symbol-function symbol))
-			 (subrp (symbol-function symbol)))))
+                (not (or (compiled-function-p (symbol-function symbol))
+                         (subrp (symbol-function symbol)))))
        (setq count (1+ count))
        (print symbol)))
    obarray)
@@ -198,13 +190,13 @@
 (when nil
   (setq lisp-font-lock-keywords-2
       (append lisp-font-lock-keywords-2
-	      (list
-	       ;; highlight warnings
-	       (if sawfish-warning-keyword-list
-		   (list (concat "\\<"
-				 `,(regexp-opt sawfish-warning-keyword-list)
-				 "\\>")
-			 '(0 font-lock-warning-face prepend)))))))
+              (list
+               ;; highlight warnings
+               (if sawfish-warning-keyword-list
+                   (list (concat "\\<"
+                                 `,(regexp-opt sawfish-warning-keyword-list)
+                                 "\\>")
+                         '(0 font-lock-warning-face prepend)))))))
 
 (defun insert-at (point char)
   ""
@@ -220,10 +212,10 @@
 (defun wrap-function (start end)
   ""
   (interactive "r")
-					;(push-mark)
-					;(undo-group...)
+                                        ;(push-mark)
+                                        ;(undo-group...)
   (let ((start-marker (make-marker))
-	(end-marker (make-marker)))
+        (end-marker (make-marker)))
     (set-marker start-marker start)
     (set-marker end-marker end)
     (insert-at end-marker ")")
@@ -238,4 +230,3 @@
 (provide 'mmc-lisp)
 
 ;(set-variable (quote next-line-add-newlines) 't)
-
