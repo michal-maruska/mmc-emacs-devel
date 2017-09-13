@@ -1,13 +1,26 @@
-
 (require 'mmc-simple)
+
+;;; Enhance by looking at source directories first:
+(eval-after-load "ffap"
+  '(defun ffap-el-mode (name)
+     ;; If name == "foo.el" we will skip it, since ffap-el already
+     ;; searched for it once.  (This assumes the default ffap-alist.)
+     (and (not (string-match "\\.el\\'" name))
+          (or
+           (ffap-locate-file name '(".el") find-function-source-path)
+           (ffap-locate-file name '(".el") load-path))))
+  )
 
 ;; Tempo
 (load "tempo/tempo-elisp.el")
 
+;; Where to search for source files:
+;; ffap as well!
 (setq find-function-source-path
       (mapcar 'expand-file-name
-	   '("~/repo/emacs/mmc-emacs/"
-	     "~/repo/emacs/devel/")))
+              '("~/repo/emacs/mmc-emacs/"
+                "~/repo/emacs/config/"
+                "~/repo/emacs/devel/")))
 
 ;;; lisp (s-expressions)
 ;(require 'ilisp)
