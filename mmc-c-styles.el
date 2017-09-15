@@ -417,6 +417,10 @@
 (require 'cc-guess nil 'noerror)
 
 
+(defconst linux-sources-dirs-regexp
+  (concat "/git/"
+          (regexp-opt '("nexus10" "nubia" "zuk" "samsung" "e980" "mipad" "freescale-linux")))
+  "Used to recognize a pathname leading into the Linux sources")
 
 ;; tomtom per-path only for the cscope and 'ffap-c-path (see above).
 (defun decide-c-style-by-path (filename)
@@ -446,14 +450,7 @@ Decide for a style, based on path."
                                         ;c-basic-offset 2
            "gnu")
 
-          ((or (string-match "git/linux/" filename)
-               (string-match "git/nubia/" filename)
-
-               (string-match "git/.*linux/" filename)
-               (string-match "/usr/src/linux" filename)
-               (string-match "/git/git-core/" filename)
-               (string-match "/git/rsync.*/" filename)
-               )
+          ((string-match linux-sources-dirs-regexp filename)
            (setq tab-width 8)
            "linux")
 
