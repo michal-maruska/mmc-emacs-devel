@@ -1,16 +1,18 @@
 ;;; These are re-definitions of standard cc-mode functions
 ;;; to provide more functionality:
 
-;; no-space-before-funcall
-;;
+;;; `no-space-before-funcall'  ... remove accidental one!
+;; int function (
+;;             ^ delete this space when '(' is pressed.
+;; same for calling it
+;;  function (1); will remove the space.
 
-
-;; mmc:
 ;; comparison with emacs/23.1/lisp/progmodes/cc-cmds.el.gz
 ;; last-command-event vs. last-command-char ??
 ;; 'no-space-before-funcall in c-cleanup-list -> remove it when found.
 ;; /usr/share/emacs/24.1.50/lisp/progmodes/cc-cmds.el.gz
 (eval-when-compile
+  ;; comes from cc-cmds.el
   ;; (require 'cc-cmds)
   ;; this contains a macro for this
   (require 'cc-defs))
@@ -124,11 +126,14 @@ newline cleanups are done if appropriate; see the variable `c-cleanup-list'."
                old-blink-paren
                (funcall old-blink-paren))))))
 
-;; cc-cmds.el
 ;; c-cleanup-list
-;; (add-to-list 'c-cleanup-list 'paren-brace)
-
+;; (add-to-list 'c-cleanup-list 'paren-space-brace)
 ;; http://comments.gmane.org/gmane.emacs.cc-mode.general/5766
+
+;; NEW FUNCTIONALITY:
+;;  ){ -> ) {
+;; insert a space between ) and {
+;; paren-space-brace in c-cleanup-list
 (defun c-electric-brace (arg)
   "Insert a brace.
 
@@ -228,13 +233,13 @@ settings of `c-cleanup-list' are done."
                          (c-try-one-liner))
                   (setq here (- (point-max) pos))))
 
-              ;; `{': clean up brace-else-brace and brace-elseif-brace, brace-finally-brace, paren-brace and try-brace
+              ;; `{': clean up brace-else-brace and brace-elseif-brace, brace-finally-brace, paren-space-brace and try-brace
               (when (eq last-command-event ?\{)
                 (cond
                  ;; NEW FUNCTIONALITY:
                  ;;  ){ -> ) {
                  ;; insert a space between ) and {
-                 ((and (memq 'paren-brace c-cleanup-list)
+                 ((and (memq 'paren-space-brace c-cleanup-list)
                        (eq (char-before (1- (point))) ?\)))
                   (backward-char)
                   (insert ?\ )

@@ -13,6 +13,8 @@
 
 ;; patches:  -p !
 (defun my-turn-on-auto-newline ()
+  ;; this is part of the electric-keys functionality: I want it.
+  ;; paren-space-brace for example!
   ;; after brace, comma, ; :
   ;; /la in modeline
   (c-toggle-auto-newline 1))

@@ -39,17 +39,19 @@
          '(indent-tabs-mode . t)
          (cdr l)))))
 
-;; paren-brace:  "){" -> ") {"
+;; add paren-space-brace into 'c-cleanup-list:
+;;  "){" -> ") {"
 ;; with newline in between?
 (let* ((l (aget c-style-alist "linux"))
        (cleanup (aget l 'c-cleanup-list)))
   (unless
-      (memq 'paren-brace cleanup)
+      (memq 'paren-space-brace cleanup)
     (setcdr cleanup
         (cons
-         'paren-brace
+         'paren-space-brace
          (cdr cleanup)))))
-;; (add-to-list 'c-cleanup-list 'paren-brace)
+;; to accomplish in the current-buffer local style:
+;; (add-to-list 'c-cleanup-list 'paren-space-brace)
 
 
 ;; I guess `obsolete' now!
@@ -100,7 +102,7 @@
                                   empty-defun-braces
                                   defun-close-semi
                                   ;; if ()_{
-                                  paren-brace
+                                  paren-space-brace
                                   ))
    ;; C++ so
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
@@ -179,7 +181,7 @@
                                   empty-defun-braces
                                   defun-close-semi
                                   ;; if ()_{
-                                  paren-brace
+                                  paren-space-brace
                                   ))
    ;; C++ so
    (c-offsets-alist            . (
@@ -254,7 +256,7 @@
                   no-space-before-funcall
                   empty-defun-braces
                   defun-close-semi
-                  paren-brace))
+                  paren-space-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
                   (substatement-open . 0)
@@ -282,7 +284,7 @@
                   no-space-before-funcall
                   empty-defun-braces
                   defun-close-semi
-                  paren-brace))
+                  paren-space-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
                   (substatement-open . 0)
@@ -312,7 +314,7 @@
                   space-before-funcall
                   empty-defun-braces
                   defun-close-semi
-                  paren-brace))
+                  paren-space-brace))
    ;;
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
                   (substatement-open . 0)
