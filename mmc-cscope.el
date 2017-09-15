@@ -95,41 +95,27 @@
         (if (and done (eq old-buffer buffer) cscope-first-match-point)
             (cscope-help))))))
 
-
 ;; correct:
-'(defun cscope-minor-mode (&optional arg)
-   ""
-   (interactive "P")
-   (progn
-     (setq cscope-minor-mode (if (null arg) t (car arg)))
-     (if cscope-minor-mode
-         (progn
-           ;; sept 2014: cscope:menu no more defined!
-           (easy-menu-add cscope:menu
-                          cscope-minor-mode-keymap
-                                        ;cscope:map
-                          )
-           (run-hooks 'cscope-minor-mode-hooks)))
-     cscope-minor-mode))
-
-
 (add-hook 'gdb-mode-hook (function cscope:hook))
 (add-hook 'gdb-mode-hook
           (lambda ()
             (make-local-variable 'cscope-initial-directory)))
 
-;cscope-command-args
+;; cscope-command-args
 ;; http://cscope.sourceforge.net/large_projects.html
 (set-default 'cscope-command-args (list "-R"))
 
-(defvar my-cscope-map
-  (lookup-key cscope-minor-mode-keymap
-              ;cscope:map
-              (kbd "\C-cs"))
-  "cscope map without the commong prefix")
+;; find the map, and modify it:
+(let
+    ((my-cscope-map
+     (lookup-key cscope-minor-mode-keymap
+                                        ;cscope:map
+                 (kbd "\C-cs"))))
+  ;; "cscope map without the commong prefix")
 
-(define-key my-cscope-map "/" 'cscope-set-initial-directory)
-(global-set-key [(control ?#)] my-cscope-map)
+  (define-key my-cscope-map "/" 'cscope-set-initial-directory)
+  (global-set-key [(control ?#)] my-cscope-map)
+  )
 
 
 ;; QT
@@ -142,6 +128,8 @@
 (setq cscope-display-cscope-buffer nil)
 (setq cscope-do-not-update-database 't)
 
+
+;; todo: autoload it!
 (require 'etags)
 
 ;; `find-tag-tag' is the function which gets the default symbol from the buffer, under the `point'.
@@ -167,7 +155,7 @@ If prompt-p, then ask confirmation. With defaulting and completion."
                  string)
                                (tags-lazy-completion-table)
                                nil nil nil nil default)
-            "")))			; use default
+            "")))                       ; use default
     (if (equal spec "")
         (or default (user-error "There is no default tag"))
       spec)))
@@ -193,9 +181,9 @@ If prompt-p, then ask confirmation. With defaulting and completion."
 (eval-after-load "xref"
   '(substitute-key-definition 'xref-find-definitions 'mmc-find-tag global-map)
   )
+
 ;; find-tag
 ;; M-. runs the command xref-find-definitions
-
 (defun cscope-reset ()
   "empty the minibuffer, if broken by cscope."
   (interactive)
