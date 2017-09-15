@@ -198,26 +198,6 @@ and invoke a html browser to display the relevant API docs  "
       (do-replace-string from to nil start end))))
 
 
-(defun lispy-name-2-camelcase (start end)
-  (interactive "r")
-  (save-excursion
-    (upcase-initials-region start end)
-    (do-replace-string "-" "" nil start end)))
-
-;; reverse ?
-(defun camelcase-2-lispy-name (start end)
-  (interactive "r")
-  (save-excursion
-    (let ((case-fold-search nil))
-      (while (search-forward-regexp "[[:upper:]]" end 't)
-        (downcase-region
-         (match-beginning 0)
-         (match-end 0))
-        (goto-char (match-beginning 0))
-        (insert "-")
-        (goto-char (+ (match-end 0) 1))))))
-
-
 (global-set-key [(alt ?-)] 'invert-word-separator)
 (global-set-key [(alt ?.)] 'gtk-doc)
 
