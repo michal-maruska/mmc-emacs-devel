@@ -43,11 +43,6 @@
   )
 
 ;;; ffap:
-(defmacro add-to-list-rest (symbol &rest elements)
-  "append to the list-value of symbol the remaining arguments (as a list)."
-  `(set ,symbol (append (symbol-value ,symbol)
-                        (list ,@elements))))
-
 
 ;; see mmc-c-mode.el for cscope-based solution: todo: cron -> reindex!
 (defun decide-for-c-include-path (filename)
