@@ -218,6 +218,66 @@
                                   ;(arglist-cont-nonempty . ++) ;n4f!
 
 
+(c-add-style
+ "sane"
+ ;; this is not a style variable, so done in a hook:(
+ ;; (setq indent-tabs-mode t)
+ '((c-tab-always-indent        . t)     ; TAB just indents
+   (c-basic-offset . 2)                 ;fixme: 8 for some sources!
+   (c-comment-only-line-offset . 0)     ; only comment -> additional offset
+
+
+   ;; when I press { I want to insert a newline BEFORE or AFTER:
+   ;; in java mode I don't want hanging at: ((func-decl-cont 5425))
+   ;; (substatement-open . (after))
+   ;; C-c C-o
+   (c-hanging-braces-alist     . ((substatement-open before after)
+                                  ;; fixme! how to remove the dangling space!
+
+                                  (topmost-intro after) ;this is after a: void function() .{
+                                  (inline-open after)
+
+                                  (brace-list-open) ;no newline around!
+                                  (defun-open after)
+                                  (func-decl-cont after) ;newline After the {
+                                  ))
+   (c-hanging-colons-alist     . ((member-init-intro before)
+                                  (inher-intro)
+                                  (case-label after)
+                                  (label after)
+                                  (access-label after)))
+   (c-cleanup-list             . (scope-operator
+                                  no-space-before-funcall
+                                  empty-defun-braces
+                                  defun-close-semi
+                                  ;; if ()_{
+                                  paren-space-brace
+                                  ))
+   (c-auto-newline . t)
+   ;; C++ so
+   (c-offsets-alist            . (
+
+                                  (arglist-cont-nonempty . 5)
+                                  (substatement-open . 2)
+                                  (substatement-label . 2)
+                                  (case-label . 2)
+
+                                  (arglist-intro . 12)
+                                  (case-label . +)
+                                  ;; (topmost-intro . 0)
+                                  (innamespace . +)
+                                  ;;
+                                  ; (arglist-cont-nonempty )
+
+                                  (arglist-close . c-lineup-arglist)
+                                  (case-label        . 4)
+                                  (block-open        . 0)
+                                  (knr-argdecl-intro . -)
+
+                                  ;; android code probably different.
+                                  ;(arglist-cont-nonempty . ++) ;n4f!
+
+
                                   ;; namespace-open
                                   ;; innamespace  .... ignore it!
                                   (substatement  . 2)
