@@ -316,7 +316,7 @@ settings of `c-cleanup-list' are done."
            (funcall old-blink-paren)))))
 
 
-;; mmc: show the current one!
+;;; mmc: show the current one!
 (defun c-set-style (stylename &optional dont-override)
   "Set the current buffer to use the style STYLENAME.
 STYLENAME, a string, must be an existing CC Mode style - These are contained
@@ -372,7 +372,7 @@ a null operation."
 
 ;; /usr/share/emacs/24.1.50/lisp/progmodes/cc-guess.el.gz
 
-;; problem if basic-offset is nil
+;; Treat basic-offset nil as 0.
 (defun c-guess-symbolize-integer (int basic-offset)
   (if (eq nil basic-offset) ;; mmc: added
       (setq basic-offset 0))
@@ -411,8 +411,6 @@ the absolute file name of the file if STYLE-NAME is nil."
       (message "Not yet guessed"))))
 
 
-(provide 'mmc-c-mode-patches)
-
 ;; 2014-09-18
 ;; bug in /usr/share/emacs/24.4.50/lisp/files.el.gz
 ;; this is needed for one of apt/ c++ files: which  -*- mode: cpp; mode: fold -*-
@@ -442,3 +440,5 @@ already the major mode."
      (if (stringp val)
          (set-text-properties 0 (length val) nil val))
      (set (make-local-variable var) val))))
+
+(provide 'mmc-c-mode-patches)
