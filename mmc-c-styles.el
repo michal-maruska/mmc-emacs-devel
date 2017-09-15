@@ -1,5 +1,6 @@
 (require 'cc-mode)
 (require 'assoc)
+(require 'cc-guess nil 'noerror)
 
 ;; so these don't set/use c-basic-offset ??
 ;; (set to 2 or 4). Maybe inherit from ...?
@@ -20,7 +21,6 @@
 ;;  c-indentation-style -- internal.
 ;; c-cleanup-list  .. todo!
 
-;; (c-set-style
 
 ;; modify the "Linux" style to insert <TAB>s !
 
@@ -28,7 +28,6 @@
 ;; indent-tabs-mode          t
 
 ;; make it insert TABs!
-;; (aget (aget c-style-alist "linux") 'indent-tabs-mode)
 
 ;; This rewrites the upstream linux style!
 (let ((l (aget c-style-alist "linux")))
@@ -71,14 +70,15 @@
     (if (functionp 'c-guess-buffer)
         (c-guess-buffer))))
 
+;;;
+;; Some customization is not part of the style, but a separate variable, so done in the hook:
+;; (setq indent-tabs-mode t)
+
 (c-add-style
  "tomtom"
- ;; this is not a style variable, so done in a hook:(
- ;; (setq indent-tabs-mode t)
  '((c-tab-always-indent        . t)         ; TAB just indents
    (c-basic-offset . 4)                     ;fixme: 8 for some sources!
    (c-comment-only-line-offset . 0)         ; only comment -> additional offset
-
 
    ;; when I press { I want to insert a newline BEFORE or AFTER:
    ;; in java mode I don't want hanging at: ((func-decl-cont 5425))
@@ -326,7 +326,7 @@
 (c-add-style
  "dui"
  '((c-cleanup-list             . (no-space-before-funcall
-                  brace-else-brace))))
+                                  brace-else-brace))))
 
 (c-add-style
  "xorg"
@@ -353,7 +353,6 @@
                   (block-open        . 0)
                   (knr-argdecl-intro . -)))
    (c-echo-syntactic-information-p . t)))
-
 
 
 (c-add-style
@@ -383,7 +382,6 @@
    (c-echo-syntactic-information-p . t)))
 
 
-
 ;; testbed:
 (c-add-style
  "mmctest"
@@ -411,10 +409,6 @@
                   (block-open        . 0)
                   (knr-argdecl-intro . -)))
    (c-echo-syntactic-information-p . t)))
-
-
-
-(require 'cc-guess nil 'noerror)
 
 
 (defconst linux-sources-dirs-regexp
