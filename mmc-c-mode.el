@@ -108,30 +108,6 @@ based on filename."
    ))
 
 
-;; todo:  conditionally?
-(add-to-list 'ffap-c-path "~/sc/gauche/.gl/include/")
-(add-to-list 'ffap-c-path "/p/postgresql-8/work/pgsql-server/src/include/")
-
-(add-to-list 'ffap-c-path "/usr/include/apache2/")
-(add-to-list 'ffap-c-path "/usr/include/postgresql/")
-
-(add-to-list 'ffap-c-path "/usr/include/gtk-2.0/")
-(add-to-list 'ffap-c-path "/usr/lib/gauche/0.8.10/include/")
-(add-to-list 'ffap-c-path "/usr/lib/gauche/0.9/include/")
-;; ffap-c-path
-(set-default 'ffap-c-path
-             (cons "/usr/lib/gauche/0.9/include/" ffap-c-path))
-
-;; when adding at late run-time:
-;; (setq-default ffap-c-path ffap-c-path)
-
-
-(add-to-list 'ffap-c-path "/usr/include/X11")
-(add-to-list 'ffap-c-path "/usr/include/gtksourceview-1.0/")
-(add-to-list 'ffap-c-path "/usr/include/gtkextra-2.0/")
-
-(add-to-list 'ffap-c-path "/usr/include/libart-2.0/")
-(add-to-list 'ffap-c-path "/usr/include/libgnome-2.0/")
 
 ;;  make the var buffer local  huh????
 
