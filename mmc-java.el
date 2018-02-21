@@ -63,6 +63,13 @@
 
 (defun java-find-class/package (symbol)
   "ffap implementation to use ...."
+  (if (and
+       cscope-minor-mode
+       cscope-initial-directory)
+      ;; todo: I have to enable this in Java mode!
+      (find-in-cscope-files symbol
+                            cscope-initial-directory)
+
   ;; extract the Class name!
   (if cscope-minor-mode
       ;; todo: I have to enable this in Java mode!
@@ -73,6 +80,11 @@
       ;; (cscope-find-info nil)
       (let ((cwd (file-name-directory (buffer-file-name))))
         (cond
+         ((file-under-p cwd "~/italia")
+          (find-in-cscope-files symbol "~/italia"))
+
+         ((file-under-p cwd "~/gallo")
+          (find-in-cscope-files symbol "~/gallo"))
 
          ((or (file-under-p cwd "~/next")
               (file-under-p cwd "/home/maruska/next")
@@ -94,6 +106,12 @@
          (t
           (find-in-cscope-files symbol (caar (cscope-find-info nil)))
           )))))
+
+       ((file-under-p cwd "~/wave3/dgit/deauville-p4cns-main")
+        (find-in-cscope-files symbol "~/wave3/dgit/deauville-p4cns-main"))
+       (t
+        (find-in-cscope-files symbol (caar (cscope-find-info nil)))
+        )))))
 
 (require 'rx)
 
