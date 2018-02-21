@@ -669,6 +669,11 @@ Decide for a style, based on path."
           ;;fixme: this should be defined as style!
           (tomtom-hook filename)))
 
+    (if (string-match "/bmw/" filename)
+        (if (string-match "ReferenceReflectionContext" filename)
+            (setq indent-tabs-mode t)
+          (setq indent-tabs-mode nil)))
+
     ;; often the style is not fully true:
 
     ;; what's the basic unit of indentation?
