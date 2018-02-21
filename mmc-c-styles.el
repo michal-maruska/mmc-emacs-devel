@@ -115,6 +115,8 @@
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
                                   (substatement-open . 0)
                                   (case-label        . 4)
+                                  ;; (case-label . 0)
+
                                   (block-open        . 0)
                                   (knr-argdecl-intro . -)
 
@@ -147,7 +149,6 @@
                                   (topmost-intro-cont 0)
                                   (access-label . -2) ; - inclass
                                   (topmost-intro . 0)
-                                  (case-label . 0)
                                   (statement-case-intro . 2)
                                   (member-init-intro . 2)))
 
@@ -202,7 +203,6 @@
 
                                   (arglist-close . c-lineup-arglist)
                                   (substatement-open . 0)
-                                  (case-label        . 4)
                                   (block-open        . 0)
                                   (knr-argdecl-intro . -)
 
@@ -323,7 +323,6 @@
                                   (else-clause 0)
                                   (topmost-intro-cont 0)
                                   (access-label . -2) ; - inclass
-                                  (case-label . 0)
                                   (statement-case-intro . 2)
                                   (member-init-intro . 2)))
 
