@@ -55,34 +55,42 @@
                                  (compose-path cscope-file-dir cscope-base-file)
                                  prefix ".aidl"))))
 
+
+;; there is mapping buffer/file -> cscope db, so drop this duplication:
+
 (defun java-find-class/package (symbol)
   "ffap implementation to use ...."
-  (let ((cwd (file-name-directory (buffer-file-name))))
-    (cond
-     ((file-under-p cwd "~/italia")
-      (find-in-cscope-files symbol "~/italia"))
+  ;; extract the Class name!
+  (if cscope-minor-mode
+      ;; todo: I have to enable this in Java mode!
 
-     ((file-under-p cwd "~/gallo")
-      (find-in-cscope-files symbol "~/gallo"))
+      ;; fixme:
+      ;; this way I broke it for multiple-cscopDB projects.:
+                                        ;(setq
+      ;; (cscope-find-info nil)
+      (let ((cwd (file-name-directory (buffer-file-name))))
+        (cond
 
-     ((or (file-under-p cwd "~/next")
-          (file-under-p cwd "/home/maruska/next")
-          (file-under-p cwd "~/nav4/"))
-      (find-in-cscope-files symbol
-                            "~/nav4/"))
-     ;; aif =>
-     ((file-under-p cwd "~/n4f/nav4-features")
-      (or
-       (find-in-cscope-files symbol "~/n4f/nav4-features")
-       (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
+         ((or (file-under-p cwd "~/next")
+              (file-under-p cwd "/home/maruska/next")
+              (file-under-p cwd "~/nav4/"))
+          (find-in-cscope-files symbol
+                                "~/nav4/"))
+         ;; aif =>
+         ((file-under-p cwd "~/n4f/nav4-features")
+          (or
+           ;; ... like this one:
+           (find-in-cscope-files symbol "~/n4f/nav4-features")
+           (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
 
-     ((file-under-p cwd "~/n4f/pnd-navkit")
-      (or
-       (find-in-cscope-files symbol "~/n4f/pnd-navkit")
-       (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
-
-     (t
-      nil))))
+         ((file-under-p cwd "~/n4f/pnd-navkit")
+          (or
+           ;; ... like this one:
+           (find-in-cscope-files symbol "~/n4f/pnd-navkit")
+           (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
+         (t
+          (find-in-cscope-files symbol (caar (cscope-find-info nil)))
+          )))))
 
 (require 'rx)
 
