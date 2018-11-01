@@ -44,7 +44,10 @@
 ;; fixme: drop-prefix
 (defun find-in-cscope-files (symbol cscope-file-dir &optional prefix)
   "return filename related to class @symbol, in cscope in given directory."
-  (let ((cscope-base-file "cscope.files.java"))
+  (let ((cscope-base-file
+         (if (file-exists-p (compose-path cscope-file-dir "cscope.files.java"))
+             "cscope.files.java"
+           "cscope.files")))
     (if (not prefix)
         (setq prefix cscope-file-dir))
     (or
