@@ -181,6 +181,7 @@ If prompt-p, then ask confirmation. With defaulting and completion."
         (ring-insert find-tag-marker-ring (point-marker))
         ;; (push-tag-mark)
         (setq cscope-display-cscope-buffer prefix)
+        (xref-push-marker-stack)
         (call-interactively
          (if prefix
              'cscope-find-this-symbol
@@ -192,6 +193,8 @@ If prompt-p, then ask confirmation. With defaulting and completion."
 (eval-after-load "xref"
   '(substitute-key-definition 'xref-find-definitions 'mmc-find-tag global-map)
   )
+
+(define-key global-map (kbd "M-*") 'pop-tag-mark)
 
 ;; find-tag
 ;; M-. runs the command xref-find-definitions
