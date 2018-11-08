@@ -1,7 +1,18 @@
-;;; it sets the hooks !!
+;;; it also sets the hooks!
+;;
 (require 'xcscope)
+(require 'mmc-c-styles)
+;;
+(setq cscope-database-regexps
+      `(
+        (,linux-sources-dirs-regexp
+         ("~/git/linux/"
+          ("-d" ))                      ;"-I/usr/local/include"
+         )))
 
-;; patch:
+
+
+;;; patches:
 (defun cscope-process-sentinel (process event)
   "Sentinel for when the cscope process dies."
   (let* ((buffer (process-buffer process)) window update-window
