@@ -382,6 +382,107 @@
    (c-echo-syntactic-information-p . t)))
 
 
+(c-add-style
+ "android-java"
+ '(
+   ;; copied from "java"
+   (c-basic-offset . 4)
+   (c-comment-only-line-offset . (0 . 0))
+   ;; the following preserves Javadoc starter lines
+   (c-offsets-alist . ((inline-open . 0)
+                       (topmost-intro-cont    . +)
+                       (statement-block-intro . +)
+                       (knr-argdecl-intro     . 5)
+                       (substatement-open     . +)
+
+                       (substatement-label    . +)
+                       (label                 . +)
+                       (statement-case-open   . +)
+                       (statement-cont        . +)
+                       (arglist-intro  . c-lineup-arglist-intro-after-paren)
+                       (arglist-close  . c-lineup-arglist)
+                       (access-label   . 0)
+                       (inher-cont     . c-lineup-java-inher)
+                       (func-decl-cont . c-lineup-java-throws)
+
+                       ;; ^^^ java
+
+                                        ;(substatement-open . 0)
+                       (case-label        . +)
+                       (statement-case-intro +)
+
+                       (block-open        . 0)
+                                        ;(knr-argdecl-intro . -)
+
+                       ;; android code probably different.
+                       (arglist-cont-nonempty . ++) ;n4f!
+
+
+                       ;; namespace-open
+                       ;; innamespace  .... ignore it!
+                       ; (substatement  . 2)
+
+                       ;; Java +,   C 2?
+                       (statement-block-intro . +)
+                       (innamespace . 0)
+                       (inline-open 0)
+
+                       ;; diff between these 2?
+                       (inclass . +)                 ; java +, maybe C++  2?
+                       (inexpr-class . 0)            ; java +, maybe C++  2?
+
+                       (defun-block-intro . +) ; maybe C 2, but Java +
+                       (label . 0)
+
+                       ;; problem:  if a b; else c;    if after b we have ";" then
+                       ;; relative to "if", otherwise relative to  "b" !!
+                       ;;
+                       ;; 2011-02-24 for some reason I had -2
+                       ;; but
+                       (else-clause 0)
+                       (topmost-intro-cont 0)
+                       (access-label . -2) ; - inclass
+                       (topmost-intro . 0)
+                       (member-init-intro . 2)
+                       ))
+
+                                        ;(c-tab-always-indent        . t)         ; TAB just indents
+
+   ;; when I press { I want to insert a newline BEFORE or AFTER:
+   ;; in java mode I don't want hanging at: ((func-decl-cont 5425))
+   ;; (substatement-open . (after))
+   (c-hanging-braces-alist     . (
+                                  (topmost-intro after) ;this is after a: void function() .{
+                                  (inline-open after)
+
+                                  ;; mmc:
+                                  ;(statement after)
+                                  ;(substatement after)
+                                  (substatement-open after)
+
+
+                                  (brace-list-open) ;no newline around!
+                                  (defun-open after)
+                                  (func-decl-cont after) ;newline After the {
+                                  ))
+   (c-hanging-colons-alist     . (
+                                  ;; (member-init-intro before)
+                                  ;; (inher-intro)
+                                  ;; (case-label after)
+                                  ;; (label after)
+                                  ;; (access-label after)
+                                  ))
+   (c-cleanup-list             . (
+                                  scope-operator
+                                  no-space-before-funcall
+                                  empty-defun-braces
+                                  defun-close-semi
+                                  ;; ;; if ()_{
+                                  paren-brace
+                                  ))
+
+   (c-echo-syntactic-information-p . t)))
+
 ;; testbed:
 (c-add-style
  "mmctest"
@@ -469,7 +570,8 @@ Decide for a style, based on path."
                )
            ;; /home/maruska/ngl/project/arizona2/main/CrossPlatform/
            ;; Framework/PlatformAbstractionLayer/Implementation/DeviceInformation/
-           "tomtom")
+           ;; "tomtom"
+           "android-java")
           (t
                                         ;"free-group-style"
            nil))))
