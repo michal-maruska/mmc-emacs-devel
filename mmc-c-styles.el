@@ -114,19 +114,28 @@
    ;; C++ so
    (c-offsets-alist            . ((arglist-close . c-lineup-arglist)
                                   (substatement-open . 0)
-                                  (case-label        . 4)
+
+                                  ;; November 2018 -- for NavApp
+                                  ;; (case-label        . 4)
+                                  (case-label        . +)
+                                  ;;  2 ->
+                                  (statement-case-intro . +)
+                                  (statement-cont . ++)
+                                  ;; android code probably different.
+                                  ;; (arglist-cont-nonempty . ++) ;n4f!
+                                  (arglist-cont-nonempty . 4)
+                                  (substatement . +)
+
                                   ;; (case-label . 0)
 
                                   (block-open        . 0)
                                   (knr-argdecl-intro . -)
 
-                                  ;; android code probably different.
-                                  (arglist-cont-nonempty . ++) ;n4f!
 
 
                                   ;; namespace-open
                                   ;; innamespace  .... ignore it!
-                                  (substatement  . 2)
+                                  ;; (substatement  . 2)
 
                                   ;; Java +,   C 2?
                                   (statement-block-intro . +)
@@ -149,7 +158,6 @@
                                   (topmost-intro-cont 0)
                                   (access-label . -2) ; - inclass
                                   (topmost-intro . 0)
-                                  (statement-case-intro . 2)
                                   (member-init-intro . 2)))
 
    (c-echo-syntactic-information-p . t)))
