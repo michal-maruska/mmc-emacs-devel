@@ -54,13 +54,14 @@
 
 
 ;; I guess `obsolete' now!
-(defun tomtom-hook ()
+(defun tomtom-hook (filename)
   "adapt to tomtom style for C"
   (interactive)
   ;; when loading & saving
   ;; (setq indent-tabs-mode t)
   (if (eq major-mode 'java-mode)
-      (setq c-basic-offset 4)
+      (setq c-basic-offset 4
+            indent-tabs-mode t)
     ;; mmc: this is only about the `compression' part of TAB.
     (setq tab-width 8
           ;; when indenting myself:
@@ -68,7 +69,13 @@
           )
     ;; fixme: useless after setting the style!
     (if (functionp 'c-guess-buffer)
-        (c-guess-buffer))))
+        (c-guess-buffer)))
+
+
+  (if (string-match "/bmw/" filename)
+      (if (string-match "ReferenceReflectionContext" filename)
+          (setq indent-tabs-mode t)
+        (setq indent-tabs-mode nil))))
 
 ;;;
 ;; Some customization is not part of the style, but a separate variable, so done in the hook:
@@ -546,6 +553,10 @@ Decide for a style, based on path."
                                         ;c-basic-offset 2
            "gnu")
 
+          ((string-match "/less/" filename)
+           (setq indent-tabs-mode t)
+           "bsd"
+           )
           ((or (string-match linux-sources-dirs-regexp filename)
                (string-match "/usr/src/linux" filename)
                (string-match "/git/git-core/" filename)
@@ -589,7 +600,7 @@ Decide for a style, based on path."
       (if (and nil
                (string= style "tomtom"))
           ;;fixme: this should be defined as style!
-          (tomtom-hook)))
+          (tomtom-hook filename)))
 
     ;; often the style is not fully true:
 
