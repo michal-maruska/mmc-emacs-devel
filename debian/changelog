@@ -1,3 +1,29 @@
+mmc-emacs-devel (2.6.1) release; urgency=medium
+
+  * whitespace
+  * New: Use find-function-source-path for ffap (in elisp mode) too!
+  * mmc-lisp: whitespace & clean up
+  * Document no-space-before-funcall & paren-space-brace (renamed too)
+  * clean up c-mode related files
+  * "sane" style
+  * drop unused Camel-case functions
+  * drop useless additions to c-ffap paths
+  * sq format  (mmc-cscope.el)
+  * Use linux-sources-dirs-regexp
+  * Use the same cscope DB for all git-worktrees of Linux Kernel.
+  * format
+  * move away the macro add-to-list-rest
+  * Use cscope-find-info to find the cscope db. Use
+  * So I don't use tomtom(-java) anymore ... it's new c-style: android-java
+  * more dirs with Linux kernel- C-style code.
+  * Use indent-tabs-mode for tomtom/java, bmw RRC, and less(1).
+  * tomtom style: drop duplicated (contradicting) case-label
+  * scope/java -- the file-list file is either cscope.files.java or cscope.files
+  * cscope: push-marker & return by M-*
+  * Different Java style in navui .... from the previous TT Java code.
+
+ -- Michal Maruska <michal@ubuntu>  Fri, 09 Nov 2018 14:02:35 +0100
+
 mmc-emacs-devel (2.5) release; urgency=medium
 
   * New style t++, for Tomtom navkit C++. Also apply it in certain dirs.
