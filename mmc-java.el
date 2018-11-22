@@ -227,3 +227,9 @@
              '(".*.aidl" . java-mode))
 
 (provide 'mmc-java)
+
+
+(lookup-key java-mode-map [(meta ?b)])
+
+(define-key java-mode-map [(meta ?b)]    'backward-word)
+(define-key java-mode-map [(meta ?f)]    'forward-word)
