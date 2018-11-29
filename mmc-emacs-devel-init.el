@@ -71,6 +71,7 @@
     t)
   ;; is this defined already?
   (add-hook 'scheme-mode-hook 'enable-paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   )
 
 (eval-after-load "cmake-mode" ;; java-mode
