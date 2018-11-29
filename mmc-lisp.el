@@ -1,15 +1,22 @@
 (require 'mmc-simple)
 
 ;;; Enhance by looking at source directories first:
-(eval-after-load "ffap"
-  '(defun ffap-el-mode (name)
-     ;; If name == "foo.el" we will skip it, since ffap-el already
-     ;; searched for it once.  (This assumes the default ffap-alist.)
-     (and (not (string-match "\\.el\\'" name))
-          (or
-           (ffap-locate-file name '(".el") find-function-source-path)
-           (ffap-locate-file name '(".el") load-path))))
-  )
+;(eval-after-load "ffap.el")
+;; notice, that this comes after other relevant items in the `ffap-alist' list
+;; namely  *.elc? can find it faster!
+(defun ffap-el (name)
+  (or
+   (ffap-locate-file name t find-function-source-path)
+   (ffap-locate-file name t load-path)))
+;;  this runs afterwards! so without el!
+(defun ffap-el-mode (name)
+  ;; If name == "foo.el" we will skip it, since ffap-el already
+  ;; searched for it once.  (This assumes the default ffap-alist.)
+  (let ((extensions '(".el")))
+    (and (not (string-match "\\.el\\'" name))
+         (or
+          (ffap-locate-file name extensions find-function-source-path)
+          (ffap-locate-file name extensions load-path)))))
 
 ;; Tempo
 (load "tempo/tempo-elisp.el")
