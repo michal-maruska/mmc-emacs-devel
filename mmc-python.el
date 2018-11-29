@@ -85,7 +85,8 @@ run in the cwd of the edited file.")
                  (path (find-subpath-in-paths
                         relative
                         ;; fixme: todo:  use bin/python to find it!
-                        (list "/usr/lib/python2.7/dist-packages/"))))
+                        (list "."
+                              "/usr/lib/python2.7/dist-packages/"))))
             path))
       (modify-syntax-entry ?:  "." python-syntax-table))))
 
