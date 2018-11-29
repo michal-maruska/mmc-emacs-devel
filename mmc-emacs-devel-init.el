@@ -33,7 +33,7 @@
 
       (let ((buffer (current-buffer)))
         (if (equal prefix '(nil))
-            (start-process "gitk" nil "gitk" "--all" "--max-count=200")
+            (start-process "gitk" nil "gitk-poset")
           ;; let the user edit the cmd line:
           ;; fixme: bury that Async Command buffer!
           (apply 'start-process "gitk" nil
