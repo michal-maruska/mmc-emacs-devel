@@ -114,7 +114,7 @@
 
 ;; cscope-command-args
 ;; http://cscope.sourceforge.net/large_projects.html
-(set-default 'cscope-command-args (list "-R"))
+(setq cscope-command-args (list "-R" "-d"))
 
 ;; find the map, and modify it:
 (let
