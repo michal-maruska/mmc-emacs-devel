@@ -1,3 +1,11 @@
+mmc-emacs-devel (2.8) release; urgency=medium
+
+  * "sane" style
+  * Use cscope-find-info to find the cscope db. Use cscope-initial-directory (global!!) if defined.
+  * use TABS for JRRC ReferenceReflectionContext
+
+ -- Michal Maruska <mmaruska@gmail.com>  Thu, 28 Feb 2019 09:13:45 +0100
+
 mmc-emacs-devel (2.7) release; urgency=medium
 
   * Return for-back-ward-word bindings to Java mode map.
