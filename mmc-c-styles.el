@@ -684,10 +684,23 @@ Decide for a style, based on path."
 
     ;; n4f: not tabs.
     (if (string-equal style "sane")
-        (setq indent-tabs-mode nil))
+        (setq indent-tabs-mode nil)
+      ;; else:
+      (if (string-match indent-tabs-mode-matcher filename)
+          ;; buffer-local
+          (setq indent-tabs-mode t)
+        )
+      ;; (unless (or t
+      ;;             (eq major-mode 'java-mode))
+      ;;   (setq indent-tabs-mode t))
+      )))
 
-    (unless (or t
-                (eq major-mode 'java-mode))
-      (setq indent-tabs-mode t))))
+(defconst indent-tabs-mode-matcher
+  ; "regexp to match filenames to be used with TABS"
+  (regexp-opt (list
+               "elinks/"
+               "/pcre3"
+               )))
+
 
 (provide 'mmc-c-styles)
