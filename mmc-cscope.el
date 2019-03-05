@@ -3,6 +3,10 @@
 (require 'xcscope)
 (require 'mmc-c-styles)
 ;;
+(setq cscope-option-do-not-update-database t)
+(setq cscope-display-cscope-buffer nil)
+;; obsolete:
+; (setq cscope-do-not-update-database 't)
 (setq cscope-database-regexps
       `(
         (,linux-sources-dirs-regexp
@@ -136,8 +140,6 @@
 
 ;; often the variable .... database is inherited from another buffer ... wrong !!
 ;; cscope-search-one-database
-(setq cscope-display-cscope-buffer nil)
-(setq cscope-do-not-update-database 't)
 
 
 ;; todo: autoload it!
