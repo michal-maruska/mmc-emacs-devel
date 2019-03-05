@@ -192,21 +192,25 @@ and invoke a html browser to display the relevant API docs  "
       (decide-c-style-by-path filename)
       (decide-for-c-include-path filename))))
 
+
+;(add-hook 'c-mode-hook 'my-c-mode-hook)
+;(add-hook 'c++-mode-hook 'my-c-mode-hook)
+; (remove-hook 'c++-mode-hook 'my-c-mode-hook)
+
+(add-hook 'c-mode-common-hook 'my-c-mode-hook)
+
 ; (remove-hook 'c-mode-hook 'my-c-mode-hook)
-(add-hook 'c-mode-hook 'my-c-mode-hook)
-(add-hook 'c++-mode-hook 'my-c-mode-hook)
 ;; I'm not ready: Java-mode stopped having font-lock !
 
 ;; (add-hook 'java-mode-hook 'my-c-mode-hook)
 ;; (remove-hook 'java-mode-hook 'my-c-mode-hook)
 ;;(remove-hook 'c-mode-common-hook 'my-c-mode-hook)
-(add-hook 'c-mode-common-hook 'my-c-mode-hook)
 
 ;; c++-mode-hook
-
 
 (copy-face 'font-lock-th-face 'font-lock-string-face)
 
 (require 'mmc-gud)
 (require 'mmc-c-mode-patches)
+
 (provide 'mmc-c-mode)
