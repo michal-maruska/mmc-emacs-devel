@@ -132,7 +132,7 @@
      "scsh -lm /usr/local/activity/scheme/packages.scm")
 
      ((string-match "activity/guile" file-name)
-	   "guile")
+      "guile")
 
      ;('t "scsh  -lm /usr/local/activity/scheme/packages.scm -lm /x/cvs/sourceforge/scsh/sunet/modules.scm")
      (t "gosh")

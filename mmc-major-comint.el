@@ -97,7 +97,7 @@ or stored in the LOCAL-VARIABLE."
 (defun inferior-process (mode) ; variable
   ""
   ;(interactive (list major-mode))
-  (let ((info (or (aget major-mode-comint-mapping mode't)
+  (let ((info (or (aget major-mode-comint-mapping mode 't)
                   (get-info-manual-comint-mode))))
     (if info
         (let* ((get-buffer (nth 0 info))
