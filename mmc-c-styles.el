@@ -218,6 +218,36 @@
                                   ;(arglist-cont-nonempty . ++) ;n4f!
 
 
+                                  ;; namespace-open
+                                  ;; innamespace  .... ignore it!
+                                  (substatement  . 2)
+
+                                  ;; Java +,   C 2?
+                                  (statement-block-intro . +)
+                                  ;; (innamespace . 0)
+                                  (inline-open 0)
+
+                                  ;; diff between these 2?
+                                  (inclass . +)      ; java +, maybe C++  2?
+                                  (inexpr-class . 0) ; java +, maybe C++  2?
+
+                                  (defun-block-intro . +) ; maybe C 2, but Java +
+                                  (label . 0)
+
+                                  ;; problem:  if a b; else c;    if after b we have ";" then
+                                  ;; relative to "if", otherwise relative to  "b" !!
+                                  ;;
+                                  ;; 2011-02-24 for some reason I had -2
+                                  ;; but
+                                  (else-clause 0)
+                                  (topmost-intro-cont 0)
+                                  (access-label . -2) ; - inclass
+                                  (case-label . 0)
+                                  (statement-case-intro . 2)
+                                  (member-init-intro . 2)))
+
+   (c-echo-syntactic-information-p . t)))
+
 (c-add-style
  "sane"
  ;; this is not a style variable, so done in a hook:(
