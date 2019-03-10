@@ -188,7 +188,8 @@ and invoke a html browser to display the relevant API docs  "
 
 ; c-mode-hook
 (defun my-c-mode-hook ()
-  "Common part for C and C++ modes."
+  "Customize style & include path when entering c-mode
+Common part for C and C++ modes."
   (let ((filename (buffer-file-name))
         )
     ;;(electric)
