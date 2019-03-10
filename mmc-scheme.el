@@ -1,5 +1,3 @@
-
-
 ;; /usr/lib/xemacs/xemacs-packages/lisp/scheme/cmuscheme48.el
 (require 'mmc-simple)
 (require 'mmc-lisp)
@@ -14,7 +12,7 @@
 (add-hook 'scheme-mode-hook
   (lambda ()
     (if (featurep 'xcscope)
-	(cscope-minor-mode)
+        (cscope-minor-mode)
       ;; I use it for gauche  genstub files .... or gtk+ ?
       )))
 
@@ -108,8 +106,8 @@
 
 ;; customize comint: i don't want them in selected window!
 (mapc (lambda (item)
-	(setq same-window-buffer-names
-	      (delete item same-window-buffer-names)))
+        (setq same-window-buffer-names
+              (delete item same-window-buffer-names)))
       '("*inferior-lisp*" "*scheme*"))
 ;special-display-buffer-names
 ; special-display-regexps
@@ -149,26 +147,26 @@
 (defun parent-buffer (buffer)
   "where is the definition of the structure for the buffer (should be filename)"
   (let* ((mode (major-mode-of buffer))
-	 (parent
-	  ;; mapping ->
-	  (cond ((eq mode 'scheme-mode) "~/activity/scheme/packages.scm")
-		('t			; tex  auctex ...
-		 nil))))
+         (parent
+          ;; mapping ->
+          (cond ((eq mode 'scheme-mode) "~/activity/scheme/packages.scm")
+                ('t			; tex  auctex ...
+                 nil))))
     ;; the PARENT involves some trickery:
     (unless (bufferp parent)
       (let ((possible-buffer (get-file-buffer parent)))
-	(if (bufferp possible-buffer)
-	    (setq parent possible-buffer))))
+        (if (bufferp possible-buffer)
+            (setq parent possible-buffer))))
     ;;
     (if parent
-	(cond
-	 ((bufferp parent)
-	  (display-buffer parent))
-	 ((and (stringp parent)
-	       (or
-		(file-exists-p parent)))
-	  (find-file-other-window parent)
-	  (setq parent (current-buffer)))))
+        (cond
+         ((bufferp parent)
+          (display-buffer parent))
+         ((and (stringp parent)
+               (or
+                (file-exists-p parent)))
+          (find-file-other-window parent)
+          (setq parent (current-buffer)))))
     parent))
 
 ;(string-match "-m \\(\\(?:\\s_\\|\\w\\)*\\) "  "-m lksada:lksdfj ")
@@ -197,13 +195,13 @@
 (defun scheme-compose-package-definition (package)
   ""
   (let ((file (replace-regexp-in-string ":" "/" package)) ; [16 ott 02]
-	(opens '(scsh scheme))
-	(exports '()))
+        (opens '(scsh scheme))
+        (exports '()))
     ;(indenta
     (princ
      `(define-structure ,package (export ,@exports)
-			(open ,@opens)
-	(files ,file))
+                        (open ,@opens)
+        (files ,file))
      (current-buffer))))
 
 ;;; Enhancement:
@@ -216,12 +214,12 @@
   ""
   (interactive (list (current-buffer)))
   (let ((module-name (scheme-module-name))
-	(parent-buffer (parent-buffer buffer)))
+        (parent-buffer (parent-buffer buffer)))
 
     ;; i want to switch, but:
     (switch-to-buffer-other-window parent-buffer)
     (if (search-buffer-regexp (concat "define-structure *" (regexp-quote module-name)) nil 't)
-	parent-buffer
+        parent-buffer
       (goto-char (point-max))
       (scheme-compose-package-definition module-name))))
 
@@ -242,12 +240,12 @@
   (interactive (list (current-buffer)))
   (let ((parent (parent-buffer buffer)))
     (if parent
-	(cond
-	 ((bufferp parent)
-	  (display-buffer parent))
-	 ((and (stringp parent)
-	       (file-exists-p parent))
-	  (find-file-other-window parent))))))
+        (cond
+         ((bufferp parent)
+          (display-buffer parent))
+         ((and (stringp parent)
+               (file-exists-p parent))
+          (find-file-other-window parent))))))
 
 (global-set-key [(control ?x) ?'] 'goto-parent-buffer)
 ;; ---------------------------------------------------------------------
@@ -262,8 +260,8 @@
 
 ;; (let (buffer)
 ;;     (if (and (boundp 'scheme-proc)
-;; 	     (setq buffer (process-buffer (scheme-proc))))
-;; 	(display-buffer buffer 't)
+;;           (setq buffer (process-buffer (scheme-proc))))
+;;      (display-buffer buffer 't)
 ;;       (run-scheme (scheme-determine-program))))
 
 ; could be via Hyperbole ??
@@ -272,8 +270,8 @@
 
 ;; (let (buffer)
 ;;     (if (and (boundp 'scheme-proc)
-;; 	     (setq buffer (process-buffer (scheme-proc))))
-;; 	(display-buffer buffer 't)
+;;           (setq buffer (process-buffer (scheme-proc))))
+;;      (display-buffer buffer 't)
 ;;       (run-scheme (scheme-determine-program))))
 
 (eval-after-load
@@ -284,39 +282,39 @@
      ;; (require 'tempo)
      (load "tempo/tempo-scheme.el")
 
-					;(define-key scheme-mode-map [(control ?c) ?d] 'scheme-display)
-					;(define-key scheme-mode-map [(control ?c) ?d] nil)
+                                        ;(define-key scheme-mode-map [(control ?c) ?d] 'scheme-display)
+                                        ;(define-key scheme-mode-map [(control ?c) ?d] nil)
 
 
      (define-key scheme-mode-map [(control ?x) ?'] 'scheme-goto-package-definition)
-					;(define-key scheme-mode-map [(control ?c) ?j ?m] nil)
+                                        ;(define-key scheme-mode-map [(control ?c) ?j ?m] nil)
 
      (define-key scheme-mode-map [(control meta ?x)] nil)
      (define-key scheme-mode-map [(meta control ?x)] my-lisp-map)
-					;(define-key scheme-mode-map [(control meta ?x)] nil)
+                                        ;(define-key scheme-mode-map [(control meta ?x)] nil)
 
 
 
      (define-key scheme-mode-map [(control  ?c) ?j] 'scheme-step-in)
      (define-key scheme-mode-map [(control  ?c) (control ?j)]
        (lambda ()
-	 (interactive)
-	 (find-file "/linux/11/x/activity/emacs/mmc-emacs-devel/mmc-scheme.el")))
+         (interactive)
+         (find-file "/linux/11/x/activity/emacs/mmc-emacs-devel/mmc-scheme.el")))
 
      (define-key scheme-mode-map [(control  ?c) ?r] 'scheme-reload-package)
 
 
      (define-key scheme-mode-map [(control ?x) ?'] 'scheme-goto-package-definition)
-					;(define-key scheme-mode-map [(control ?c) ?d] 'scheme-display)
-					;(define-key scheme-mode-map [(control ?c) ?d] nil)
+                                        ;(define-key scheme-mode-map [(control ?c) ?d] 'scheme-display)
+                                        ;(define-key scheme-mode-map [(control ?c) ?d] nil)
 
 
      (define-key scheme-mode-map [(control ?x) ?'] 'scheme-goto-package-definition)
-					;(define-key scheme-mode-map [(control ?c) ?j ?m] nil)
+                                        ;(define-key scheme-mode-map [(control ?c) ?j ?m] nil)
 
      (define-key scheme-mode-map [(control meta ?x)] nil)
      (define-key scheme-mode-map [(meta control ?x)] my-lisp-map)
-					;(define-key scheme-mode-map [(control meta ?x)] nil)
+                                        ;(define-key scheme-mode-map [(control meta ?x)] nil)
 
 
      (define-key scheme-mode-map [(control ?c) ?e] 'scheme-export-symbol)
@@ -391,10 +389,10 @@
   (let (symbol)
     (catch 'found
       (while list
-	(setq symbol (car list)
-	      list (cdr list))
-	(if (string= (symbol-name symbol) string)
-	    (throw 'found symbol))))))
+        (setq symbol (car list)
+              list (cdr list))
+        (if (string= (symbol-name symbol) string)
+            (throw 'found symbol))))))
 
 ; (member-string-in-symbols "akkf" '(z af x y))
 
@@ -402,22 +400,22 @@
   ""
   (interactive)
   (let* ((symbol (erase-text-properties (thing-at-point 'symbol)))
-	 (buffer (current-buffer))
-	 ;;(module-name (scheme-module-name))
-	 (parent-buffer (scheme-goto-package-definition buffer))
-	 exports)
+         (buffer (current-buffer))
+         ;;(module-name (scheme-module-name))
+         (parent-buffer (scheme-goto-package-definition buffer))
+         exports)
     (setq exports (read parent-buffer))
     (when (eq (car exports) 'export)
       (if (member-string-in-symbols symbol exports)
-					; throw ..
-	  (message "%s already exported" symbol)
-	(backward-sexp 1)
-	;; if it is macro ??
-	(kill-sexp 1)
-	(setq exports (append (list 'export symbol)
-			      (nthcdr 1 exports)))
-	(princ exports parent-buffer)
-	(bury-buffer parent-buffer)))
+                                        ; throw ..
+          (message "%s already exported" symbol)
+        (backward-sexp 1)
+        ;; if it is macro ??
+        (kill-sexp 1)
+        (setq exports (append (list 'export symbol)
+                              (nthcdr 1 exports)))
+        (princ exports parent-buffer)
+        (bury-buffer parent-buffer)))
 
     (set-buffer buffer)))
 
@@ -428,12 +426,12 @@
   (interactive)
   (let ((symbol (thing-at-point 'symbol)))
     (cond ((save-excursion
-	     (skip-syntax-backward "w_")
-	     (equal (char-before) ?,))
-	   (cib-complete (- (point) (length symbol))
-			 scheme-comma-commands nil nil nil)
-	   ;; if comma-command ->complete
-	   ))))
+             (skip-syntax-backward "w_")
+             (equal (char-before) ?,))
+           (cib-complete (- (point) (length symbol))
+                         scheme-comma-commands nil nil nil)
+           ;; if comma-command ->complete
+           ))))
 
 
 
@@ -452,15 +450,15 @@
       ;(comint-skip-prompt
        ;; [[:digit:]]
       (if (looking-at "[0-9]* *\\(\\(\\s_\\|\\sw\\)*\\)>") ;6 system:scanner:sane>
-	  (match-string-no-properties 1)
-	nil))))
+          (match-string-no-properties 1)
+        nil))))
 
 
 (defun scsh-reload-package (package)
   "run inside the  comint-scheme buffer, "
   (interactive (list (scsh-current-package)))
   (comint-send-string  (current-buffer)
-		       ",config ,load /home/mmc/activity/scheme/packages.scm\n")
+                       ",config ,load /home/mmc/activity/scheme/packages.scm\n")
   (comint-send-string  (current-buffer) (format ",reload-package %s\n" package))
   (comint-send-string  (current-buffer) (format ",user\n"))
   (comint-send-string  (current-buffer) (format ",in %s\n" package)))
