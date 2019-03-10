@@ -118,27 +118,41 @@ based on filename."
         (concat prefix line)
       nil)))
 
+;; If I have cscope for linux Kernel or aosp, then I get a relative pathname, and then
+;; open the one under the cscope db dir?
 (defadvice ffap-c-mode (around cscope)
   ;; name is the arg.
   "consult cscope.files"
-  ad-do-it
-  (unless ad-return-value
-    ;;      (ffap-locate-file name t ffap-c-path))
-    (setq ad-return-value
-          (let ((cwd (file-name-directory (buffer-file-name))))
-            (cond
-             ((file-under-p cwd "~/italia")
-              (find-file-in-cscope name
-                                   "~/italia/cscope.files"
-                                   "~/italia/"))
+  (let* ((cwd (file-name-directory (buffer-file-name)))
+         (info (cscope-find-info cwd)))
+    (if info
+        ;; (let ((top-dir (caar info)))
+        (cscope-find-this-file (ad-get-arg 0))
+      ad-do-it)
+    ;; (unless ad-return-value
+    ;;   ;;      (ffap-locate-file name t ffap-c-path))
+    ;;   (setq ad-return-value
+    ;;         (cond
+    ;;          ;; fixme: ask cscope for the file!
+    ;;          (info
 
-             ((or (file-under-p cwd "~/next")
-                  (file-under-p cwd "/home/maruska/next"))
-              (find-file-in-cscope name
-                                   "~/next/cscope.files"
-                                   "~/next/"))
-             (t
-              nil))))))
+    ;;           (find-file-in-cscope name
+    ;;                                (concat top-dir "/" cscope-index-file)
+    ;;                                top-dir)))
+
+    ;;         ((file-under-p cwd "~/italia")
+    ;;          (find-file-in-cscope name
+    ;;                               "~/italia/cscope.files"
+    ;;                               "~/italia/"))
+
+    ;;         ((or (file-under-p cwd "~/next")
+    ;;              (file-under-p cwd "/home/maruska/next"))
+    ;;          (find-file-in-cscope name
+    ;;                               "~/next/cscope.files"
+    ;;                               "~/next/"))
+    ;;         (t
+    ;;          nil)))
+    ))
 
 ;;; tabs
 
