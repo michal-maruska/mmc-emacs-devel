@@ -292,14 +292,18 @@
                                   (substatement-label . 2)
                                   (case-label . 2)
 
-                                  (arglist-intro . 12)
+                                  (arglist-intro . c-lineup-arglist-intro-after-paren) ;; 12
+                                  (arglist-cont . c-lineup-arglist-intro-after-paren)
+                                  ;; fixme: see above 5
+                                  (arglist-cont-nonempty . c-lineup-arglist-intro-after-paren)
+                                  (arglist-close . c-lineup-arglist)
+
+
                                   (case-label . +)
                                   ;; (topmost-intro . 0)
                                   (innamespace . +)
                                   ;;
-                                  ; (arglist-cont-nonempty )
 
-                                  (arglist-close . c-lineup-arglist)
                                   (case-label        . 4)
                                   (block-open        . 0)
                                   (knr-argdecl-intro . -)
