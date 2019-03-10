@@ -125,6 +125,10 @@
      ((or (string-match "/gauche/" file-name)
           (string-match "/ga/" file-name))
       "gosh")
+
+     ((or (string-match "/chez/" file-name))
+      "scheme")
+
      ((or (string-match "/gambit/" file-name))
       "/usr/local/gambit-v4.8.5/bin/gsi")
 
