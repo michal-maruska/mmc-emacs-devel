@@ -1,3 +1,20 @@
+mmc-emacs-devel (2.10) release; urgency=medium
+
+  * Invoke the my-c-mode-hook hook only once!
+  * indent-tabs-mode-matcher: turn on TAB mode based on path.
+  * spaces
+  * cscope: do-not-update-database!
+  * complete the t++ style:
+  * complete the 'sane' style:
+  * register Chez as scheme.
+  * tabs, spaces
+  * ffap-c-mode: first cscope, then the rest.
+  * my-c-mode-hook: document that it sets the 'ffap-c-path
+  * fix java ffap/cscope
+  * fix the ] vs } in sh-while-getopts
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 01 Apr 2019 22:18:10 +0200
+
 mmc-emacs-devel (2.8) release; urgency=medium
 
   * "sane" style
