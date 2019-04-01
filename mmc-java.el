@@ -111,7 +111,7 @@
         (find-in-cscope-files symbol "~/wave3/dgit/deauville-p4cns-main"))
        (t
         (find-in-cscope-files symbol (caar (cscope-find-info nil)))
-        )))))
+        ))
 
 (require 'rx)
 
