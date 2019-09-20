@@ -34,6 +34,10 @@
 
 (define-key cmake-mode-map '[(meta control ?m)] 'cmake-help)
 
+;; sometimes the first run is wrong, and parses the error message. Then tab-completion
+;; does not work -- the tables are rubbish. So reset them:
+;; (setq cmake-commands nil)
+
 ;; patches:
 (defun cmake-help ()
   "Queries for any of the four available help topics and prints out the approriate page."
