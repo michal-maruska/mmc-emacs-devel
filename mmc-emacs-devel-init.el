@@ -1,5 +1,6 @@
 ;; Start the `mmc-emacs-devel' package:
 (require 'mmc-scheme)
+(require 'mmc-paredit)
 (require 'mmc-lisp)
 (require 'mmc-c-mode)
 (require 'mmc-cscope)
