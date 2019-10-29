@@ -103,15 +103,12 @@
            ;; ... like this one:
            (find-in-cscope-files symbol "~/n4f/pnd-navkit")
            (find-in-cscope-files symbol "~/nav4/" "~/nav4/")))
+
+         ((file-under-p cwd "~/wave3/dgit/deauville-p4cns-main")
+          (find-in-cscope-files symbol "~/wave3/dgit/deauville-p4cns-main"))
          (t
           (find-in-cscope-files symbol (caar (cscope-find-info nil)))
-          )))))
-
-       ((file-under-p cwd "~/wave3/dgit/deauville-p4cns-main")
-        (find-in-cscope-files symbol "~/wave3/dgit/deauville-p4cns-main"))
-       (t
-        (find-in-cscope-files symbol (caar (cscope-find-info nil)))
-        ))
+          ))))))
 
 (require 'rx)
 
