@@ -184,8 +184,8 @@ settings of `c-cleanup-list' are done."
 
           (when c-auto-newline
             (backward-char)
-            (setq br-syntax (c-point-syntax)
-                  newlines (c-brace-newlines br-syntax))
+            (setq br-syntax (c-point-syntax))
+            (setq newlines (c-brace-newlines br-syntax))
 
             ;; Insert the BEFORE newline, if wanted, and reindent the newline.
             (if (and (memq 'before newlines)
