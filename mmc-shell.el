@@ -1,6 +1,9 @@
 (add-to-list 'ffap-alist
              '(sh-mode . zsh-find-function))
 
+(if (boundp 'sh-shell-arg)
+    (setcdr (assoc 'zsh sh-shell-arg) "-feu"))
+
 
 (defun zsh-find-function (function)
   "Ask Zsh(1) in a subprocess, for the location of named function
