@@ -7,7 +7,6 @@ Standards-Version: 3.7.2
 
 Package: mmc-emacs-devel
 Architecture: all
-Depends: emacsen, mmc-shell, cscope-el | xcscope-el, mmc-emacs (>= 2.3), mmc-emacs-config
-Suggests: paredit-el
+Depends: emacsen, mmc-shell, cscope-el | xcscope-el, mmc-emacs (>= 2.3), mmc-emacs-config, elpa-paredit
 Enhances: python-mode
 Description: mmc's elisp, handy for "development", programming
