@@ -163,9 +163,8 @@
    (c-echo-syntactic-information-p . t)))
 
 
-(c-add-style
+(c-add-style "t++"
  ;; Tomtom c++
- "t++"
  ;; this is not a style variable, so done in a hook:(
  ;; (setq indent-tabs-mode t)
  '((c-tab-always-indent        . t)     ; TAB just indents
@@ -341,8 +340,7 @@
                                   (member-init-intro . 2)))
    (c-echo-syntactic-information-p . t)))
 
-(c-add-style
- "sane"
+(c-add-style "sane"
  ;; this is not a style variable, so done in a hook:(
  ;; (setq indent-tabs-mode t)
  '((c-tab-always-indent        . t)     ; TAB just indents
@@ -431,13 +429,11 @@
    (c-echo-syntactic-information-p . t)))
 
 
-(c-add-style
- "dui"
+(c-add-style "dui"
  '((c-cleanup-list             . (no-space-before-funcall
                                   brace-else-brace))))
 
-(c-add-style
- "xorg"
+(c-add-style "xorg"
  '((c-basic-offset . 4)
    (c-tab-always-indent        . t)     ; TAB just indents
    (c-comment-only-line-offset . 0)     ; only comment -> additional offset
@@ -463,8 +459,7 @@
    (c-echo-syntactic-information-p . t)))
 
 
-(c-add-style
- "rxvt"
+(c-add-style "rxvt"
  '((c-tab-always-indent        . t)     ; TAB just indents
    ;;c-basic-offset
    (c-comment-only-line-offset . 0)     ; only comment -> additional offset
@@ -490,8 +485,7 @@
    (c-echo-syntactic-information-p . t)))
 
 
-(c-add-style
- "android-java"
+(c-add-style "android-java"
  '(
    ;; copied from "java"
    (c-basic-offset . 4)
