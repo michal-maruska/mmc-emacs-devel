@@ -1,3 +1,22 @@
+mmc-emacs-devel (2.12) release; urgency=medium
+
+  * paredit is a requirement
+  * format
+  * fix mmc-java.el!
+  * space in *shell
+  * Depend on elpa-yaml-mode
+  * shell: customize the options in hashbang
+  * use cmake-mode -- depen on cmake-data
+  * mmc-c-styles: reformat
+  * one style disappeared
+  * 2 patches for cmake-mode
+  * move all paredit code into mmc-paredit
+  * mmc-major-comint clean up, reformat
+  * inferior-process-via-function: fix for py-shell
+  * [comint] Dubious feature to have buffer-local variable inferior-system
+
+ -- Michal Maruska <mmaruska@gmail.com>  Tue, 14 Apr 2020 16:20:13 +0200
+
 mmc-emacs-devel (2.11) release; urgency=medium
 
   * Split gitk into mmc-git.
