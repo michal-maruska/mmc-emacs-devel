@@ -90,11 +90,16 @@ or stored in the LOCAL-VARIABLE."
                  'inferior-scheme-mode))
            (run-scheme (scheme-determine-program))))))))
 
+(make-variable-buffer-local 'inferior-system)
+(defvar inferior-system nil
+  "pair (starter buffer) to access the inferior process of the current buffer")
+
 ;;; common to sql, lisp, scheme ....
 (defun inferior-process (mode) ; variable
   ""
   ;(interactive (list major-mode))
-  (let ((info (or (aget major-mode-comint-mapping mode 't)
+  (let ((info (or inferior-system
+                  (aget major-mode-comint-mapping mode 't)
                   (get-info-manual-comint-mode))))
     (if info
         (let* ((get-buffer (nth 0 info))
