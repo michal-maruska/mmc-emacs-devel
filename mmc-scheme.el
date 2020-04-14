@@ -533,11 +533,4 @@ must be reloaded."
  'interpreter-mode-alist
  '("gosh" . scheme-mode))
 
-
-;; mmc: sorry Ria!
-(eval-after-load "paredit"
-  '(progn
-     (define-key paredit-mode-map ";" 'self-insert-command)
-     (define-key paredit-mode-map ")" 'self-insert-command)))
-
 (provide 'mmc-scheme)

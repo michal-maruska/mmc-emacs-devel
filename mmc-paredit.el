@@ -1,15 +1,20 @@
 ;;; `paredit:'
-;(add-hook scheme-mode-hook 'enable-paredit-mode)
+
+(autoload 'enable-paredit-mode "paredit"
+  "Turn on pseudo-structural editing of Lisp code."
+  t)
 
 (when (locate-library "paredit")
   (autoload 'enable-paredit-mode "paredit"
     "Turn on pseudo-structural editing of Lisp code."
     t)
 
+  ;; is this defined already?
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'scheme-mode-hook 'enable-paredit-mode)
   )
 
+;; mmc: sorry Ria!
 (eval-after-load "paredit"
   '(progn
      (define-key paredit-mode-map (kbd "C-S-b") 'paredit-add-to-previous-list)
@@ -23,7 +28,8 @@
        ;;[(control \#c) \;]
        'paredit-semicolon)
 
-
+     (define-key paredit-mode-map ";" 'self-insert-command)
+     (define-key paredit-mode-map ")" 'self-insert-command)
 
      ;; paredit
      (paredit-define-keys)

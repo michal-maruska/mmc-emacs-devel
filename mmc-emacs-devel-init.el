@@ -38,15 +38,5 @@
 (add-to-list 'auto-mode-alist
              '("init.*\\.rc" . android-init-mode))
 
-
-(when (locate-library "paredit")
-  (autoload 'enable-paredit-mode "paredit"
-    "Turn on pseudo-structural editing of Lisp code."
-    t)
-  ;; is this defined already?
-  (add-hook 'scheme-mode-hook 'enable-paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-  )
-
 (eval-after-load "cmake-mode" ;; java-mode
   '(require 'mmc-cmake))
