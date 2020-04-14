@@ -53,12 +53,11 @@ or stored in the LOCAL-VARIABLE."
 
 
 (defun inferior-process-via-function (function)
-  "Return the associated comint subprocess (in the INFERIOR-MODE). It is either the current buffer,
-or stored in the LOCAL-VARIABLE."
-  (funcall function)
-  (current-buffer))
-
-
+  "Return the associated comint subprocess (in the INFERIOR-MODE).
+ It is either the current buffer, or returned value."
+  (or
+   (funcall function)
+   (current-buffer)))
 
 ;; todo  `throw'
 (defun switch-to-inferior-process (mode)
