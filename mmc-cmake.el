@@ -40,7 +40,8 @@
 
 ;; patches:
 (defun cmake-help ()
-  "Queries for any of the four available help topics and prints out the approriate page."
+  "Queries for any of the four available help topics and prints out the appropriate page.
+mmc: in other-window, and don't prompt if used with prefix."
   (interactive)
   (let* ((default-entry (cmake-symbol-at-point))
          (command-list (cmake-get-list "command"))
@@ -50,6 +51,7 @@
          (all-words (append command-list variable-list module-list property-list))
          (input (if (and (not current-prefix-arg)
                          default-entry)
+                    ;; mmc:
                     default-entry
                     (completing-read
                      "CMake command/module/variable/property: " ; prompt
@@ -71,6 +73,7 @@
                 (cmake-command-run "--help-property" input "*CMake Help*")
               (error "Not a know help topic.") ; this really should not happen
               ))))
+      ;; mmc:
       (other-window 1))))
 
 (defvar cmake-mode-view-map (make-sparse-keymap "") "")
@@ -87,7 +90,8 @@ optional argument topic will be appended to the argument list."
   (interactive "s")
   (let* ((bufname (if buffer buffer (concat "*CMake" type (if topic "-") topic "*")))
          (buffer  (if (get-buffer bufname) (get-buffer bufname) (generate-new-buffer bufname)))
-         (command (concat cmake-mode-cmake-executable " " type " " topic))
+         ;; mmc: (shell-quote-argument "a>b")
+         (command (concat cmake-mode-cmake-executable " " type " " (shell-quote-argument topic)))
          ;; Turn of resizing of mini-windows for shell-command.
          (resize-mini-windows nil)
          )
@@ -95,8 +99,8 @@ optional argument topic will be appended to the argument list."
     (save-selected-window
       (select-window (display-buffer buffer 'not-this-window))
       (cmake-mode)
-      ;;
       (read-only-mode 1)
+      ;; mmc:
       (use-local-map cmake-mode-view-map))))
 
 (provide 'mmc-cmake)
