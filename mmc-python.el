@@ -31,6 +31,7 @@
        'py-backward-def-or-class
                                         ;python-mode-beginning-of-defun-function
        )
+  (eldoc-mode -1)
   (set (make-local-variable 'outline-regexp)
         " *\\(def\\|class\\) "))
 
