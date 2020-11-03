@@ -1,3 +1,13 @@
+mmc-emacs-devel (2.13) release; urgency=medium
+
+  * python: avoid eldoc
+  * debian: elpa-dockerfile-mode
+  * mmc-paredit: use eval-after-load
+  * cmake: don't call shell-quote-argument on nil
+  * c-style: Use bsd for pkgsrc/pkgsrc
+
+ -- Michal Maruska <mmaruska@gmail.com>  Tue, 03 Nov 2020 17:21:12 +0100
+
 mmc-emacs-devel (2.12) release; urgency=medium
 
   * paredit is a requirement
