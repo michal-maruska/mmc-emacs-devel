@@ -91,7 +91,9 @@ optional argument topic will be appended to the argument list."
   (let* ((bufname (if buffer buffer (concat "*CMake" type (if topic "-") topic "*")))
          (buffer  (if (get-buffer bufname) (get-buffer bufname) (generate-new-buffer bufname)))
          ;; mmc: (shell-quote-argument "a>b")
-         (command (concat cmake-mode-cmake-executable " " type " " (shell-quote-argument topic)))
+         (command (concat cmake-mode-cmake-executable " " type " " (if topic
+                                                                       (shell-quote-argument topic)
+                                                                     "")))
          ;; Turn of resizing of mini-windows for shell-command.
          (resize-mini-windows nil)
          )
