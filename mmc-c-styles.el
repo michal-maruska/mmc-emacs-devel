@@ -600,7 +600,9 @@ Decide for a style, based on path."
   ;; avoid duplication, so exit immediately.
   (let ((style
          (cond
-          ((string-match "postgresql" (buffer-file-name))
+          ((string-match "postgresql" filename)
+           "bsd")
+          ((string-match "pkgsrc/pkgsrc" filename)
            "bsd")
           ((string-match "/xorg/" filename)
            "xorg")
@@ -701,6 +703,7 @@ Decide for a style, based on path."
   (regexp-opt (list
                "elinks/"
                "/pcre3"
+               "pkgsrc/pkgsrc/pkgtools/pbulk/files/pbulk/scripts/"
                )))
 
 
