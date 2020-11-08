@@ -220,8 +220,7 @@
                                )))
 
 
-(c-add-style
- "sane"
+(c-add-style "sane"
  ;; this is not a style variable, so done in a hook:(
  ;; (setq indent-tabs-mode t)
  '((c-tab-always-indent        . t)     ; TAB just indents
@@ -269,102 +268,12 @@
                                   ;; fixme: see above 5
                                   (arglist-cont-nonempty . c-lineup-arglist-intro-after-paren)
                                   (arglist-close . c-lineup-arglist)
-
-
                                   (case-label . +)
                                   ;; (topmost-intro . 0)
                                   (innamespace . +)
                                   ;;
 
-                                  (case-label        . 4)
-                                  (block-open        . 0)
-                                  (knr-argdecl-intro . -)
-
-                                  ;; android code probably different.
-                                  ;(arglist-cont-nonempty . ++) ;n4f!
-
-
-                                  ;; namespace-open
-                                  ;; innamespace  .... ignore it!
-                                  (substatement  . 2)
-
-                                  ;; Java +,   C 2?
-                                  (statement-block-intro . +)
-                                  ;; (innamespace . 0)
-                                  (inline-open 0)
-
-                                  ;; diff between these 2?
-                                  (inclass . +)      ; java +, maybe C++  2?
-                                  (inexpr-class . 0) ; java +, maybe C++  2?
-
-                                  (defun-block-intro . +) ; maybe C 2, but Java +
-                                  (label . 0)
-
-                                  ;; problem:  if a b; else c;    if after b we have ";" then
-                                  ;; relative to "if", otherwise relative to  "b" !!
-                                  ;;
-                                  ;; 2011-02-24 for some reason I had -2
-                                  ;; but
-                                  (else-clause 0)
-                                  (topmost-intro-cont 0)
-                                  (access-label . -2) ; - inclass
-                                  (case-label . 0)
-                                  (statement-case-intro . 2)
-                                  (member-init-intro . 2)))
-   (c-echo-syntactic-information-p . t)))
-
-(c-add-style "sane"
- ;; this is not a style variable, so done in a hook:(
- ;; (setq indent-tabs-mode t)
- '((c-tab-always-indent        . t)     ; TAB just indents
-   (c-basic-offset . 2)                 ;fixme: 8 for some sources!
-   (c-comment-only-line-offset . 0)     ; only comment -> additional offset
-
-
-   ;; when I press { I want to insert a newline BEFORE or AFTER:
-   ;; in java mode I don't want hanging at: ((func-decl-cont 5425))
-   ;; (substatement-open . (after))
-   ;; C-c C-o
-   (c-hanging-braces-alist     . ((substatement-open before after)
-                                  ;; fixme! how to remove the dangling space!
-
-                                  (topmost-intro after) ;this is after a: void function() .{
-                                  (inline-open after)
-
-                                  (brace-list-open) ;no newline around!
-                                  (defun-open after)
-                                  (func-decl-cont after) ;newline After the {
-                                  ))
-   (c-hanging-colons-alist     . ((member-init-intro before)
-                                  (inher-intro)
-                                  (case-label after)
-                                  (label after)
-                                  (access-label after)))
-   (c-cleanup-list             . (scope-operator
-                                  no-space-before-funcall
-                                  empty-defun-braces
-                                  defun-close-semi
-                                  ;; if ()_{
-                                  paren-space-brace
-                                  ))
-   (c-auto-newline . t)
-   ;; C++ so
-   (c-offsets-alist            . (
-
-                                  (arglist-cont-nonempty . 5)
-                                  (substatement-open . 2)
-                                  (substatement-label . 2)
-                                  (case-label . 2)
-
-                                  (arglist-intro . 12)
-                                  (case-label . +)
-                                  ;; (topmost-intro . 0)
-                                  (innamespace . +)
-                                  ;;
-                                  ; (arglist-cont-nonempty )
-
-                                  (arglist-close . c-lineup-arglist)
-                                  (case-label        . 4)
+                                  (case-label        . 4) ;; 0
                                   (block-open        . 0)
                                   (knr-argdecl-intro . -)
 
@@ -400,6 +309,11 @@
                                   (member-init-intro . 2)))
 
    (c-echo-syntactic-information-p . t)))
+
+
+;; ~/git/apt/.clang-format
+
+
 
 
 (c-add-style "dui"
