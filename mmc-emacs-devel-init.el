@@ -1,4 +1,10 @@
 ;; Start the `mmc-emacs-devel' package:
+
+(let ((package-load-list (list 'xcscope))
+      )
+  (package-initialize)
+  (message "%s\n" load-path)
+  )
 (require 'mmc-scheme)
 (require 'mmc-paredit)
 (require 'mmc-lisp)
