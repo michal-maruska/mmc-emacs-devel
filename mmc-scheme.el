@@ -120,6 +120,8 @@
   (let ((file-name (expand-file-name  (buffer-file-name))))
     ;;
     (cond
+     ((string-match "\\.rkt\$" file-name)
+      "racket")
      ((or (string-match "/gauche/" file-name)
           (string-match "/ga/" file-name))
       "gosh")
