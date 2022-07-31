@@ -9,12 +9,11 @@
 
 ;; (setq scheme-mode-hook (pop scheme-mode-hook)
 ;; (remove-hook
-(add-hook 'scheme-mode-hook
-  (lambda ()
-    (if (featurep 'xcscope)
-        (cscope-minor-mode)
-      ;; I use it for gauche  genstub files .... or gtk+ ?
-      )))
+(defun my-scheme-mode-hook ()
+  (if (featurep 'xcscope)
+      (cscope-minor-mode)
+    ;; I use it for gauche  genstub files .... or gtk+ ?
+    ))
 
 ; (mapcar 'car after-load-alist)
 
@@ -437,9 +436,11 @@
 
 
 
-(defun my-scheme-mode-hook ()
-  "")
 (add-hook 'scheme-mode-hook 'my-scheme-mode-hook)
+
+(setcdr scheme-mode-hook '())
+(setq scheme-mode-hook
+      (delete 'my-scheme-mode-hook scheme-mode-hook))
 
 
 ;;; comint-scheme   functions:
