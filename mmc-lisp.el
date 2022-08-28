@@ -77,14 +77,14 @@
 
 
 
-  (define-key map [ ?2 ] '(lambda ()
+  (define-key map [ ?2 ] #'(lambda ()
                             (interactive)
                             (list-argument 2)))
-  (define-key map [ ?1 ] '(lambda ()
+  (define-key map [ ?1 ] #'(lambda ()
                             (interactive)
                             (list-argument 1)))
 
-  (define-key map [ ?3 ] '(lambda ()
+  (define-key map [ ?3 ] #'(lambda ()
                             (interactive)
                             (list-argument 3)))
 
