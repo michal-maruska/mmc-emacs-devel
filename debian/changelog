@@ -1,3 +1,9 @@
+mmc-emacs-devel (2.15) release; urgency=medium
+
+  * use debhelper 13
+
+ -- Michal Maruska <mmaruska@gmail.com>  Wed, 21 Dec 2022 16:53:41 +0100
+
 mmc-emacs-devel (2.14) release; urgency=medium
 
   * Drop duplicate (c-add-style "sane" ...)
