@@ -1,3 +1,16 @@
+mmc-emacs-devel (2.14) release; urgency=medium
+
+  * Drop duplicate (c-add-style "sane" ...)
+  * Clarify library+autoload -> set hook -> on-eval do the rest
+  * mmc-cscope.el: try to not require xcscope
+  * Try to load elpa-cscope -- broken anyway? fixme!!
+  * Invoke "racket" from .rkt files
+  * Name the lambda as my-scheme-mode-hook
+  * quote lambda with #'
+  * d/control don't require elpa-dockerfile-mode
+
+ -- Michal Maruska <mmaruska@gmail.com>  Wed, 21 Dec 2022 16:52:31 +0100
+
 mmc-emacs-devel (2.13) release; urgency=medium
 
   * python: avoid eldoc
