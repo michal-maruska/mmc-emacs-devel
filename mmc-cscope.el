@@ -6,6 +6,7 @@
 (eval-after-load "xcscope"
   '(progn
      (require 'mmc-c-styles)
+     (cscope-setup)
      ;;
      (setq cscope-option-do-not-update-database t)
      (setq cscope-display-cscope-buffer nil)
