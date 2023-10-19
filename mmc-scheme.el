@@ -521,13 +521,18 @@ must be reloaded."
 ;;(define-key scheme-mode-map [(control ?h) ?W] 'gauche-where-is)
 
 
-(require 'assoc)
+; (require 'assoc)
 
 (require 'mmc-gauche)
 
 (eval-after-load "ffap"
-  '(aput 'ffap-alist 'scheme-mode 'ffap-gauche-mode)
+  ;; fixme: aput is gone
+  ; '(aput 'ffap-alist 'scheme-mode 'ffap-gauche-mode)
+  '(push (cons 'scheme-mode 'ffap-gauche-mode) ffap-alist)
   )
+
+
+
 ;(aput 'ffap-alist ' inferior-lisp-mode 'ffap-sawfish-mode)
                                         ;ffap-alist
 

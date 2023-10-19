@@ -1,5 +1,5 @@
 (require 'cc-mode)
-(require 'assoc)
+; (require 'assoc)
 (require 'cc-guess nil 'noerror)
 
 ;; so these don't set/use c-basic-offset ??
@@ -30,8 +30,8 @@
 ;; make it insert TABs!
 
 ;; This rewrites the upstream linux style!
-(let ((l (aget c-style-alist "linux")))
-  (unless (aget l 'indent-tabs-mode)
+(let ((l (assoc "linux" c-style-alist)))
+  (unless (assoc 'indent-tabs-mode l)
     ;; (x y ...) -> (x Z y ...)
     (setcdr l
         (cons
@@ -41,8 +41,8 @@
 ;; add paren-space-brace into 'c-cleanup-list:
 ;;  "){" -> ") {"
 ;; with newline in between?
-(let* ((l (aget c-style-alist "linux"))
-       (cleanup (aget l 'c-cleanup-list)))
+(let* ((l (assoc "linux" c-style-alist))
+       (cleanup (assoc 'c-cleanup-list l)))
   (unless
       (memq 'paren-space-brace cleanup)
     (setcdr cleanup
@@ -618,6 +618,7 @@ Decide for a style, based on path."
                "elinks/"
                "/pcre3"
                "pkgsrc/pkgsrc/pkgtools/pbulk/files/pbulk/scripts/"
+               "pkgsrc/pkgsrc/pkgtools/"
                )))
 
 

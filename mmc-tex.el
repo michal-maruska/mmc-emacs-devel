@@ -12,7 +12,8 @@
 
 
 (eval-after-load "ffap"
-  '(aput 'ffap-alist 'plain-tex-mode 'ffap-tex) ;-mode
+  '(push (cons 'plain-tex-mode 'ffap-tex) ffap-alist)
+  ;; fixme '(aput 'ffap-alist 'plain-tex-mode 'ffap-tex) ;-mode
   )
 
 
