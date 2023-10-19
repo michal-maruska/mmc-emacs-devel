@@ -6,14 +6,18 @@
 
 (require 'mmc-simple)
 
+
+;; py-mode-map is gone?
+;; python-mode-map
+;; (assoc "python-mode" after-load-alist)
 (eval-after-load "python-mode"
   '(progn
-     (define-key py-mode-map [(backspace)]    'py-electric-backspace) ;"\C-h"
-     (define-key py-mode-map [(control meta ?u)]    'py-goto-block-up)
-     (define-key py-mode-map [(control meta ?f)]    'py-forward-block)
-     (define-key py-mode-map [(control meta ?b)]    'py-backward-block)
-     ;(define-key py-mode-map [(meta ?f)]    nil)
-     ;;(define-key py-mode-map "\e\C-a"    'py-beginning-of-def-or-class)
+     (define-key python-mode-map [(backspace)]    'py-electric-backspace) ;"\C-h"
+     (define-key python-mode-map [(control meta ?u)]    'py-goto-block-up)
+     (define-key python-mode-map [(control meta ?f)]    'py-forward-block)
+     (define-key python-mode-map [(control meta ?b)]    'py-backward-block)
+                                        ;(define-key python-mode-map [(meta ?f)]    nil)
+     ;;(define-key python-mode-map "\e\C-a"    'py-beginning-of-def-or-class)
      ))
 
 
