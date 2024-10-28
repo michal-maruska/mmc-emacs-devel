@@ -181,23 +181,39 @@ If prompt-p, then ask confirmation. With defaulting and completion."
       spec)))
 
 
+(if (eq 'not (car xref-prompt-for-identifier))
+    (setcdr xref-prompt-for-identifier
+            (cons 'mmc-find-tag (cdr xref-prompt-for-identifier))))
+
 (defun mmc-find-tag(&optional prefix)
   "union of `find-tag' alternatives. decides upon major-mode"
   (interactive "P")
-  (if (and (boundp 'cscope-minor-mode)
-           cscope-minor-mode)
-      (progn
-        (ring-insert find-tag-marker-ring (point-marker))
-        ;; (push-tag-mark)
-        (setq cscope-display-cscope-buffer prefix)
-        (xref-push-marker-stack)
-        (call-interactively
-         (if prefix
-             'cscope-find-this-symbol
-           'cscope-find-global-definition-no-prompting
-           )))
-    ;(call-interactively 'find-tag)
-    (find-tag (mmc-find-tag-tag "Find tag: " prefix) nil )))
+  (cond
+   (lsp-mode
+    (if prefix
+        (call-interactively 'xref-find-definitions)
+      (xref-find-definitions
+       (xref--read-identifier "mmc")
+                                        ;(erase-text-properties (word-at-point))
+       )))                              ;symbol-at-point
+
+   ((and (boundp 'cscope-minor-mode)
+         cscope-minor-mode)
+
+    (ring-insert find-tag-marker-ring (point-marker))
+    ;; (push-tag-mark)
+    (setq cscope-display-cscope-buffer prefix)
+    (xref-push-marker-stack)
+    (call-interactively
+     (if prefix
+         'cscope-find-this-symbol
+       'cscope-find-global-definition-no-prompting
+       )))
+
+   (else
+    ;;(call-interactively 'find-tag)
+    (find-tag (mmc-find-tag-tag "Find tag: " prefix) nil ))))
+
 
 (eval-after-load "xref"
   '(substitute-key-definition 'xref-find-definitions 'mmc-find-tag global-map)
