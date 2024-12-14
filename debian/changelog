@@ -1,3 +1,9 @@
+mmc-emacs-devel (2.19) release; urgency=medium
+
+  * add mmc-lsp-setup
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sat, 14 Dec 2024 11:27:07 +0100
+
 mmc-emacs-devel (2.18) release; urgency=medium
 
   * one more aget removed
