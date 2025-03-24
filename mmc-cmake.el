@@ -33,6 +33,7 @@
 
 
 (define-key cmake-mode-map '[(meta control ?m)] 'cmake-help)
+(define-key cmake-mode-map '[(alt ?k)] 'cmake-browse-help)
 
 ;; sometimes the first run is wrong, and parses the error message. Then tab-completion
 ;; does not work -- the tables are rubbish. So reset them:
