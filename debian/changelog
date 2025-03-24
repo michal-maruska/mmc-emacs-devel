@@ -1,3 +1,12 @@
+mmc-emacs-devel (2.20) release; urgency=medium
+
+  * mmc-lsp-setup: start in rust mode
+  * mmc-lsp-setup: global-company-mode seems broken
+  * adapt to renamed cmake-browse-help
+  * did emacs-common rename flavor symbol?
+
+ -- Michal Maruska <mmaruska@gmail.com>  Mon, 24 Mar 2025 10:50:31 +0100
+
 mmc-emacs-devel (2.19) release; urgency=medium
 
   * add mmc-lsp-setup
