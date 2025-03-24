@@ -73,8 +73,8 @@
   (yas-global-mode))
 
 
-
-(add-hook 'after-init-hook 'global-company-mode)
+;; mmc: obsolete? I liked it
+;; (add-hook 'after-init-hook 'global-company-mode)
 
 ;; faces too small:
 ;; lsp-face-highlight-read lsp-face-highlight-textual lsp-face-highlight-write
