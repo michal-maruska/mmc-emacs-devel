@@ -143,10 +143,11 @@
                             )
         )
   )
+(add-hook 'go-mode-hook 'lsp)
 
 (use-package go-tag
   :ensure t
-)
+  )
 
 (use-package godoctor
   :ensure t
