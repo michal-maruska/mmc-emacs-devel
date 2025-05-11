@@ -1,3 +1,10 @@
+mmc-emacs-devel (2.21) release; urgency=medium
+
+  * mmc-lsp-setup: fix rust mode support
+  * mmc-lsp-setup: add goLang mode support
+
+ -- Michal Maruska <mmaruska@gmail.com>  Sun, 11 May 2025 12:32:38 +0200
+
 mmc-emacs-devel (2.20) release; urgency=medium
 
   * mmc-lsp-setup: start in rust mode
