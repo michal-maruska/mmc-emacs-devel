@@ -1,3 +1,9 @@
+mmc-emacs-devel (2.24) unstable; urgency=medium
+
+  * debian: upgrade debhelper, add dependencies
+
+ -- Michal Maruska <mmaruska@gmail.com>  Wed, 14 Oct 2026 19:58:10 +0200
+
 mmc-emacs-devel (2.23) unstable; urgency=medium
 
   * mmc-magit: key bindings
