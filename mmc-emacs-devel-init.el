@@ -18,6 +18,7 @@
 (require 'mmc-comint)
 (require 'mmc-major-comint)
 
+(require 'mmc-magit)
 ;; ??
 (require 'mmc-doc)
 (eval-after-load "gud"
