@@ -1,3 +1,9 @@
+mmc-emacs-devel (2.23) unstable; urgency=medium
+
+  * mmc-magit: key bindings
+
+ -- Michal Maruska <mmaruska@gmail.com>  Wed, 14 Oct 2026 19:22:08 +0200
+
 mmc-emacs-devel (2.22) unstable; urgency=medium
 
   * ci: use my github org's steps
