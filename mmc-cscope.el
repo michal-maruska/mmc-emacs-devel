@@ -210,7 +210,7 @@ If prompt-p, then ask confirmation. With defaulting and completion."
        'cscope-find-global-definition-no-prompting
        )))
 
-   (else
+   (t ;; else
     ;;(call-interactively 'find-tag)
     (find-tag (mmc-find-tag-tag "Find tag: " prefix) nil ))))
 
